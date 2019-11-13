@@ -1,0 +1,263 @@
+
+body {
+	font-family: "Segoe", "Segoe UI", "Sans-Serif";
+	line-height: 160%;
+	color: #606060;
+	padding-left: 40px;
+	padding-bottom: 40px;
+}
+
+dd + dt {
+	margin-top: 20px;
+}
+
+dt img {
+	vertical-align: middle;
+	margin-right: 20px;
+}
+
+figcaption {
+	margin-left: 20px;
+	margin-top: -20px;
+	margin-bottom: 30px;
+	font-family: 'Times New Roman' ;
+	font-style: italic;
+	color: #808080;
+}
+.footer {
+	margin-left: -40px;
+	margin-top: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: solid 1px silver;
+	text-align: center;
+	font-size: 75%;
+}
+
+gui {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	color: cadetblue;
+}
+
+h1 {
+	margin-top: 40px;
+	line-height: 160%;
+}
+
+h1 + h2 {
+	margin-top: initial;
+}
+
+h2 {
+	margin-top: 40px;
+}
+
+h2[cbs], h3[cbs] {
+	margin-left: -20px;
+	margin-bottom: 0px;
+	padding-top: 3px;
+	padding-left: 40px;
+	min-height: 32px;
+	background-repeat: no-repeat;
+	background-position-x: 0px;
+	background-position-y: top;
+}
+
+h2[cbs] + div, h3[cbs] + div {
+	overflow-y: hidden;
+	margin-left: -20px;
+	padding-left: 20px;
+}
+
+h2[cbs='0'], h3[cbs='0'] {
+	background-image: url(orange-circle-32-minus.png);
+}
+
+h2[cbs='1'], h3[cbs='1'] {
+	background-image: url(orange-circle-32-plus.png);
+}
+
+h2[cbs='1'] + div + h2[cbs='1'], h3[cbs='1'] + div + h3[cbs='1'] {
+	margin-top: 0px;
+}
+
+img { 
+	margin-left: 40px; 
+	max-width: 400px;
+}
+
+.boxed {
+	padding: 5px;
+	border: solid 1px silver;
+}
+
+.info {
+	border: solid 1px green;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 9px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.image {
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+.instructions {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.instructions p {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+li > img {
+	margin: 15px 0px 5px 20px;
+}
+
+#page-menu {
+	position: sticky;
+	top: 0px;
+	margin-left: -40px;
+	padding-left: 40px;
+	background-color: white;
+	border-top: solid 1px silver;
+	border-bottom: solid 1px silver;
+}
+
+#page-menu a {
+	text-decoration: none;
+	color: #606060;
+}
+
+#page-menu a:hover {
+	text-decoration: underline;
+}
+
+#page-menu > div {
+	text-decoration: none;
+	display: inline-block;
+	margin-left: 20px;
+	cursor: pointer;
+} 
+
+#page-menu > div:hover {
+	text-decoration: underline;
+}
+
+#navigation-panel {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	padding-top: 10px;
+	padding-right: 20px;
+	border: solid 2px orange;
+	display: block;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: white;
+	white-space: nowrap;
+}
+
+#navigation-panel abstract {
+	display: inline;
+	white-space: normal;
+	xheight: auto;
+	xwidth: auto;
+}
+
+#navigation-panel div.abstractContainer {
+	display:block;
+	width: auto;
+	margin-left: 40px;
+	overflow: hidden;
+	transition: height linear 1s;
+	line-height: 24px;
+}
+
+#navigation-panel ul { 
+	overflow: hidden; 
+}
+
+#navigation-panel ul.tree li[cts="2"] {
+	background-image: url(orange-circle-32-plus.png);
+}
+
+#navigation-panel ul.tree li[cts="3"] {
+	background-image: url(orange-circle-32-minus.png);
+}
+
+#navigation-panel ul.tree li["active"] {
+	background-image: url(orange-circle-32-dot-active.png);
+}
+
+#navigation-panel ul.tree li[cts="2"][active] {
+	background-image: url(orange-circle-32-plus-active.png);
+}
+
+#navigation-panel ul.tree li[cts="3"][active] {
+	background-image: url(orange-circle-32-minus-active.png);
+}
+
+.no-padding {
+	padding: 0px;
+}
+
+.note {
+	border: solid 1px orange;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 9px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+tt {
+	font-family: 'Times New Roman', Times, serif;
+	color: cornflowerblue;
+}
+
+ul.tree {
+	list-style-type: none;
+	padding-left: 5px;
+	line-height: 32px;
+}
+
+ul.tree ul {
+	list-style-type: none;
+	padding-left: 0px;
+	overflow-y: hidden;
+	transition: height linear 1s;
+}
+
+ul.tree li {
+	padding-left: 32px;
+	min-height: 36px;
+	background-image: url(orange-circle-32-dot.png);
+	background-repeat: no-repeat;
+	background-position-x: 0px;
+	background-position-y: top;
+}
+
+ul.tree li[cts="0"] {
+	background-image: url(orange-circle-32-minus.png);
+}
+
+ul.tree li[cts="1"] {
+	background-image: url(orange-circle-32-plus.png);
+}
+
+ul.tree li[cts="0"][active] {
+	background-image: url(orange-circle-32-minus-active.png);
+}
+
+	ul.tree li[cts="1"][active] {
+		background-image: url(orange-circle-32-plus-active.png);
+	}
