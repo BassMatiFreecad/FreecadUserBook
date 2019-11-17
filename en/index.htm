@@ -11,7 +11,24 @@
 <link rel="stylesheet" href="../inc/topic-1.css" />
 </head><body>
 <h1>Freecad User Book</h1>
+<div id="page-menu"></div>
+<div id="navigation-panel"></div>
 
-<p>EN</p>
+<p>Table of Contents</p>
 
-</body></html>
+<div id="script-area">
+
+<script src="../inc/topic-1.js"></script>
+
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>
