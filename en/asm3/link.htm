@@ -1,5 +1,5 @@
 <!DOCTYPE HTML> 
-<html><head><title>FreeCAD User Book -  - </title>
+<html><head><title>FreeCAD User Book - Assembly 3 - Link & Link Array</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="USPR">
 <meta name="creation-date" content="2019-11-13">
@@ -16,10 +16,6 @@
 
 <h1>Links and Link Arrays</h1>
 
-<h3 cbs="1">Tags</h3><div>
-<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>Link Array</tag>, <tag>Constraint</tag>, <tag>Constraint Connector</tag>.</p>
-</div>
-
 <div id="navigation-panel"></div>
 
 <div>
@@ -34,77 +30,85 @@
 
 <p>Note that <em>Links are not copies</em>. In a way this is similar to the mainstream Freecad <em>Clone</em>, but the Assembly 3 Link object appears to be much more powerful.</p>
 
+<p>We will also build subassemblies and learn that a subassembly, just like a component or a project assembly container, is an ordinary <tt>Assembly</tt> object. While a component has only external (public) constraint connectors, a project assembly container has only internal connectors, and a subassembly has both internal and external constraint connectors.</p>
+
 <p class="info">I used my naming convention for the Link objects, exploiting Freecad's numbering feature to create unique object names and preserving the link source object name. This convention served me well, but you can use your own convention or accept the names suggested by Freecad.</p>
 
+</div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>Link Array</tag>, <tag>Constraint</tag>, <tag>Constraint Connector</tag>, <tag>Subassembly</tag>.</p>
 </div>
 
 <h2 id="files" cbs="1">Files</h2><div>
 
 <ul style="list-style-type: none">
-<li><a href="../../files/asm3/link-1/asm3-basics-3-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-002.fcstd">02 &ensp; Washer added to repository</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-003.fcstd">03 &ensp; Nut added to repository</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-004.fcstd">04 &ensp; Screw added to repository</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-005.fcstd">05 &ensp; Block added to repository</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
-<li><a href="../../files/asm3/link-1/asm3-basics-3-011.fcstd">11 &ensp; Geometry changes and constraint effects</a></li>
+<li><a href="../../files/asm3/link/link-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
+<li><a href="../../files/asm3/link/link-002.fcstd">02 &ensp; Washer added to repository</a></li>
+<li><a href="../../files/asm3/link/link-003.fcstd">03 &ensp; Nut added to repository</a></li>
+<li><a href="../../files/asm3/link/link-004.fcstd">04 &ensp; Screw added to repository</a></li>
+<li><a href="../../files/asm3/link/link-005.fcstd">05 &ensp; Block added to repository</a></li>
+<li><a href="../../files/asm3/link/link-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
+<li><a href="../../files/asm3/link/link-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
+<li><a href="../../files/asm3/link/link-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
+<li><a href="../../files/asm3/link/link-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
+<li><a href="../../files/asm3/link/link-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
+<li><a href="../../files/asm3/link/link-011.fcstd">11 &ensp; Geometry changes and constraint effects</a></li>
 </ul>
 
 </div>
 
 <h2 id="vid" cbs="1">Videos</h2><div>
 
-<p class="note">Please note the different wording: In the videos the term "mating connectors" is used, this text uses the term "constraint connectors", which describes its purpose better, to connect a constraint to a geometry element of an object.</p>
+<p class="note">In the videos the outdated term "mating connectors" was used for "constraint connectors". Additionally, the file old prefix "asm3-link-1" instead of "link".</p>
 
 <ul style="list-style-type: none">
-<li id="vid-001"><a href="https://youtu.be/xDQBBVK2RHE" local="asm3-basics-3-001">01 &ensp; Repository</a></li>
-<li id="vid-002"><a href="https://youtu.be/YRm0UbB2rgc" local="asm3-basics-3-002">02 &ensp; Washer Component</a></li>
-<li id="vid-003"><a href="https://youtu.be/enmVAMJo6Tw" local="asm3-basics-3-003">03 &ensp; Nut Component</a></li>
-<li id="vid-004"><a href="https://youtu.be/xHpLXY_z_os" local="asm3-basics-3-004">04 &ensp; Screw Component</a></li>
-<li id="vid-005"><a href="https://youtu.be/VlABNolf1fc" local="asm3-basics-3-005">05 &ensp; Block Component</a></li>
-<li id="vid-006"><a href="https://youtu.be/eFSK79ScFYw" local="asm3-basics-3-006">06 &ensp; Nut & Washer Subassembly</a></li>
-<li id="vid-007"><a href="https://youtu.be/8YkZT2T-its" local="asm3-basics-3-007">07 &ensp; Bolt & Washer Subassembly</a></li>
-<li id="vid-008"><a href="https://youtu.be/H9KyJRFeHVA" local="asm3-basics-3-008">08 &ensp; Project Assembly Container</a></li>
-<li id="vid-009"><a href="https://youtu.be/_UP-L9GqSh4" local="asm3-basics-3-009">09 &ensp; Mounting the Bolt Subassembly</a></li>
-<li id="vid-010"><a href="https://youtu.be/SJp25JGrwjA" local="asm3-basics-3-010">10 &ensp; Mouting the Nut Subassembly</a></li>
-<li id="vid-011"><a href="https://youtu.be/VXXDJi2tyww" local="asm3-basics-3-011">11 &ensp; Geometry Modifications and Constraint Enforcements</a></li>
+<li id="vid-001"><a href="https://youtu.be/xDQBBVK2RHE" local="link-001">01 &ensp; Local Repository</a></li>
+<li id="vid-002"><a href="https://youtu.be/YRm0UbB2rgc" local="link-002">02 &ensp; Washer Component</a></li>
+<li id="vid-003"><a href="https://youtu.be/enmVAMJo6Tw" local="link-003">03 &ensp; Nut Component</a></li>
+<li id="vid-004"><a href="https://youtu.be/xHpLXY_z_os" local="link-004">04 &ensp; Screw Component</a></li>
+<li id="vid-005"><a href="https://youtu.be/VlABNolf1fc" local="link-005">05 &ensp; Block Component</a></li>
+<li id="vid-006"><a href="https://youtu.be/eFSK79ScFYw" local="link-006">06 &ensp; Nut & Washer Subassembly</a></li>
+<li id="vid-007"><a href="https://youtu.be/8YkZT2T-its" local="link-007">07 &ensp; Bolt & Washer Subassembly</a></li>
+<li id="vid-008"><a href="https://youtu.be/H9KyJRFeHVA" local="link-008">08 &ensp; Project Assembly Container</a></li>
+<li id="vid-009"><a href="https://youtu.be/_UP-L9GqSh4" local="link-009">09 &ensp; Mounting the Bolt Subassembly</a></li>
+<li id="vid-010"><a href="https://youtu.be/SJp25JGrwjA" local="link-010">10 &ensp; Mouting the Nut Subassembly</a></li>
+<li id="vid-011"><a href="https://youtu.be/VXXDJi2tyww" local="link-011">11 &ensp; Geometry Modifications and Constraint Enforcements</a></li>
 </ul>
 
 </div>
 
-<h2>The Repository</h2><div>
+<h2 cbs="0">The Local Repository</h2><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/xDQBBVK2RHE" local="asm3-basics-3-00">01 &ensp; Repository</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
+<li>Video: <a href="https://youtu.be/xDQBBVK2RHE" local="link-00">01 &ensp; Local Repository</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
 </ul>
 
 <p>A repository is a sort of library for components. The idea is to re-use existing and proven designs. In this tutorial, we will implement a local repository within the project file, just to keep things simple. In an upcoming tutorial, we will move the standard components from the project file to an external library file.</p>
 
+<p class="note">Note that repository components don't have to be imported from external files, you can keep everything in a single project file. This makes design exchange rather straight-forward.</p>
+
 <p>So, let's begin!</p>
 
 <ol>
-<li>Create an empty project file, and save it under the name "asm3-basics-3.fcstd".</li>
+<li>Create an empty project file, and save it under the name "link.fcstd".</li>
 <li>Right-click the project root node in the <tt>Model Tree</tt>, then click <tt>Create group...</tt>.</li>
 <li>Change the <tt>Label</tt> propety to "Repository".</li>
-<li>Save a copy under the name "asm3-basics-3-001.fcstd".</li>
+<li>Save a copy under the name "link-001.fcstd".</li>
 </ol>
 
 <figcaption>Figure 1</figcaption>
-<div class="imgbox"><img src="../../img/asm3/link-1/fig-001.png" width="230"/></div>
+<div class="imgbox"><img src="../../img/asm3/link/fig-001.png" width="230"/></div>
 
 </div>
 
 <h3>The Washer</h3><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/YRm0UbB2rgc" target="_blank" local="asm3-basics-3-002">02 &ensp; Washer Component</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-002.fcstd">02 &ensp; Washer added to repository</a></li>
+<li>Video: <a href="https://youtu.be/YRm0UbB2rgc" target="_blank" local="link-002">02 &ensp; Washer Component</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-002.fcstd">02 &ensp; Washer added to repository</a></li>
 </ul>
 
 <ol start="5">
@@ -113,9 +117,9 @@
 <li>Create a new <tt>Body</tt>.</li>
 <li>Create a new <tt>Sketch</tt> on the XY plane.</li>
 <li>In the sketcher, draw two concentric circles around the sketch origin.</li>
-<li>Set the diameters to 8.3 and 16 mm.<br /><img src="../../img/asm3/link-1/fig-002.png" width="118" /></li>
+<li>Set the diameters to 8.3 and 16 mm.<br /><img src="../../img/asm3/link/fig-002.png" width="118" /></li>
 <li>Close the sketch.</li>
-<li>Create a <tt>Pad</tt> with a length of 2 mm.<br /><img src="../../img/asm3/link-1/fig-003.png" width="135" /></li>
+<li>Create a <tt>Pad</tt> with a length of 2 mm.<br /><img src="../../img/asm3/link/fig-003.png" width="135" /></li>
 </ol>
 
 <p>The washer body is finished, now we will wrap it with an <tt>Assembly</tt> container:</p>
@@ -126,7 +130,7 @@
 <li>Set the <tt>Label</tt> it to "Assembly000 000".</li>
 <li>Set the <tt>Label2</tt> property to "Washer 8.3 x 16 x 2". The <tt>Label2</tt> property will also appear in the tree view in the <tt>Description</tt> column, and serves there as a secondary node identification and/or comment. So, choose the designation wisely.</li>
 <li>Drag the <tt>Body</tt> node and drop it on the <tt>Assembly000 000</tt> node.</li>
-<li>Set <tt>Label2</tt> of the <tt>Elements</tt> node to "Constraint Connectors".<br /><img src="../../img/asm3/link-1/fig-004.png" width="271" /></li>
+<li>Set <tt>Label2</tt> of the <tt>Elements</tt> node to "Constraint Connectors".<br /><img src="../../img/asm3/link/fig-004.png" width="271" /></li>
 </ol>
 
 <p>Now we will define two constraint connectors for the washer. They will be bound on the two inner edges.</p>
@@ -135,11 +139,11 @@
 <li>In the 3D window, select both inner edges of the washer.</li>
 <li>Drag the <tt>Pad</tt> node and drop it on the <tt>Constraint Connectors</tt> node.</li>
 <li>Set <tt>Label2</tt> of the <tt>Element</tt> child node to "Inner Bottom".</li>
-<li>Set <tt>Label2</tt> of the <tt>Element001</tt> child node to "Inner Top".<br /><img src="../../img/asm3/link-1/fig-005.png" width="285" /></li>
-<li>Select the constraint connectors and verify in the 3D window that they are correct.<br /><img src="../../img/asm3/link-1/fig-006.png" width="124" /></li>
+<li>Set <tt>Label2</tt> of the <tt>Element001</tt> child node to "Inner Top".<br /><img src="../../img/asm3/link/fig-005.png" width="285" /></li>
+<li>Select the constraint connectors and verify in the 3D window that they are correct.<br /><img src="../../img/asm3/link/fig-006.png" width="124" /></li>
 <li>Drag the <tt>Assembly000 000</tt> node and drop it on the <tt>Repository</tt> node. This should collapse the entire node and all of its child nodes.</li>
 <li>Hide <tt>Assembly000 000</tt>.</li>
-<li>Save a copy to the file "asm3-basics-3-002.fcstd".</li>
+<li>Save a copy to the file "link-002.fcstd".</li>
 </ol>
 
 </div>
@@ -147,9 +151,9 @@
 <h3>The Nut</h3><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/enmVAMJo6Tw" local="asm3-basics-3-003">03 &ensp; Nut Component</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-002.fcstd">02 &ensp; Washer added to repository</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-003.fcstd">03 &ensp; Nut added to repository</a></li>
+<li>Video: <a href="https://youtu.be/enmVAMJo6Tw" local="link-003">03 &ensp; Nut Component</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-002.fcstd">02 &ensp; Washer added to repository</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-003.fcstd">03 &ensp; Nut added to repository</a></li>
 </ul>
 
 <p>Creating the nut component follows the same workflow, so nothing new in this section. If you don't have the time or patience, proceed to the <a href="#prjasm">assembly of components</a>.</p>
@@ -164,9 +168,9 @@
 <li>In the sketcher, draw a circle on the sketch origin.</li>
 <li>Set the diameter constraint to 8 mm.</li>
 <li>Draw a hexagon on the sketch origin.</li>
-<li>Constrain the distance between two parallel sides to 13 mm.<br /><img src="../../img/asm3/link-1/fig-007.png" width="211" /></li>
+<li>Constrain the distance between two parallel sides to 13 mm.<br /><img src="../../img/asm3/link/fig-007.png" width="211" /></li>
 <li>Close the sketch.</li>
-<li>Create a <tt>Pad</tt> with a length of 6.4 mm.<br /><img src="../../img/asm3/link-1/fig-008.png" width="108" /></li>
+<li>Create a <tt>Pad</tt> with a length of 6.4 mm.<br /><img src="../../img/asm3/link/fig-008.png" width="108" /></li>
 </ol>
 
 <p>Now we will wrap the Part Design Body in an Assembly container:</p>
@@ -188,15 +192,15 @@
 <li>Set the <tt>Label2</tt> of <tt>Element001</tt> to "Inner Lower Edge".</li>
 <li>Hide the <tt>Sketch001</tt>.</li>
 <li>Set <tt>Label2</tt> of the connector child nodes nodes to "Inner Bottom" and "Inner Top".</li>
-<li>Select the new connectors, or hover the mouse over their nodes, and check their correctness in the 3D window.<br/><img src="../../img/asm3/link-1/fig-009.png" width="93" /></li>
+<li>Select the new connectors, or hover the mouse over their nodes, and check their correctness in the 3D window.<br/><img src="../../img/asm3/link/fig-009.png" width="93" /></li>
 </ol>
 
 <p>The finished component is moved to the local repository:</p>
 
 <ol start="49">
-<li>Drag <tt>Assembly001 000</tt> and drop it on the <tt>Repository</tt>.<br /><img src="../../img/asm3/link-1/fig-010.png" width="306" /></li>
+<li>Drag <tt>Assembly001 000</tt> and drop it on the <tt>Repository</tt>.<br /><img src="../../img/asm3/link/fig-010.png" width="306" /></li>
 <li>Hide <tt>Assembly001 000</tt>.</li>
-<li>Save the work to the file "asm3-basics-3-003.fcstd".</li>
+<li>Save the work to the file "link-003.fcstd".</li>
 </ol>
 
 </div>
@@ -204,9 +208,9 @@
 <h3>The Screw</h3><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/xHpLXY_z_os" local="asm3-basics-3-004">04 &ensp; Screw Component</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-003.fcstd">03 &ensp; Nut added to repository</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-004.fcstd">04 &ensp; Screw added to repository</a></li>
+<li>Video: <a href="https://youtu.be/xHpLXY_z_os" local="link-004">04 &ensp; Screw Component</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-003.fcstd">03 &ensp; Nut added to repository</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-004.fcstd">04 &ensp; Screw added to repository</a></li>
 </ul>
 
 <p>One again, the same workflow:</p>
@@ -224,14 +228,14 @@
 <li>Select the bottom face of the shaft.</li>
 <li>Create a new <tt>Sketch</tt>.</li>
 <li>Click the menu <tt>Sketch > Geometries > External Geometry > Defining</tt>. </li>
-<li>Click the circumference line of the circle. This creates a new circle in the sketch, defined by the external lower edge of the shaft pad.<br /><img src="../../img/asm3/link-1/fig-011.png" width="312" /></li>
+<li>Click the circumference line of the circle. This creates a new circle in the sketch, defined by the external lower edge of the shaft pad.<br /><img src="../../img/asm3/link/fig-011.png" width="312" /></li>
 </ol>
 
 <p class="note">A more robust alternative to define the circle would have been to use the sketch that defined the pad.</p>
 
 <ol start="65">
 <li>Close the sketch.</li>
-<li>Create a <tt>Pad</tt> with the lenght of 30 mm.<br /><img src="../../img/asm3/link-1/fig-012.png" width="122" /></li>
+<li>Create a <tt>Pad</tt> with the lenght of 30 mm.<br /><img src="../../img/asm3/link/fig-012.png" width="122" /></li>
 <li>Set <tt>Label 2</tt> to "Thread".</li>
 </ol>
 
@@ -252,7 +256,7 @@
 <li>Create a new <tt>Pocket</tt> with a length of 5 mm.</li>
 <li>Set <tt>Label2</tt> of <tt>Pocket</tt>to "Wrench Pocket"</li>
 <li>Select the bottom edge of the shaft.</li>
-<li>Create a new <tt>Chamfer</tt>.<br /><img src="../../img/asm3/link-1/fig-013.png" width="122" /></li>
+<li>Create a new <tt>Chamfer</tt>.<br /><img src="../../img/asm3/link/fig-013.png" width="122" /></li>
 </ol>
 
 <p>Wrapping the Body in an Assembly container:</p>
@@ -263,7 +267,7 @@
 <li>Set <tt>Label</tt> to "Assembly002 000".</li>
 <li>Set <tt>Label2</tt> "Cylinder Head Screw M8 x 35".</li>
 <li>Drag <tt>Body002</tt> and drop it on <tt>Assembly002 000</tt>.</li>
-<li>Set <tt>Label2</tt> of <tt>Elements002</tt> to "Constraint Connectors".<br /><img src="../../img/asm3/link-1/fig-014.png" width="259" /></li>
+<li>Set <tt>Label2</tt> of <tt>Elements002</tt> to "Constraint Connectors".<br /><img src="../../img/asm3/link/fig-014.png" width="259" /></li>
 </ol>
 
 <p>Now we will define an constraint connector for the screw. We have chosen to bind the connector to the upper edge of the shaft here. A more robust selection would be the sketch on which the the shaft pad depends.</p>
@@ -274,14 +278,14 @@
 <li>Drag <tt>Pad002</tt> and drop it on the <tt>Constraint Connectors</tt> group node.</li>
 <li>Set <tt>Label2</tt> of <tt>Element004</tt> to "Head Seat".</li>
 <li>Show the <tt>Chamfer</tt> feature.</li>
-<li>Select the <tt>Head Seat</tt> connector, or hover the mouse over the node to check the constraint connector for correctness.<br /><img src="../../img/asm3/link-1/fig-015.png" width="161" /></li>
+<li>Select the <tt>Head Seat</tt> connector, or hover the mouse over the node to check the constraint connector for correctness.<br /><img src="../../img/asm3/link/fig-015.png" width="161" /></li>
 </ol>
 
 <p>Move the component to the repository:</p>
 
-<ol start="95"><li>Drag the <tt>Assembly002 000</tt> node and drop it on the <tt>Repository</tt> node.<br /><img src="../../img/asm3/link-1/fig-016.png" width="283" /></li>
+<ol start="95"><li>Drag the <tt>Assembly002 000</tt> node and drop it on the <tt>Repository</tt> node.<br /><img src="../../img/asm3/link/fig-016.png" width="283" /></li>
 <li>Hide <tt>Assembly002 000</tt>.</li>
-<li>Save the work to the file "asm3-basics-3-004.fcstd".</li>
+<li>Save the work to the file "link-004.fcstd".</li>
 </ol>
 
 </div>
@@ -289,9 +293,9 @@
 <h3>The Block Component</h3><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/VlABNolf1fc" local="asm3-basics-3-005">05 &ensp; Block Component</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-004.fcstd">04 &ensp; Screw added to repository</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-005.fcstd">05 &ensp; Block added to repository</a></li>
+<li>Video: <a href="https://youtu.be/VlABNolf1fc" local="link-005">05 &ensp; Block Component</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-004.fcstd">04 &ensp; Screw added to repository</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-005.fcstd">05 &ensp; Block added to repository</a></li>
 </ul>
 
 <p>The Block is a simple cuboid with four circular holes for the fasteners. Once again, the same workflow.</p>
@@ -306,10 +310,10 @@
 <li>Constrain the diameter to 8 mm.</li>
 <li>Arrange them symmetrically.</li>
 <li>Draw a rectangle, centered around the sketch origin.</li>
-<li>Create dimension constraints.<br /><img src="../../img/asm3/link-1/fig-017.png" width="232" /></li>
-<li>Name the constraints as in the following image:<br /><img src="../../img/asm3/link-1/fig-018.png" width="315" /></li>
+<li>Create dimension constraints.<br /><img src="../../img/asm3/link/fig-017.png" width="232" /></li>
+<li>Name the constraints as in the following image:<br /><img src="../../img/asm3/link/fig-018.png" width="315" /></li>
 <li>Close the sketch.</li>
-<li>Create a new <tt>Pad</tt> with a length of 10 mm, reversed.<br /><img src="../../img/asm3/link-1/fig-019.png" width="193" /></li>
+<li>Create a new <tt>Pad</tt> with a length of 10 mm, reversed.<br /><img src="../../img/asm3/link/fig-019.png" width="193" /></li>
 </ol>
 
 <p>Wrap the component in an Assembly container:</p>
@@ -319,29 +323,29 @@
 <li>Set Label to "Assembly003 000".</li>
 <li>Set <tt>Label2</tt> to "Mounting Block"</li>
 <li>Drag <tt>Body003</tt> on <tt>Assembly003 000</tt>.</li>
-<li>Set <tt>Label2</tt> of <tt>Elements003</tt> to <tt>Constraint Connectors</tt>.<br /><img src="../../img/asm3/link-1/fig-020.png" width="253" /></li>
+<li>Set <tt>Label2</tt> of <tt>Elements003</tt> to <tt>Constraint Connectors</tt>.<br /><img src="../../img/asm3/link/fig-020.png" width="253" /></li>
 </ol>
 
 <p>Bind the constraint connectors to geometry elements:</p>
 
 <ol start="117">
 <li>Tilt the block slightly forward, so that both upper and lower bore hole edges are visible.</li>
-<li>Select all eight upper bore hole edges. Maintaining a specific selection order helps to identifiy the elements in the Constraint Connectors group later.<br /><img src="../../img/asm3/link-1/fig-021.png" width="206" /></li>
+<li>Select all eight upper bore hole edges. Maintaining a specific selection order helps to identifiy the elements in the Constraint Connectors group later.<br /><img src="../../img/asm3/link/fig-021.png" width="206" /></li>
 <li>Drag <tt>Pad004</tt> on the <tt>Constraint Connectors</tt> node.</li>
 <li>Select the first four <tt>Constraint Connectors 003</tt> child nodes.</li>
 <li>Verify in the 3D window that they are all on the upper side of the block.</li>
 <li>Set their <tt>Label2</tt> property to "Bore Hole Upper Edge ".</li>
 <li>Select the remaining four <tt>Connectors</tt>.</li>
-<li>Set their <tt>Label2</tt> to "Bore Hole Lower Edge".<br /><img src="../../img/asm3/link-1/fig-022.png" width="259" /></li>
-<li>Check the correctness of the constraint connectors in the 3D window.<br /><img src="../../img/asm3/link-1/fig-023.png" width="188" /></li>
+<li>Set their <tt>Label2</tt> to "Bore Hole Lower Edge".<br /><img src="../../img/asm3/link/fig-022.png" width="259" /></li>
+<li>Check the correctness of the constraint connectors in the 3D window.<br /><img src="../../img/asm3/link/fig-023.png" width="188" /></li>
 </ol>
 
 <p>Move the new component to the repository:</p>
 
 <ol start="126">
-<li>Drag <tt>Assembly003 000</tt> on the <tt>Repository</tt>.<br /><img src="../../img/asm3/link-1/fig-024.png" width="263" /></li>
+<li>Drag <tt>Assembly003 000</tt> on the <tt>Repository</tt>.<br /><img src="../../img/asm3/link/fig-024.png" width="263" /></li>
 <li>Hide <tt>Assembly003 000</tt>.</li>
-<li>Save the work to the file "asm3-basics-3-005.fcstd".</li>
+<li>Save the work to the file "link-005.fcstd".</li>
 </ol>
 
 <p>The <tt>Block</tt> component is now finished. </p>
@@ -357,9 +361,9 @@
 <h3>Nut & Washer Subassembly</h3><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/eFSK79ScFYw" local="asm3-basics-3-006">06 &ensp; Nut Subassembly</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-005.fcstd">05 &ensp; Block added to repository</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
+<li>Video: <a href="https://youtu.be/eFSK79ScFYw" local="link-006">06 &ensp; Nut Subassembly</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-005.fcstd">05 &ensp; Block added to repository</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
 </ul>
 
 <ol start="129">
@@ -375,7 +379,7 @@
 <li>Copy its <tt>Label2</tt>.</li>
 <li>Right-click the nut component, click <tt>Link actions > Make link</tt>.</li>
 <li>Paste the new link's <tt>Label2</tt> content.</li>
-<li>Select the two new <tt>Link</tt> objects, and drag them on the nut assembly node. They are moved to the <tt>Parts004</tt> node.<br /><img src="../../img/asm3/link-1/fig-025.png" width="270" /></li>
+<li>Select the two new <tt>Link</tt> objects, and drag them on the nut assembly node. They are moved to the <tt>Parts004</tt> node.<br /><img src="../../img/asm3/link/fig-025.png" width="270" /></li>
 </ol>
 
 <p>Now we are going to define the constraints between the constraint connectors of the components. Each component has two connectors, so we have to decide which of them are to be mated by the constraint.</p>
@@ -384,20 +388,20 @@
 <li>Expand the <tt>Constraint Connectors</tt> node of the two subassemblies.</li>
 <li>Select the nut's <tt>Inner Bottom</tt> connector.</li>
 <li>Select the washer's <tt>Inner Top</tt> connector.</li>
-<li>With both connectors selected, click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Constraints</tt> toolbar. This creates the new <tt>Constraints</tt> and <tt>Plane Coincident</tt> nodes in the model tree.<br /><img src="../../img/asm3/link-1/fig-026.png" width="288" /></li>
+<li>With both connectors selected, click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Constraints</tt> toolbar. This creates the new <tt>Constraints</tt> and <tt>Plane Coincident</tt> nodes in the model tree.<br /><img src="../../img/asm3/link/fig-026.png" width="288" /></li>
 </ol>
 
 <p>The position of components changed, the nut now sits on top of the washer:</p>
 
-<img src="../../img/asm3/link-1/fig-027.png" width="139" />
+<img src="../../img/asm3/link/fig-027.png" width="139" />
 
 <p>The next step creates an external constraint connector on the nut subassembly, and binds it to the inner lower edge of the nut. This connector will be used to mate the subassembly to other <tt>Assembly</tt> objects, therfore it is called <tt>public</tt> or <tt>external constraint connector</tt>.</p>
 
-<img src="../../img/asm3/link-1/fig-028.png" width="145" />
+<img src="../../img/asm3/link/fig-028.png" width="145" />
 
 <ol start="146">
 <li>Set <tt>Label2</tt> of <tt>Elements004</tt> to "Constraint Connectors".</li>
-<li>Drag the <tt>Inner Bottom</tt> connector of the washer on this <tt>Constraint Connectors</tt> node.<br /><img src="../../img/asm3/link-1/fig-029.png" width="293" /></li>
+<li>Drag the <tt>Inner Bottom</tt> connector of the washer on this <tt>Constraint Connectors</tt> node.<br /><img src="../../img/asm3/link/fig-029.png" width="293" /></li>
 <li>Set <tt>Label2</tt> of <tt>Element013</tt> to "Washer Seat"</li>
 </ol>
 
@@ -408,7 +412,7 @@
 <ol start="149">
 <li>Drag <tt>Assembly004 000</tt> on the <tt>Repository</tt> node. This collapses the node conveniently.</li>
 <li>Hide <tt>Assembly004 000</tt>.</li>
-<li>Save a copy under the name "asm3-basics-3-006.fcstd".</li>
+<li>Save a copy under the name "link-006.fcstd".</li>
 </ol>
 
 </div>
@@ -416,9 +420,9 @@
 <h3>Bolt & Washer Subassembly</h3><div>
 
 <p>Related materials:</p><ul>
-<li>Video: <a href="https://youtu.be/8YkZT2T-its" local="asm3-basics-3-007">07 &ensp; Bolt & Washer Subassembly</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
+<li>Video: <a href="https://youtu.be/8YkZT2T-its" local="link-007">07 &ensp; Bolt & Washer Subassembly</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
 </ul>
 
 <ol start="152">
@@ -434,7 +438,7 @@
 <li>Copy its <tt>Label2</tt>.</li>
 <li>Right-click the screw component, click <tt>Link actions > Make link</tt>.</li>
 <li>Paste the new link's <tt>Label2</tt> content.</li>
-<li>Select the two new <tt>Link</tt> objects, and drag them on the bolt subassembly node. They are moved to the <tt>Parts004</tt> node.<br /><img src="../../img/asm3/link-1/fig-030.png" width="268" /></li>
+<li>Select the two new <tt>Link</tt> objects, and drag them on the bolt subassembly node. They are moved to the <tt>Parts004</tt> node.<br /><img src="../../img/asm3/link/fig-030.png" width="268" /></li>
 </ol>
 
 <p>Now we are going to define the constraints between the constraint connectors.</p>
@@ -443,19 +447,19 @@
 <li>Expand the <tt>Constraint Connectors</tt> node of the two subassemblies.</li>
 <li>Select the screw's <tt>Head Seat</tt> connector.</li>
 <li>Select the washer's <tt>Inner Top</tt> connector.</li>
-<li>With both connectors selected, click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Constraints</tt> toolbar.<br /><img src="../../img/asm3/link-1/fig-031.png" width="297" /></li>
+<li>With both connectors selected, click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Constraints</tt> toolbar.<br /><img src="../../img/asm3/link/fig-031.png" width="297" /></li>
 </ol>
 
 <p>The position of components change, the screw now sits on top of the washer.</p>
 
-<img src="../../img/asm3/link-1/fig-032.png" width="150" />
+<img src="../../img/asm3/link/fig-032.png" width="150" />
 
 <p>Create the public constraint connector for the subassembly:</p>
 
 <ol start="169">
 <li>Set <tt>Label2</tt> of <tt>Elements005</tt> to "Constraint Connectors".</li>
 <li>Drag the <tt>Inner Bottom</tt> connector of the washer on this <tt>Constraint Connectors</tt> node. </li>
-<li>Set <tt>Label2</tt> of <tt>Element013</tt> to "Washer Seat".<br /><img src="../../img/asm3/link-1/fig-033.png" width="294" /></li>
+<li>Set <tt>Label2</tt> of <tt>Element013</tt> to "Washer Seat".<br /><img src="../../img/asm3/link/fig-033.png" width="294" /></li>
 </ol>
 
 <p>Final steps:</p>
@@ -463,7 +467,7 @@
 <ol start="172">
 <li>Drag <tt>Assembly005 000</tt> on the <tt>Repository</tt> node. This collapses the node conveniently.</li>
 <li>Hide <tt>Assembly005 000</tt>.</li>
-<li>Save a copy under the name "asm3-basics-3-007.fcstd".</li>
+<li>Save a copy under the name "link-007.fcstd".</li>
 </ol>
 
 </div>
@@ -481,9 +485,9 @@
 <p>In this section we will create the assembly container and add the Block component.</p>
 
 <p>Related files</p><ul>
-<li>Video: <a href="https://youtu.be/H9KyJRFeHVA" local="asm3-basics-3-008.fcstd">08 &ensp; Project assembly container</a>.</li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
+<li>Video: <a href="https://youtu.be/H9KyJRFeHVA" local="link-008.fcstd">08 &ensp; Project assembly container</a>.</li>
+<li>Freecad: <a href="../../files/asm3/link/link-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
 </ul>
 
 <ol start="175">
@@ -494,10 +498,10 @@
 <li>Copy the <tt>Label2</tt> text.</li>
 <li>Right-click the <tt>Block</tt> component, click <tt>Link actions > Make link</tt>. A new <tt>Assembly Link</tt> object is created at the end of the model tree.</li>
 <li>Select <tt>Assembly003 001</tt>, and paste the <tt>Label2</tt> text.</li>
-<li>Drag the <tt>Block</tt> on the <tt>Project Assembly Container</tt>. The block assembly is moved to the <tt>Parts006</tt> node.<br /><img src="../../img/asm3/link-1/fig-034.png" width="298" /></li>
+<li>Drag the <tt>Block</tt> on the <tt>Project Assembly Container</tt>. The block assembly is moved to the <tt>Parts006</tt> node.<br /><img src="../../img/asm3/link/fig-034.png" width="298" /></li>
 <li>Select the top face of the block component.</li>
-<li>Click the <tt>Lock Constraint</tt> button on the <tt>Assembly 3 Contraints</tt> toolbar. This prevents the block to move when it is constraint relation with other components is created later on.<br />Side note: This step appears in a follow-up video.<br /><img src="../../img/asm3/link-1/fig-035.png" width="307" /><br /><img src="../../img/asm3/link-1/fig-036.png" width="246" /></li>
-<li>Save a copy under the name "asm3-basics-3-008.fcstd".</li>
+<li>Click the <tt>Lock Constraint</tt> button on the <tt>Assembly 3 Contraints</tt> toolbar. This prevents the block to move when it is constraint relation with other components is created later on.<br />Side note: This step appears in a follow-up video.<br /><img src="../../img/asm3/link/fig-035.png" width="307" /><br /><img src="../../img/asm3/link/fig-036.png" width="246" /></li>
+<li>Save a copy under the name "link-008.fcstd".</li>
 </ol>
 
 <p>A project assembly container is usually not reused in other projects and/or assemblies, so we don't have to define any public constraint connectors. Of course, they can always be added after the fact.</p>
@@ -507,9 +511,9 @@
 <h3>Mounting the Bolt Assembly</h3><div>
 
 <p>Related files</p><ul>
-<li>Video: <a href="https://youtu.be/_UP-L9GqSh4" local="asm3-basics-3-009">09 &ensp; Mounting the Bolt Subassembly</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
+<li>Video: <a href="https://youtu.be/_UP-L9GqSh4" local="link-009">09 &ensp; Mounting the Bolt Subassembly</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
 </ul>
 
 <p>In this section we will mount the bolt subassembly to the block component using assembly constraints.</p>
@@ -520,7 +524,7 @@
 <li>Copy <tt>Label2</tt>.</li>
 <li>Right-click the <tt>Bolt Assembly</tt>, click <tt>Link actions > Make link</tt>. An instance of the bolt subassembly appears over the block component.</li>
 <li>Paste <tt>Label2</tt> on <tt>Assembly005 001</tt>.</li>
-<li>Drag the <tt>Bolt Assembly</tt> on the <tt>Project Assembly Container</tt>. It is moved under the <tt>Parts006</tt> group node.<br /><img src="../../img/asm3/link-1/fig-037.png" width="303" /></li>
+<li>Drag the <tt>Bolt Assembly</tt> on the <tt>Project Assembly Container</tt>. It is moved under the <tt>Parts006</tt> group node.<br /><img src="../../img/asm3/link/fig-037.png" width="303" /></li>
 </ol>
 
 <p>NOTE: At this point, the video shows how to add the forgotten <tt>Lock Constraint</tt> on the top face of the Block component.</p>
@@ -529,8 +533,8 @@
 
 <ol start="192">
 <li>Select the <tt>Bolt Assembly</tt>.</li>
-<li>Change <tt>Element Count</tt> to "4". Four instances of the bolt assembly appear in the 3D window, scattered along the x axis.<br /><img src="../../img/asm3/link-1/fig-038.png" width="215" /><br /><img src="../../img/asm3/link-1/fig-039.png" width="215" /></li>
-<li>Expand the bolt assembly node. Verify that four <tt>Link</tt> instances of the bolt assembly appear as child nodes under the bolt assembly.<br /><img src="../../img/asm3/link-1/fig-040.png" width="215" /></li>
+<li>Change <tt>Element Count</tt> to "4". Four instances of the bolt assembly appear in the 3D window, scattered along the x axis.<br /><img src="../../img/asm3/link/fig-038.png" width="215" /><br /><img src="../../img/asm3/link/fig-039.png" width="215" /></li>
+<li>Expand the bolt assembly node. Verify that four <tt>Link</tt> instances of the bolt assembly appear as child nodes under the bolt assembly.<br /><img src="../../img/asm3/link/fig-040.png" width="215" /></li>
 </ol>
 
 <div class="note">
@@ -542,27 +546,27 @@
 <ol start="195">
 <li>Expand the <tt>Constraint Connectors</tt> node on the <tt>Block</tt> component.</li>
 <li>Expand the <tt>Constraint Connectors</tt> on the first (next) <tt>Link</tt> element of the <tt>Bolt Assembly</tt>.</li>
-<li>Use the visual feedback in the 3D window to identfiy the proper constraint connectors on the components.<br /><img src="../../img/asm3/link-1/fig-041.png" width="229" /></li>
+<li>Use the visual feedback in the 3D window to identfiy the proper constraint connectors on the components.<br /><img src="../../img/asm3/link/fig-041.png" width="229" /></li>
 <li>Select the <tt>Washer Seat</tt> on the <tt>Bolt Assembly</tt>.</li>
-<li>Select the first <tt>Bore Hole Upper Edge</tt> on the <tt>Block</tt> component.<br /><img src="../../img/asm3/link-1/fig-042.png" width="320" /></li>
-<li>Click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Contraints</tt> toolbar. If you have the menu <tt>Assembly3 > Auto-recompute</tt> function on, bolt and washer should jump to their new location.<br /><img src="../../img/asm3/link-1/fig-043.png" width="241" /></li>
+<li>Select the first <tt>Bore Hole Upper Edge</tt> on the <tt>Block</tt> component.<br /><img src="../../img/asm3/link/fig-042.png" width="320" /></li>
+<li>Click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Contraints</tt> toolbar. If you have the menu <tt>Assembly3 > Auto-recompute</tt> function on, bolt and washer should jump to their new location.<br /><img src="../../img/asm3/link/fig-043.png" width="241" /></li>
 </ol>
 
 <p> The new constraint element appears under the constraints group node of the <tt>Project Assembly Container</tt>.</p>
-<img src="../../img/asm3/link-1/fig-044.png" width="321" />
+<img src="../../img/asm3/link/fig-044.png" width="321" />
 <p>Repeat the last three steps for the rest of the bolt assemblies and inspect the result.</p>
 
 <ol start="201">
 <li>Select the four new <tt>PlaneCoincident</tt> constraint nodes under the <tt>Project Assembly Container</tt>.</li>
-<li>Notice how they are highlighted in the 3D window.<br /><img src="../../img/asm3/link-1/fig-045.png" width="245" /></li>
-<li>Set their <tt>Label2</tt> to "Bolt Assembly".<br /><img src="../../img/asm3/link-1/fig-046.png" width="335" /></li>
+<li>Notice how they are highlighted in the 3D window.<br /><img src="../../img/asm3/link/fig-045.png" width="245" /></li>
+<li>Set their <tt>Label2</tt> to "Bolt Assembly".<br /><img src="../../img/asm3/link/fig-046.png" width="335" /></li>
 </ol>
 
 <p>Cleanup:</p>
 
 <ol start="204">
 <li>Collapse all open nodes.</li>
-<li>Save a copy under the name "asm3-basics-3-009.fcstd".</li>
+<li>Save a copy under the name "link-009.fcstd".</li>
 </ol>
 
 </div>
@@ -570,9 +574,9 @@
 <h3>Mounting the Nut Assembly</h3><div>
 
 <p>Related files</p><ul>
-<li>Video: <a href="https://youtu.be/SJp25JGrwjA" local="asm3-basics-3-010">10 &ensp; Mouting the Nut Subassembly</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
+<li>Video: <a href="https://youtu.be/SJp25JGrwjA" local="link-010">10 &ensp; Mouting the Nut Subassembly</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
 </ul>
 
 <p>In this section we will attach the nut subassembly to the underside of the block, using a <tt>Plane Coincident</tt> constraint.</p>
@@ -580,7 +584,7 @@
 <ol start="206">
 <li>Make sure to have the <tt>Assembly 3</tt> workbench active.</li>
 <li>Create a <tt>Link</tt> object from the <tt>Nut Assembly</tt>, and drag it on the <tt>Project Assembly Container</tt>.</li>
-<li>Use the <tt>Assembly 3</tt> <tt>Axial Move Part</tt> tool to move the <tt>Nut Assembly</tt> below the other components, and rotate the washer side up.<br /><img src="../../img/asm3/link-1/fig-047.png" /><br /><img src="../../img/asm3/link-1/fig-048.png" width="172" /></li>
+<li>Use the <tt>Assembly 3</tt> <tt>Axial Move Part</tt> tool to move the <tt>Nut Assembly</tt> below the other components, and rotate the washer side up.<br /><img src="../../img/asm3/link/fig-047.png" /><br /><img src="../../img/asm3/link/fig-048.png" width="172" /></li>
 </ol>
 
 <p>It is not necessary to bring the washer seat plane exactly parallel to the underside of the block, but their angle should be smaller than 90 degree &mdash; otherwise the constraint solver might decide to mate the nut assembly in the wrong orientation. Then you would have to fiddle with the <tt>Angle</tt>....</p>
@@ -590,17 +594,17 @@
 <li>Set <tt>Element Count</tt> to "4".</li>
 <li>Expand the block constraint connectors. We are interested in the <tt>Bore Hole Underside Edge</tt> connectors.</li>
 <li>Select the first (next) of these.</li>
-<li>Expand the constraint connectors of th first (next) nut assembly, and select the <tt>Washer Seat</tt> connector.<br /><img src="../../img/asm3/link-1/fig-049.png" width="323"/><br /><img src="../../img/asm3/link-1/fig-050.png" width="175" /></li>
+<li>Expand the constraint connectors of th first (next) nut assembly, and select the <tt>Washer Seat</tt> connector.<br /><img src="../../img/asm3/link/fig-049.png" width="323"/><br /><img src="../../img/asm3/link/fig-050.png" width="175" /></li>
 <li>With both connectors selected, click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Constraints</tt> toolbar.<br />Nut and washer should jump to the desired place on the block underside.</li>
 </ol>
 
 <p>Repeat the last three steps for the remaining three nut assemblies.</p>
 
-<img src="../../img/asm3/link-1/fig-051.png" width="239" />
+<img src="../../img/asm3/link/fig-051.png" width="239" />
 
 <ol start="215">
 <li>Select the four new <tt>Plane Coincident</tt> constraints under the <tt>Project Assembly Container</tt>.</li>
-<li>Set their <tt>Label2</tt> to "Nut Assembly".<br /><img src="../../img/asm3/link-1/fig-052.png" width="318" /></li>
+<li>Set their <tt>Label2</tt> to "Nut Assembly".<br /><img src="../../img/asm3/link/fig-052.png" width="318" /></li>
 <li>Select all <tt>Nut Assembly</tt> constraints, and check them in the 3D view.</li>
 </ol>
 
@@ -608,7 +612,7 @@
 
 <ol start="218">
 <li>Collapse all open nodes.</li>
-<li>Save a copy under the name "asm3-basics-3-010.fcstd".</li>
+<li>Save a copy under the name "link-010.fcstd".</li>
 </ol>
 
 </div>
@@ -617,18 +621,18 @@
 <h2>Geometry Modifications and the Benefit of Constraints</h2><div>
 
 <p>Related files</p><ul>
-<li>Video: <a href="https://youtu.be/VXXDJi2tyww" local="asm3-basics-3-011">11 &ensp; Geometry Modifications and Constraint</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
-<li>Freecad: <a href="../../files/asm3/link-1/asm3-basics-3-011.fcstd">11 &ensp; Geometry changes and constraint effects</a></li>
+<li>Video: <a href="https://youtu.be/VXXDJi2tyww" local="link-011">11 &ensp; Geometry Modifications and Constraint</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
+<li>Freecad: <a href="../../files/asm3/link/link-011.fcstd">11 &ensp; Geometry changes and constraint effects</a></li>
 </ul>
 
 <p>You certainly have noticed that the block dimensions and hole distances are much too small for the fasteners. This can be easily corrected:</p>
 
-<img src="../../img/asm3/link-1/fig-053.png" width="298" />
+<img src="../../img/asm3/link/fig-053.png" width="298" />
 
 <ol start="220">
 <li>Select the sketch <tt>Repository > Assembly003 000 > Parts003 > Body003 > Pad005 > Sketch006</tt>.</li>
-<li>On the <tt>Property Panel</tt>, Modify the datum constraint values according to the following figure:<br /><img src="../../img/asm3/link-1/fig-054.png" width="349" /></li>
+<li>On the <tt>Property Panel</tt>, Modify the datum constraint values according to the following figure:<br /><img src="../../img/asm3/link/fig-054.png" width="349" /></li>
 </ol>
 
 <p>If you have the <tt>Auto-Recompute</tt> function active, the scene should update with every value change committed. If not, execute the menu <tt>Assembly3 > Solve constraints</tt>.</p>
@@ -638,15 +642,15 @@
 <ol start="222">
 <li>Open the path <tt>Project Assembly Container > Parts006 > Bolt Assembly > Links005_i0 > Parts005 > CHS M8x35 > Parts002 > Body002</tt>.</li>
 <li>Select the <tt>Thread</tt> node.</li>
-<li>Set its <tt>Length</tt> property to "25 mm".<br /><img src="../../img/asm3/link-1/fig-055.png" width="306" /></li>
+<li>Set its <tt>Length</tt> property to "25 mm".<br /><img src="../../img/asm3/link/fig-055.png" width="306" /></li>
 </ol>
 
 <p><tt>Length</tt> is a <tt>shared property</tt>, so the links of all screw instances is changed. Unfortunately, <tt>Label2</tt> is a non-shared property, and its value no longer matches its dimensions. The next steps show how this can be dealt with in an efficient manner.</p>
 
 <ol start="225">
 <li>Right click on the screw component node <tt>Assembly002 001</tt> in the <tt>Project Assembly Container</tt>, then click <tt>Select lined object</tt>. This carries you directly to the screw definition object, <tt>Assembly002 000</tt>.</li>
-<li>Change its <tt>Label2</tt> property to "CHS M8x<b>25</b> H13 W6".<br /><img src="../../img/asm3/link-1/fig-056.png" width="354" /></li>
-<li>Right-click on the <tt>Assembly002 000</tt> node, then click <tt>Link actions > Select all links</tt>.<br /><img src="../../img/asm3/link-1/fig-057.png" width="360" /></li>
+<li>Change its <tt>Label2</tt> property to "CHS M8x<b>25</b> H13 W6".<br /><img src="../../img/asm3/link/fig-056.png" width="354" /></li>
+<li>Right-click on the <tt>Assembly002 000</tt> node, then click <tt>Link actions > Select all links</tt>.<br /><img src="../../img/asm3/link/fig-057.png" width="360" /></li>
 <li>Ctrl-click on the <tt>Description</tt> text box of the first <tt>Assembly002</tt> link element.<br />This unselects the element, but the description text box has the "keyboard focus", as indicated by its dotted border. </li>
 <li>Press <kbd>F2</kbd> to start editing, and change the text to "CHS M8x25". </li>
 <li>Press <kbd>Enter</kbd> to leave edit mode.</li>
@@ -661,7 +665,7 @@
 <li>Find the element that determines the length of the screw. It is the <tt>Length</tt> property of the <tt>Repository > Assembly002 000 > Parts002 > Body002 > Thread</tt> pad. Note the current value of 20 mm.</li>
 <li>Click on the <tt>Length</tt> value.</li>
 <li>Clicn on the round <tt>f(x)</tt> button to open the <tt>Formula Editor</tt>.</li>
-<li>Enter the text "Pad005.Length + 10 mm".<br /><img src="../../img/asm3/link-1/fig-058.png" width="304" /></li>
+<li>Enter the text "Pad005.Length + 10 mm".<br /><img src="../../img/asm3/link/fig-058.png" width="304" /></li>
 <li>Check the result. If OK, press <kbd>Enter</kbd> two times.</li>
 </ol>
 
@@ -669,7 +673,7 @@
 
 <ol start="237">
 <li>Select <tt>Pad005</tt>.</li>
-<li>Change the <tt>Length</tt> property to "20 mm".<br /><img src="../../img/asm3/link-1/fig-059.png" width="311" />
+<li>Change the <tt>Length</tt> property to "20 mm".<br /><img src="../../img/asm3/link/fig-059.png" width="311" />
 <li>If the nut positions did not update automatically, right-click the <tt>Block</tt> assembly, and click <tt>Recompute object</tt>.<br />Now the nut assemblies show up in their correct position.</li>
 </ol>
 
@@ -677,16 +681,20 @@
 
 <ol start="240">
 <li>Collapse all nodes.</li>
-<li>Save a copy under "asm3-basics-3-011".</li>
+<li>Save a copy under "link-011".</li>
 </ol>
 
 </div>
 
 <h2>Conclusion</h2><div>
 
-<ul>
-<li>Constraint connectors are always easily accessible and selectable in the model tree, no matter how complex the model is, whereas in A2(+) type workbenches, generated geometry elements are sometimes difficult to find and select, because they can be hidden behind other features and/or components. In such a case you will have to juggle with transparency and visibility to select a geometry element for application of a constraint.</li>
-</ul>
+<p>Using <tt>Links</tt> for components that occur multiple times in a model is straightforward. A Link behaves very mucht like the object it represents. Link Arrays add another level of comfort to work with multiple instances of a component, while keeping the model tree small at the same time.</p>
+
+<p><tt>Constraint Connectors</tt> are always easily accessible and selectable in the model tree, no matter how complex the model is, whereas in A2(+) type workbenches, generated geometry elements are sometimes difficult to find and select, because they can be hidden behind other features and/or components. In such a case you will have to juggle with transparency and visibility to select a geometry element for application of a constraint.</p>
+
+<p>Of course, creating and maintaining constraint connectors requires some overhead, but they are really easy to create and maintain.</p>
+
+<p>Mating elements with constraint connectors is as simple as using geometry elements in other assembly workbenches, such as A2(+), perhaps even simpler: Select two connectors, select the constraint, done.</p>
 
 </div>
 

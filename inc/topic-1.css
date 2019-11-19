@@ -87,9 +87,9 @@ img {
 }
 
 tt {
-	font-family: 'Times New Roman', Times, serif;
-	font-size: 110%;
-	color: #404080;
+	font-family: 'Arial Narrow', 'Franklin Gothic Medium', sans-serif,  'Times New Roman', Times;
+	font-size: 100%;
+	color: #4080A0;
 }
 
 .boxed {
@@ -225,6 +225,14 @@ li > img {
 	padding-left: 10px;
 	padding-top: 5px;
 	padding-bottom: 9px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.tip {
+	border: solid 1px;
+	border-color: cornflowerblue;
+	padding: 10px;
 	margin-top: 30px;
 	margin-bottom: 30px;
 }

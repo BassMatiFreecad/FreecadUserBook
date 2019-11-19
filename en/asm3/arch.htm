@@ -1,0 +1,163 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Assembly 3 - The Architecture of Assembly Objects</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-19-13">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-19-13">
+<meta name="document-version" content="2">
+<meta name="template-version-date" content="2019-11-17">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+</head><body>
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>The Architecture of Assembly Objects</h1>
+
+<div id="navigation-panel"></div>
+
+<div>
+<p>Knowing the design and architecture of the <tt>Assembly</tt> object provides the key for understanding the benefits of the Assembly 3 workbench.</p>
+</div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Constraint</tag>, <tag>Connector</tag>, <tag>Architecture</tag>.</p>
+</div>
+
+<h2 cbs="0">The Nature of Constraints</h2><div>
+
+<p>Figure 1 illustrates how an assembly constraint relates  components to each other.</p>
+
+<figcaption>Figure 1</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-001.png" width="127" /></div>
+
+<p>A component is a Freecad object that defines geometry elements, such as vertices, edges or faces, to define its shape. An assembly constraint binds to these geometry elements, and thereby establishes a specific spatial relationship between these objects. To solve the relationship, the constraint modifies position and/or rotation of the related objects. Whenever the project model is recomputed, the constraints recompute position and orientation of the related objects in order to maintain their spatial relationship.</p>
+
+<p>A constraint effectively reduces the degrees of freedom of movement of the objects against each other. In a three-dimensional space, we have a maximum of six degrees of freedom: Movement in the direction of the three coordinate system axes, and rotation around them. If the degree of freedom between components is zero, their position relative to each other is fixed. In other words, they are "glued" together, they are <em>fully constrained</em>.</p>
+
+<!-- h2 Nature of Constraints --></div>
+
+<h2 cbs="0">Assembly 3 Constraints</h2><div>
+
+<p>Constraints in the <tt>Assembly 3</tt> workbench are very similar, but they add an additional element, the <tt>Assembly Connector</tt>, or short <tt>Connector</tt>:</p>
+
+<figcaption>Figure 2: Constraints Architecture in ASM3</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-002.png" width="127" /></div>
+
+<p>The purpose of the connector is to <em>publish</em> a specific geometry element of the component, and constraints can only bind to connectors.</p>
+
+<p>At first glance, the introduction of connectors seems to be pointless, but there is a reason behind: <tt>Connectors</tt> act as an additional layer of indirection. This becomes evident when we examine how a model <em>breaks</em> when it is modified.</p>
+
+<!-- h2 Assembly 3 Constraints --></div>
+
+<h2 cbs="0">Breaking Models</h2><div>
+
+<p>Let's assume a component created with the <tt>Part Design</tt> workbench, a <tt>Body</tt>. Such a <tt>Body</tt> consists of sequence of <tt>Features</tt>. Some of them depend on a <tt>Sketch</tt>.</p>
+
+<figcaption>Figure 3: Structure of a Part Design Body</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-003.png" width="213" /></div>
+
+<p>When the project model is (re)computed, geometry elements are generated from these features, and they are named by some internal rules.</p>
+
+<p>Take a look at the selected upper edge of the <tt>Shaft</tt> feature:</p>
+
+<figcaption>Figure 4: Selected Geometry Element in a Screw</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-004.png" width="106" /></div>
+
+<p>If the developer decides to remove the shaft element, all constraints that used this edge will break. Figure 5 illustrates that in an abstract form. The orange dot represents the broken geometry element, the arrows represent constraints:</p>
+
+<figcaption id="fig-005">Figure 5: Broken Constraints</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-005.png" width="284" /></div>
+
+<p>A screw is a standard component, and will probably be used in multiple places in a project, in the form of copies or clones: </p>
+
+<figcaption>Figure 6: Broken Constraints Multiplied</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-006.png" width="226" /></div>
+
+<p>The problem was been multiplied. In other words: Lots of work for a developer.</p>
+
+<p>This is where the <tt>Assembly 3</tt> <tt>Constraint Connector</tt> comes into play:</p>
+
+<figcaption>Figure 7: Model Integrity Maintained</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-007.png" width="306" /></div>
+
+<p>Side note: The links are the Assembly 3 equivalent of the <tt>Clone</tt>.</p>
+
+<p>A component developer is responsible to bind a <tt>Constraint Connector</tt> to an internal geometry element inside the component. When the component breaks, the developer rebinds the <tt>Connector</tt> to a different geometry element which serves the same purpose. The update appears in exactly one place. The effect is that the <tt>Connector</tt> remains intact, and the model will not be broken by design changes. </p>
+
+<p>Figure 7 illustrates another important architectural aspect: The entire component geometry is considered <em>local</em> or <em>internal</em>, the <tt>Connectors</tt> are considered their <em>public interfaces</em>. Their purpose is to <em>publish</em> an internal geometry element, and thereby isolate it from the outside world.</p>
+
+<p>This is handled differently in the "traditional" model in <a href="#fig-005">figure 5</a>, where the entire component geometry is considererd public.</p>
+
+<!-- h2 Breaking Models --></div>
+
+<h2 cbs="0">Buiding Structures With Assembly Objects</h2><div>
+
+<p>The <tt>Assembly</tt> object is a container object for parts that define the geometry of the assembly, very much like a Freecad <tt>Part</tt> object.</p>
+
+<h3>Assembly Components</h3><div>
+
+<p>An assembly component is a regular <tt>Assembly</tt> object that contains any number of parts (geometry defining Freecad objects), but no other <tt>Assembly</tt> objects. An assembly component usually publishes <tt>Constraint Connectors</tt> for mating with other assembly components or subassemblies.</p>
+
+<div style="display: none">
+
+<p>An assembly component defines a geometry by a group of elements in the <tt>Parts</tt> collection:</p>
+
+<figcaption>Figure 8: Assembly Component</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-008.png" width="246" /></div>
+
+<p>In this example, the geometry of a cylinder head screw is provided by a single <tt>Part Design</tt> <tt>Body</tt> element. A more complex component would provide several bodies here. The collection can hold bodies, sketches or elements produced with other workbenches, and even Assembly objects.</p>
+
+<p>The <tt>Elements</tt> collection holds the <tt>Constraint Connectors</tt>. The names <tt>Elements</tt> and <tt>Element</tt> is a slightly misfortunate choice, <tt>Connectors</tt> and <tt>Connector</tt> (for the child nodes) would fit much better. But of course we can rename the nodes, they are only labels, not the internal names maintained by the Freecad engine.</p>
+
+<p>The example above has only one <tt>Connector</tt> called "Head Seat". This is sufficient to assemble a screw with a constraint.</p>
+
+</div>
+
+<!-- h3 Components --></div>
+
+<h3>Subassemblies</h3><div>
+
+<p>A subassembly is a regular <tt>Assembly</tt> object that contains any number of geometry defining parts, including other assembly components or subassemblies.</p>
+
+<p>A subassembly has one or more public <tt>Constraint Connectors</tt> defined, which are intended to mate the subassembly with other subassemblies or assembly components.</p>
+
+<div style="display: none">
+<p>A subassembly contains one or more <tt>Assembly</tt> objects, and defines one or more <tt>Assembly Connectors</tt> for mating with other components. <tt>Constraints</tt> between them can be defined, but they are optional.</p>
+
+<figcaption>Figure 9: A Subassembly</figcaption>
+<div class="imgbox"><img src="../../img/asm3/arch/fig-009.png" width="297" /></div>
+
+<p>In the example above, the <tt>Assembly</tt> contains two parts, a washer and a cylinder head screw, both wrapped in their <tt>Assembly</tt> container. A constraint between these parts has been defined, which appears as <tt>Plane Coincident</tt> constraint in the <tt>Constraints</tt> collection of the <tt>Assembly</tt>.</p>
+
+<p>The Plane Coincident constraint mates two components by binding to their <tt>Connectors</tt>, one on the washer, the other on the screw. They appear under the artificial name <tt>_Element999</tt> as child elements of the constraint.</p>
+
+<p>Connectors used in constraints also appear in the <tt>Connectors</tt> collection of the parent assembly, <tt>Elements005</tt>. They are not intended for external use, so they are marked "internal" in the <tt>Description</tt> column.</p>
+
+<p>The other <tt>Connector</tt> of the washer is published in the <tt>Constraint Connectors</tt> collection under the name "Washer Seat". It is intended for mating the subassembly with other assembly components.</p>
+</div>
+
+</div>
+
+<h3>Project Assembly Container</h3><div>
+
+<p>A project assembly container is a regular <tt>Assembly</tt> object that contains any number of geometry defining parts, assembly components and subassemblies, but in contrast to the subassembly, it does not publish assembly connectors to the outside world.</p>
+
+</div>
+
+<!-- h2 Structure of the Assembly Object --></div>
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>

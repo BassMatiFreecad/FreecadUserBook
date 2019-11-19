@@ -1,0 +1,7 @@
+*.mp4
+*.vsdx
+*.zip
+.vs/
+old/*
+local/*
+vid/*
