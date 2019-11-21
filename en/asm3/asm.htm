@@ -554,12 +554,11 @@
 <script>
 // Request document resources.
 Synesis.Loader.request ( {
-	uriPrefix: "../../" ,
+	uriPrefix: "../" ,
 	uris : "table-of-contents.htm" ,
 	targetContainers : "navigation-panel" ,
 	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
 	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
 } ) ;
 </script>
-
 </div></body></html>

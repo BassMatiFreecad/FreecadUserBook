@@ -69,21 +69,23 @@
 <figcaption id="fig-005">Figure 5: Broken Constraints</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-005.png" width="284" /></div>
 
-<p>A screw is a standard component, and will probably be used in multiple places in a project, in the form of copies or clones: </p>
+<p class="info">The problems arising from such design changes are known under the name "topo-naming problem". Search the Freecad Forum for the term. The discussions provide valuable background information.</p>
+
+<p>It is not a problem when only a single instance of a component is used with a single constraint. The developer reassigns another, suitable geometry element to the constraint, and the problem is solved. But with the number of component copies (clones) or the number of constraints used with a broken geometry, the problem gets bigger. Consider a standard component such as a bolt, which might be used in several hundreds of copies: </p>
 
 <figcaption>Figure 6: Broken Constraints Multiplied</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-006.png" width="226" /></div>
 
-<p>The problem was been multiplied. In other words: Lots of work for a developer.</p>
+<p>The problem is multiplied, and so is the work for the developer.</p>
 
 <p>This is where the <tt>Assembly 3</tt> <tt>Constraint Connector</tt> comes into play:</p>
 
 <figcaption>Figure 7: Model Integrity Maintained</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-007.png" width="306" /></div>
 
-<p>Side note: The links are the Assembly 3 equivalent of the <tt>Clone</tt>.</p>
+<p class="info">Side note: The links are the Assembly 3 equivalent of the <tt>Clone</tt>.</p>
 
-<p>A component developer is responsible to bind a <tt>Constraint Connector</tt> to an internal geometry element inside the component. When the component breaks, the developer rebinds the <tt>Connector</tt> to a different geometry element which serves the same purpose. The update appears in exactly one place. The effect is that the <tt>Connector</tt> remains intact, and the model will not be broken by design changes. </p>
+<p>A component developer is responsible to bind a <tt>Constraint Connector</tt> to an internal geometry element inside the component. When the component breaks, the developer rebinds the <tt>Connector</tt> to a different geometry element which serves the same purpose. The update appears in exactly one single place. The effect is that the <tt>Connector</tt> remains intact, and the model will not be broken by design changes. </p>
 
 <p>Figure 7 illustrates another important architectural aspect: The entire component geometry is considered <em>local</em> or <em>internal</em>, the <tt>Connectors</tt> are considered their <em>public interfaces</em>. Their purpose is to <em>publish</em> an internal geometry element, and thereby isolate it from the outside world.</p>
 
@@ -114,7 +116,7 @@
 
 </div>
 
-<!-- h3 Components --></div>
+<!-- h3 Assembly Components --></div>
 
 <h3>Subassemblies</h3><div>
 
@@ -146,6 +148,24 @@
 </div>
 
 <!-- h2 Structure of the Assembly Object --></div>
+
+<h2>Essential Glossary of Names</h2><div>
+
+<p>In the current preview version of <tt>Assembly 3</tt>, some object names have been chosen a little bit unfortunate. Here is a list of node names you should know.</p>
+
+<dl>
+<dt>Assembly</dt><dd>A container for objects that generate geometry elements, such as a <tt>Part Design</tt> <tt>Body</tt>, a <tt>Part</tt>, a solid, or other <tt>Assemblies</tt>. The fact that assemblies can be nested in assemblies allows the developer to create tree structures.</dd>
+
+<dt>Constraints</dt><dd>Defines as spatial relationship between geometry objects. Sometimes called <tt>Assembly Constraints</tt>.</dd>
+
+<dt>Elements</dt><dd>Contains the <tt>Constraint Connectors</tt> used in the <tt>Assembly</tt>. Should be renamed to <tt>Connectors</tt> or <tt>Constraint Connectors</tt></dd>
+
+<dt>Element</dt><dd>Represents a <tt>Constraint Connector</tt>. This is where an <tt>Assembly Constraint</tt> binds to. Should be renamed to <tt>Connector</tt> or <tt>Constraint Connector</tt>.</dd>
+
+<dt>Parts</dt><dd>A group node (or collection) that holds all kinds of geometry generating objects, such as <tt>Bodies</tt>, <tt>Parts</tt> or <tt>Assemblies</tt>.</dd>
+</dl>
+
+<!-- h2 Object Names --></div>
 
 <div id="script-area">
 <script src="../../inc/topic-1.js"></script>
