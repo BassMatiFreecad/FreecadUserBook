@@ -45,6 +45,7 @@ h1 {
 
 h1,h2,h3,h4,h5,h6 {
 	line-height: 160%;
+	color: #8080A0;
 }
 
 h1 + h2 {
@@ -55,6 +56,14 @@ h2 {
 	margin-top: 40px;
 }
 
+h2[cbs] {
+	background-position-y: 7px;
+}
+
+h3[cbs] {
+	background-position-y: 2px;
+}
+
 h2[cbs], h3[cbs] {
 	margin-left: -20px;
 	margin-bottom: 0px;
@@ -63,7 +72,6 @@ h2[cbs], h3[cbs] {
 	min-height: 32px;
 	background-repeat: no-repeat;
 	background-position-x: 0px;
-	background-position-y: top;
 }
 
 h2[cbs] + div, h3[cbs] + div {
@@ -142,7 +150,7 @@ li > img {
 	position: sticky;
 	top: 0px;
 	margin-left: -40px;
-	padding-left: 40px;
+	padding-left: 5px;
 	background-color: white;
 	border-top: solid 1px silver;
 	border-bottom: solid 1px silver;

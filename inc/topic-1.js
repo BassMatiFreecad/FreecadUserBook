@@ -1,5 +1,11 @@
-
+		// Root object
 if ( typeof Synesis === "undefined" ) Synesis = { } ;
+
+		// Index Page functions
+		// Must be called before this file is processed.
+Synesis.initIndexPage = function ( ) {
+	Synesis.isIndexPage = true;
+} ;
 
 		// Semaphore class for synchronization purposes
 ( function initSemaphore ( ) {
@@ -241,7 +247,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 	Synesis.CollapsibleBlock.expand = function ( controller ) {
 		// Returns true if the controller state actually changed.
 		// Expand the block to the required height
-		if ( controller.getAttribute( "cbs" ) === "0" ) return false;
+		if ( controller.getAttribute( Synesis.CollapsibleBlock.cban ) === "0" ) return false;
 		// Controllers may not already be initialized.
 		if ( controller.Synesis && controller.Synesis.block ) {
 			// Set style height temporarily to "auto" to get the required numerical value for the transition.
@@ -254,7 +260,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 			} , 100 );
 		}
 		// Update controller state.
-		controller.setAttribute( "cbs", "0" );
+		controller.setAttribute( Synesis.CollapsibleBlock.cban, "0" );
 		return true;
 	};
 
@@ -265,7 +271,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 		// Collapse the block on a new script engine loop.
 		window.setTimeout( function ( ) { controller.Synesis.block.style.height = "0px"; }, 100 );		
 		// Set the new controller state.
-		controller.setAttribute( "cbs", "1" );
+		controller.setAttribute( Synesis.CollapsibleBlock.cban, "1" );
 	};
 
 		// Click event handler for the collapsible block controllers.
@@ -273,7 +279,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 		evt = evt || window.event;
 		// Bypass if the controller icon has not been hit.
 		if ( evt.offsetX > 40 ) return;
-		switch ( this.getAttribute( "cbs" ) ) {
+		switch ( this.getAttribute( Synesis.CollapsibleBlock.cban ) ) {
 		case "0" :  // block is expanded
 				Synesis.CollapsibleBlock.collapse( this );
 				break;
@@ -282,7 +288,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 				break;
 		default:
 			console.error ( errorInfo + "Illegal controller state, reset to 0." );
-			controller.setAttribute( "cbs", "0" );
+			controller.setAttribute( Synesis.CollapsibleBlock.cban, "0" );
 			controller.Synesis.block.style.height = "auto";
 		}
 		// Declare the event handled.
@@ -299,9 +305,9 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 		while ( target && target.tagName !== "BODY" ) {
 			// Look for a collapsible block controller.
 			var controller = target;
-			if ( ! controller.hasAttribute( "cbs" )) controller = target.previousElementSibling;
+			if ( ! controller.hasAttribute( Synesis.CollapsibleBlock.cban )) controller = target.previousElementSibling;
 			// If there is one, expand its block.
-			if ( controller && controller.hasAttribute( "cbs" )) result |= Synesis.CollapsibleBlock.expand( controller );
+			if ( controller && controller.hasAttribute( Synesis.CollapsibleBlock.cban )) result |= Synesis.CollapsibleBlock.expand( controller );
 			// Ascend to the parent node.
 			target = target.parentNode;
 		}
@@ -314,9 +320,12 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 		// *	Must be called when the document has been loaded competely.
 		// *	Method deletes itself when done.
 		
+		// Special handling of index pages
+		// Set the collapsible block atttribute name
+		Synesis.CollapsibleBlock.cban =  Synesis.isIndexPage === true ? "cbt" : "cbs" ;
 		// Collect the collabsible block controllers on the page
 		// and exit if there is nothing to do.
-		var controllers = document.querySelectorAll( "[cbs]" );
+		var controllers = document.querySelectorAll( "[" + Synesis.CollapsibleBlock.cban + "]" );
 		if ( controllers.length === 0 ) return;
 
 		// Expand all blocks that contain the navigation target element (id in the hash).
@@ -339,7 +348,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 			// TODO: Use a search function here to skip comment elements.
 			var block = controller.Synesis.block = controller.nextElementSibling;
 			// Collapse blocks if the controller status indicates so.
-			if ( controller.getAttribute( "cbs" ) === "1" ) block.style.height = "0px" ;
+			if ( controller.getAttribute( Synesis.CollapsibleBlock.cban ) === "1" ) block.style.height = "0px" ;
 			// Register event handlers.
 			controller.addEventListener( "click", Synesis.CollapsibleBlock.clickHandler.bind( controller ));
 			controller.style.transition = "margin-top linear 1s";
@@ -503,6 +512,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 	Synesis.Navigation.initDocument = function () {
 		// Find the navigation panel.
 		var navpanel = Synesis.Navigation.panel = document.getElementById( "navigation-panel" );
+		if ( ! navpanel ) navpanel = Synesis.Navigation.panel = document.getElementById( "navigation-tree" );
 		// Eventhandler to close the navpanel.
 		navpanel.addEventListener( "click", function( evt ) {
 			evt = evt || window.event;
@@ -652,7 +662,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 
 		// Expand all collapsible blocks
 	Synesis.Menu.expandAll = function ( ) { 
-		var controllers = document.querySelectorAll( "[cbs]" );
+		var controllers = document.querySelectorAll( "[" + Synesis.CollapsibleBlock.cban + "]" );
 		for ( var i = 0 ; i < controllers.length ; i ++ ) {  
 			var controller = controllers[ i ];
 			Synesis.CollapsibleBlock.expand( controller );
@@ -661,7 +671,7 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 
 		// Collapse all collapsible blocks
 	Synesis.Menu.collapseAll = function ( ) { 
-		var controllers = document.querySelectorAll( "[cbs]" );
+		var controllers = document.querySelectorAll( "[" + Synesis.CollapsibleBlock.cban + "]" );
 		for ( var i = 0 ; i < controllers.length ; i ++ ) {  
 			var controller = controllers[ i ];
 			Synesis.CollapsibleBlock.collapse( controller );
@@ -680,7 +690,10 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 	Synesis.Menu.initDocument = function ( ) {
 		var menuPanel = document.getElementById( "page-menu" );
 		if ( ! menuPanel ) return;
-		menuPanel.innerHTML = '<div><a href="../index.htm">Home</a></div> <div> <a navigate="prev">&larr;</a></div> <div><a navigate="next">&rarr;</a></div> <div onclick="Synesis.Menu.navigate()">Table of Contents</div> <div onclick="Synesis.Menu.expandAll()">Expand</div> <div onclick="Synesis.Menu.collapseAll()">Collapse</div>';	
+		var s = '<div><a href="../index.htm">Home</a></div> <div> <a navigate="prev">&larr;</a></div> <div><a navigate="next">&rarr;</a></div>';	
+		if ( ! Synesis.isIndexPage ) s += ' <div onclick="Synesis.Menu.navigate()">Table of Contents</div>';
+		s += ' <div onclick="Synesis.Menu.expandAll()">&oplus;</div> <div onclick="Synesis.Menu.collapseAll()">&ominus;</div>';		
+		menuPanel.innerHTML = s;
 		// Harakiri
 		delete Synesis.Menu.initDocument;
 	} ;
