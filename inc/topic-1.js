@@ -567,6 +567,23 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 			node = node.parentNode;
 		}
 	} ;
+		
+		// Sets the href attribute of naviation links found on the page.
+	Synesis.NavigationTree.initNavigationLinks = function( linktype, target ) {
+		if ( typeof target === "undefined" ) return;
+		var links = document.querySelectorAll( "[navigate='" + linktype + "']" );
+		for ( var i = 0 ; i < links.length ; i ++ )  {
+			var href = target.getAttribute( "href" );
+			if ( href.endsWith( "table-of-contents.htm" )) continue;
+			links[ i ].setAttribute( "href", href );
+		}
+	} ;
+
+		// Looks for known navigation links on the page and fills their href attribute.
+	Synesis.NavigationTree.initPageNavigation = function ( ) { 
+		Synesis.NavigationTree.initNavigationLinks( "prev", Synesis.NavigationTree.previousPage );
+		Synesis.NavigationTree.initNavigationLinks( "next", Synesis.NavigationTree.followingPage );
+	} ;
 
 		// Initializes the special tree on the navigation panel and overrides the 
 	Synesis.NavigationTree.initDocument = function ( ) {
@@ -609,9 +626,19 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 					// Indicated that the node is "active" and expand the path to the node.
 					anchor.parentNode.setAttribute( "active", "1" );
 					Synesis.NavigationTree.expandPath( tree, anchor.parentNode.parentNode );
+					// Store references to the neighbour nodes.
+					if ( ! Synesis.NavigationTree.currentPage ) {
+						if ( j > 0 ) Synesis.NavigationTree.previousPage = anchors[ j - 1 ];
+						Synesis.NavigationTree.currentPage = anchors[ j ];
+						if ( j < anchors.length - 1 ) Synesis.NavigationTree.followingPage = anchors[ j + 1 ];
+					}
 				}
 			} 
 		}
+		
+		// Initialize navigation links in the document.
+		Synesis.NavigationTree.initPageNavigation( );
+
 		// Harakiri
 		delete Synesis.NavigationTree.initDocument ;
 	} ;
@@ -642,18 +669,18 @@ if ( typeof Synesis === "undefined" ) Synesis = { } ;
 	} ;
 
 		// Open or close the navigation panel
-	Synesis.Menu.navigate = function () {
+	Synesis.Menu.navigate = function ( ) {
 		var navpanel = document.getElementById( "navigation-panel" );
 		if ( ! navpanel ) return;
 		if ( navpanel.style.left === "0px" ) Synesis.Navigation.hide( );
 		else Synesis.Navigation.show( );
 	} ;
-		
+
 		// Initialize the page menu structures.
 	Synesis.Menu.initDocument = function ( ) {
 		var menuPanel = document.getElementById( "page-menu" );
 		if ( ! menuPanel ) return;
-		menuPanel.innerHTML = '<div><a href="../index.htm">Home</a></div> <div onclick="Synesis.Menu.expandAll()">Expand</div> <div onclick="Synesis.Menu.collapseAll()">Collapse</div> <div onclick="Synesis.Menu.navigate()">Table of Contents</div>';	
+		menuPanel.innerHTML = '<div><a href="../index.htm">Home</a></div> <div> <a navigate="prev">&larr;</a></div> <div><a navigate="next">&rarr;</a></div> <div onclick="Synesis.Menu.navigate()">Table of Contents</div> <div onclick="Synesis.Menu.expandAll()">Expand</div> <div onclick="Synesis.Menu.collapseAll()">Collapse</div>';	
 		// Harakiri
 		delete Synesis.Menu.initDocument;
 	} ;

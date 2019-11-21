@@ -113,6 +113,10 @@ tt {
 	margin-bottom: 20px;
 }
 
+.imgbox {
+	overflow: scroll;
+}
+
 .instructions {
 	margin-top: 30px;
 	margin-bottom: 30px;
@@ -204,7 +208,7 @@ li > img {
 	background-image: url(orange-circle-32-minus.png);
 }
 
-#navigation-panel ul.tree li["active"] {
+#navigation-panel ul.tree li[active] {
 	background-image: url(orange-circle-32-dot-active.png);
 }
 

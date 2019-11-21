@@ -31,7 +31,7 @@
 <figcaption>Figure 1</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-001.png" width="127" /></div>
 
-<p>A component is a Freecad object that defines geometry elements, such as vertices, edges or faces, to define its shape. An assembly constraint binds to these geometry elements, and thereby establishes a specific spatial relationship between these objects. To solve the relationship, the constraint modifies position and/or rotation of the related objects. Whenever the project model is recomputed, the constraints recompute position and orientation of the related objects in order to maintain their spatial relationship.</p>
+<p>A part in this context is any Freecad object that defines geometry elements, such as vertices, edges or faces, to define its shape. An assembly constraint binds to these geometry elements, and thereby establishes a specific spatial relationship between the parts. To solve the relationship, the constraint modifies position and/or rotation of the related parts. Whenever the project model is recomputed, the constraints recompute position and orientation of the related parts in order to maintain their spatial relationship.</p>
 
 <p>A constraint effectively reduces the degrees of freedom of movement of the objects against each other. In a three-dimensional space, we have a maximum of six degrees of freedom: Movement in the direction of the three coordinate system axes, and rotation around them. If the degree of freedom between components is zero, their position relative to each other is fixed. In other words, they are "glued" together, they are <em>fully constrained</em>.</p>
 
@@ -39,14 +39,14 @@
 
 <h2 cbs="0">Assembly 3 Constraints</h2><div>
 
-<p>Constraints in the <tt>Assembly 3</tt> workbench are very similar, but they add an additional element, the <tt>Assembly Connector</tt>, or short <tt>Connector</tt>:</p>
+<p>Constraints in the <tt>Assembly 3</tt> workbench are very similar, but they add an additional element, the <tt>Constraint Connector</tt>, or short <tt>Connector</tt>:</p>
 
 <figcaption>Figure 2: Constraints Architecture in ASM3</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-002.png" width="127" /></div>
 
-<p>The purpose of the connector is to <em>publish</em> a specific geometry element of the component, and constraints can only bind to connectors.</p>
+<p>The purpose of the connector is to <em>publish</em> a specific geometry element of the component, and offer an interface where constraints can bind to. In other words, <tt>Assembly 3</tt> <tt>Constraints</tt> can only bind to <tt>Connectors</tt>.</p>
 
-<p>At first glance, the introduction of connectors seems to be pointless, but there is a reason behind: <tt>Connectors</tt> act as an additional layer of indirection. This becomes evident when we examine how a model <em>breaks</em> when it is modified.</p>
+<p>At first glance, the introduction of connectors seems to be pointless, but there is a good reason behind: <tt>Connectors</tt> act as an additional layer of indirection. This becomes evident when we examine how a model <em>breaks</em> when it is modified.</p>
 
 <!-- h2 Assembly 3 Constraints --></div>
 
@@ -64,7 +64,7 @@
 <figcaption>Figure 4: Selected Geometry Element in a Screw</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-004.png" width="106" /></div>
 
-<p>If the developer decides to remove the shaft element, all constraints that used this edge will break. Figure 5 illustrates that in an abstract form. The orange dot represents the broken geometry element, the arrows represent constraints:</p>
+<p>If the developer decides to remove the shaft feature, all constraints that use this edge will break. Figure 5 illustrates that in an abstract form. The orange dot represents the broken geometry element, the arrows represent constraints:</p>
 
 <figcaption id="fig-005">Figure 5: Broken Constraints</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-005.png" width="284" /></div>
@@ -93,7 +93,7 @@
 
 <h2 cbs="0">Buiding Structures With Assembly Objects</h2><div>
 
-<p>The <tt>Assembly</tt> object is a container object for parts that define the geometry of the assembly, very much like a Freecad <tt>Part</tt> object.</p>
+<p>The <tt>Assembly</tt> object is a container object for parts that define the geometry of the assembly, very much like a Freecad <tt>Part</tt> object. <tt>Constraint Connectors</tt> and <tt>Constraints</tt> are managed inside an <tt>Assembly</tt> object, so everything you want to apply assembly contraints on must be wrapped by an <tt>Assembly</tt> container.</p>
 
 <h3>Assembly Components</h3><div>
 

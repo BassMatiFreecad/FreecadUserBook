@@ -1,0 +1,565 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Assembly 3 - First Steps With Assemblies</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-11-13">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-11-13">
+<meta name="document-version" content="2">
+<meta name="template-version-date" content="2019-11-17">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+</head><body>
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>First Assembly Demo</h1>
+
+<div id="navigation-panel"></div>
+
+<div>
+<p></p>
+</div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Constraint</tag>, <tag>Connector</tag>, <tag>Container</tag>.</p>
+</div>
+
+<h3 cbs="1">Files</h3><div>
+<dl>
+<dt id="file-001"><a href="../../files/asm3/asm/asm-001.fcstd">asm-001.fcstd</a></dt><dd>Washer Component</dd>
+<dt id="file-002"><a href="../../files/asm3/asm/asm-002.fcstd">asm-002.fcstd</a></dt><dd>Washer and Block</dd>
+<dt id="file-003"><a href="../../files/asm3/asm/asm-003.fcstd">asm-003.fcstd</a></dt><dd>Washer, Block, Project Assembly Container, unassembled</dd>
+<dt id="file-004"><a href="../../files/asm3/asm/asm-004.fcstd">asm-004.fcstd</a></dt><dd>Washer in the wrong orientation</dd>
+<dt id="file-005"><a href="../../files/asm3/asm/asm-005.fcstd">asm-005.fcstd</a></dt><dd>Completed assembly, wrong washer orientation corrected</dd>
+<dt id="file-006"><a href="../../files/asm3/asm/asm-006.fcstd">asm-006.fcstd</a></dt><dd>Completed assembly with pre-positioning.</dd>
+<dt id="file-007"><a href="../../files/asm3/asm/asm-007.fcstd">asm-007.fcstd</a></dt><dd>Broken connector recovered.</dd>
+
+</dl></div>
+
+<h3 cbs="1">Videos</h3><div>
+<ul>
+<li id="vid-001"><a href="???.mp4">???.mp4</a>&emsp;Assembly 3 Video Title</li>
+</ul></div>
+
+<h2 cbs="0">First Steps With Assemblies</h2><div>
+
+<p>This tutorial will get you started with <tt>Assemblies</tt>. We will create two components, and mate them with an <tt>Assembly Constraint</tt>.</p>
+
+<h3>A Washer</h3><div>
+<ol start="1">
+<li>Create a new project file, and save it under the name "asm.fcstd".</li>
+<li>Switch to the <tt>Part Design</tt> workbench.</li>
+<li>Select the <tt>asm</tt> project node in the model tree.</li>
+<li>Create a new <tt>Body</tt>.</li>
+<li>Create a new <tt>Sketch</tt> on the XZ plane.</li>
+<li>Create two circles with their center constrained to the sketch origin.</li>
+<li>Constrain their diameters to "8.3" and "16 mm".<br /><img src="../../img/asm3/asm/fig-001.png" width="225" /></li>
+<li><tt>Leave</tt> the sketch.</li>
+<li>Create a new <tt>Pad</tt> with a length of "2 mm".<br /><img src="../../img/asm3/asm/fig-003.png" width="202" /><br /><img src="../../img/asm3/asm/fig-002.png" width="146" /></li>
+</ol>
+
+<p>Wrap the <tt>Body</tt> with an <tt>Assembly</tt>:</p>
+
+<ol start="10">
+<li>Switch to the <tt>Assembly 3</tt> workbench.</li>
+<li>Create a new <tt>Assembly</tt>.</li>
+<li>Right-click on the <tt>Property Panel</tt>, then click <tt>Show all</tt>.</li>
+<li>Set the <tt>Label</tt> property to "Assembly000 000".</li>
+<li>Set the <tt>Label2</tt> property to "Washer".</li>
+<li>Drag the <tt>Body</tt> node and drop it on the washer assembly.<br /><img src="../../img/asm3/asm/fig-004.png" width="248" /></li>
+</ol>
+
+<p>The <tt>Body</tt> appears under the <tt>Parts</tt> node of the washer assembly.</p>
+
+<p>Now we will define the <tt>Constraint Connectors</tt> of the washer component.</p>
+
+<ol start="16">
+<li>Select the <tt>Elements</tt> node.</li>
+<li>Set its <tt>Label2</tt> property to "Constraint Connectors" to describe the purpose of this node.</li>
+<li>Press "1" to select the front view, then tilt the view slightly back so that you have a clear view on both inner edges.</li>
+<li>Select the two inner edges if the washer body. These edges are owned by the <tt>Pad</tt> feature.<br /><img src="../../img/asm3/asm/fig-005.png" width="167" /></li>
+<li>Drag the <tt>Pad</tt> node on the <tt>Elements</tt> node.<br /><img src="../../img/asm3/asm/fig-006.png" width="280" /></li>
+</ol>
+
+<p>Two child nodes are created: <tt>Element</tt> and <tt>Element001</tt>. These are the <tt>Connectors</tt> that constraints can bind to. They are bound to the inner edges of the washer. If they are selected or if the mouse pointer hovers over them, they are highlighted in the 3D view.</p>
+
+<img src="../../img/asm3/asm/fig-007.png" width="166" />
+
+<p>Now we will provide a better identification for the connectors.</p>
+
+<p class="info">Depending on how you selected the edges in step 18, your connectors might have been assigned differently.</p>
+
+<ol start="21">
+<li>Select the first <tt>Connectors</tt> child node, and verify the highlighted lower inner edge.</li>
+<li>Set the <tt>Label2</tt> property to "Washer Lower Inner Edge".</li>
+<li>Select the second <tt>Connectors</tt> child node, and verify the highlighted upper inner edge.</li>
+<li>Set the <tt>Label2</tt> property to "Washer Upper Inner Edge".<br /><img src="../../img/asm3/asm/fig-008.png" width="280" /></li>
+</ol>
+
+<p>At this point, the washer component is finished. Some cleanup steps:</p>
+
+<ol start="25">
+<li>Collapse all open nodes.</li>
+<li>Hide the washer assembly.</li>
+<li>Save a copy under the file name "asm-001.fcstd".</li>
+</ol>
+
+<!-- h3 A Washer --></div>
+
+<h3>A Block Component</h3><div>
+
+<p>In this step we will define a simple block with a bunch of holes where we can attach the washers to.</p>
+
+<div class="info">
+<p>To start here from scratch, &hellip;</p>
+<ul>
+<li>Open the file <a href="../../files/asm3/asm/asm-001.fcstd">asm-001.fcstd</a></li>
+<li>Save as "asm.fcstd" to create the work file.</li>
+</ul>
+</div>
+
+<ol start="28">
+<li>Switch to the <tt>Part Design</tt> workbench.</li>
+<li>Select the <tt>asm</tt> project file node in the <tt>Model Tree</tt>.</li>
+<li>Create a new <tt>Body</tt>.</li>
+<li>Create a new <tt>Sketch</tt> on the XY plane.</li>
+<li>Create three circles with their center constrained to the X axis, and the middle one constrained to the sketch origin.</li>
+<li>Constrain their diameter to "8 mm".</li>
+<li>Constrain the center of the outer circles symmetrical to the Y axis.</li>
+<li>Draw a rectangle around them.</li>
+<li>Constrain the end points of a vertical edge symmetrical to the X axis.</li>
+<li>Constrain the end points of a horizontal edge symmetrical to the Y axis.</li>
+<li>Constrain the distance between the outer circles to "20 mm".</li>
+<li>Constrain the horizontal edge of the rectangle to "40 mm".</li>
+<li>Constrain the vertical edge of the rectangle to "20 mm".<br /><img src="../../img/asm3/asm/fig-009.png" width="313" /></li>
+</ol>
+
+<p>The sketch should be fully constrained now.</p>
+<p>You can name the datum constraints according to this image:</p>
+
+<figcaption>Figure 10: Constraint names and values.</figcaption>
+<div class="imgbox"><img src="../../img/asm3/asm/fig-010.png" width="300" /></div>
+
+<ol start="41">
+<li><tt>Leave</tt> the sketch.</li>
+<li>Create a new <tt>Pad</tt>, lenght = "10 mm".<br /><img src="../../img/asm3/asm/fig-013.png" width="176" /></li>
+<li>Press "0" on the keyboard to get a standard view on the component.<br /><img src="../../img/asm3/asm/fig-011.png" width="288" /></li>
+<li>Select the upper edges of the holes.</li>
+<li>Create a new <tt>Chamfer</tt> with a size of "0.7 mm".<br /><img src="../../img/asm3/asm/fig-012.png" width="285" /></li>
+<li>Collapse <tt>Body001</tt> and its child nodes.</li>
+</ol>
+
+<p>We will now wrap the body with an <tt>Assembly</tt> container:</p>
+
+<ol start="47">
+<li>Switch to the <tt>Assembly 3</tt> workbench.</li>
+<li>Create a new <tt>Assembly</tt>.</li>
+<li>Right-click on the <tt>Property Panel</tt>, then click <tt>Show all</tt>.</li>
+<li>Set the <tt>Label</tt> property to "Assembly001 000".</li>
+<li>Set the <tt>Label2</tt> property to "Block".</li>
+<li>Drag <tt>Body001</tt> on the block assembly.<br /><img src="../../img/asm3/asm/fig-014.png" width="255" /></li>
+</ol>
+
+<p>Now we will define the <tt>Constraint Connectors</tt> of the block component.</p>
+
+<ol start="53">
+<li>Select the <tt>Elements001</tt> node.</li>
+<li>Set its <tt>Label2</tt> property to "Constraint Connectors" to describe the purpose of this node.</li>
+<li>Select the two outer chamfer edges of the outer bore holes. These edges are owned by the <tt>Chamfer</tt> feature.<br /><img src="../../img/asm3/asm/fig-015.png" width="285" /></li>
+<li>Drag the <tt>Chamfer</tt> node on the constraint connectors node.<br /><img src="../../img/asm3/asm/fig-016.png" width="291" /></li>
+</ol>
+
+<p>Two child nodes are created: <tt>Element002</tt> and <tt>Element003</tt>. These are the <tt>Constraint Connectors</tt> that constraints can bind to. </p>
+
+<ol start="57">
+<li>Select the two <tt>Connector</tt> nodes.</li>
+<li>Set the <tt>Label2</tt> property to "Bore Hole Chamfer Outer Edge".</li>
+</ol>
+
+<div class="note">
+<p>It is quite risky to bind a geometry element generated by a late feature such as this chamfer to a <tt>Constraint Connector</tt>. If an earlier <tt>Feature</tt> of the <tt>Body</tt> is modified, the edge names might disappear, or worse, might get a different meaning. We will investigate that and the implications later.</p>
+</div>
+
+<p>A better method is shown with the center hole:</p>
+
+<ol start="59">
+<li>Select <tt>Pad001</tt> and make it visible.</li>
+<li>Select the upper edge of the bore hole. It is owned by the <tt>Pad001</tt>.<br /><img src="../../img/asm3/asm/fig-017.png" width="272" /></li>
+<li>Drag <tt>Pad001</tt> on the constraint connectors node. This creates a new <tt>Constraint Connector</tt> in the <tt>Block</tt> component.<br /><img src="../../img/asm3/asm/fig-018.png" width="294" /></li>
+<li>Set its <tt>Label2</tt> property to "Center Bore Hole Upper Edge".</li>
+<li>Select the <tt>Chamfer</tt> node and make it visible.</li>
+<li>Select <tt>Element004</tt> and watch how it hovers in thin air above the chamfer.<br /><img src="../../img/asm3/asm/fig-019.png" width="235" /></li>
+</ol>
+
+<p>Compared with the previous method, this <tt>Connector</tt> definition is more robust, because it was defined on an earlier <tt>Feature</tt> of the <tt>Body</tt>. However, there is still a better option:</p>
+
+<ol start="65">
+<li>Hide the <tt>Chamfer</tt> node.</li>
+<li>Expand <tt>Pad001</tt>, and make <tt>Sketch001</tt> visible. The circles lie on the XY base plane, on the same level with the underside of the block.</li>
+<li>Select the three circles in the 3D window. They are owned by <tt>Sketch001</tt>.<br /><img src="../../img/asm3/asm/fig-020.png" width="258" /></li>
+<li>Drag <tt>Sketch001</tt> on the <tt>Constraint Connectors</tt> node.</li>
+<li>Set their <tt>Label2</tt> property to "Bore Hole Underside Edge".<br /><img src="../../img/asm3/asm/fig-021.png" width="303" /></li>
+<li>Hide <tt>Sketch001</tt> and show <tt>Chamfer</tt>.</li>
+</ol>
+
+<img src="../../img/asm3/asm/fig-022.png" width="260" />
+
+<p>The block component is finished with six constraint connectors where things like washers can be mated with. We will try that in the next step. But before, some cleanup steps:</p>
+
+<ol start="71">
+<li>Collapse the block and all of its child nodes.</li>
+<li>Make the washer assembly visible.</li>
+<li>Save a copy of the work file under the name "asm-002.fcstd".</li>
+</ol>
+
+<!-- h3 A Block Component --></div>
+
+<h3>Mating Washer and Block</h3><div>
+
+<p>Now is the time to get involved with <tt>Assembly Constraints</tt>.</p>
+
+<div class="info">
+<p>To start here from scratch, &hellip;</p>
+<ul>
+<li>Open the file <a href="../../files/asm3/asm/asm-002.fcstd">asm-002.fcstd</a></li>
+<li>Save as "asm.fcstd" to create the work file.</li>
+</ul>
+</div>
+
+<ol start="74">
+<li>Switch to the <tt>Assembly 3</tt> workbench.</li>
+<li>Expand the washer's <tt>Constraint Connectors</tt> node.</li>
+<li>Select the <tt>Washer Lower Inner Edge</tt> connector.</li>
+<li>Expand the block's <tt>Constraint Connectors</tt>.</li>
+<li>Control-click to select the first <tt>Outer Hole Outer Chamfer Edge</tt> connector.<br /><img src="../../img/asm3/asm/fig-023.png" width="279" /><br /><img src="../../img/asm3/asm/fig-024.png" width="296" /></li>
+<li>With two <tt>Constraint Connectors</tt> selected, click the <tt>Plane Coincident</tt> constraint button on the <tt>Assembly 3 Constraints</tt> toolbar.</li>
+</ol>
+
+<p>Oh. The toolbar is inactive. Let's activate it!</p>
+
+<ol start="80">
+<li>Click the menu <tt>View > Toolbars > Assembly 3 Constraints</tt>.</li>
+</ol>
+
+<p>Wait &mdash; the toolbar is<em> already active</em>! What's wrong here&hellip;?</p>
+
+<p>The answer is simple if you know the answer: There is no <tt>Assembly</tt> container that can store the constraint. The container must contain the objects to be mated. So let's create one!</p>
+
+<ol start="81">
+<li>Create a new <tt>Assembly</tt>.</li>
+<li>Set the <tt>Label</tt> to "Assembly002 000".</li>
+<li>Set <tt>Label2</tt> to "Project Assembly Container".</li>
+<li>Select the <tt>Elements002</tt> node.</li>
+<li>Set its <tt>Label2</tt> property to "Constraint Connectors".</li>
+<li>Save a copy of the work file under the name "asm-003".</li>
+</ol>
+
+<p>Continue:</p>
+
+<div class="info">
+<p>To start here from scratch, &hellip;</p>
+<ul>
+<li>Open the file <a href="../../files/asm3/asm/asm-003.fcstd">asm-003.fcstd</a></li>
+<li>Save as "asm.fcstd" to create the work file.</li>
+</ul>
+</div>
+
+<ol start="87">
+<li>Drag both block and washer assemblies on the project assembly container.</li>
+<li>Once again, expand the washer's <tt>Constraint Connectors</tt> node.</li>
+<li>Select the <tt>Washer Lower Inner Edge</tt> connector.</li>
+<li>Expand the block's <tt>Constraint Connectors</tt>.</li>
+<li>Control-click to select the first <tt>Outer Hole Outer Chamfer Edge</tt> connector.<br /><img src="../../img/asm3/asm/fig-025.png" width="314" /></li>
+<li>On the <tt>Assembly 3 Constraints</tt> toolbar, click the <tt>Plane Coincident</tt> constraint button.<br /><img src="../../img/asm3/asm/fig-026.png" /></li>
+</ol>
+
+<p>The washer should have jumped to the bore hole. If not, &hellip;</p>
+
+<ol start="93">
+<li>Click the menu <tt>Assembly3 > Solve constraints</tt>.</li>
+</ol>
+
+<p>Depending on the outside air temperature and the azimuth angle of the moon at a quarter to midnight, one of three things can happen:</p>
+
+<ul>
+<li>The washer jumped to its expected position, unfortunately in the wrong orientation.</li>
+<li>You get an error message:<br /><img src="../../img/asm3/asm/fig-027.png" width="251" /></li>
+<li>The washer jumped to its expected position <em>and</em> in the right orientation.</li>
+</ul>
+
+<p>If option three happend, save all your files, shut down the computer, go out, have a beer or two and be happy.</p>
+
+<p>To be honest: That never has happened to me&hellip;</p>
+
+<h4>Option 2 &ndash; Inconsistent Constraints</h4><div>
+
+<p>I'm not really sure what's the problem here, the error message does not really help out. I guess that the solver cannot decide in which direction to turn the washer so that the <tt>Connector</tt> planes become coplanar. So we will help a little bit and tilt the washer slightly:</p>
+
+<ol start="94">
+<li>Undo the last command, assembly constraint creation.</li>
+<li>Right-click the washer, click <tt>Assembly > Axial move part</tt>. The well-known <tt>Translation Tool</tt> appears.</li>
+<li>Tilt the washer slightly, perhaps like so:<br /><img src="../../img/asm3/asm/fig-028.png" width="289" /></li>
+<li>Select the two connectors, as shown above.</li>
+<li>Click the <tt>Plane Coincident</tt> constraint toolbar button.</li>
+</ol>
+
+<p>It happened that the toolbar remained inactive on the first try. Just deselect everything and try again. Et voilá &mdash; the washer jumped to the expected position. In the wrong orientation, of course.</p>
+
+<p>Anyway, &hellip;</p>
+
+<ol start="99">
+<li>Save a copy under the name "asm-004.fcstd" to have as state for retries.</li>
+</ol>
+
+<p>Well, I'm not totally unhappy with the result, because now we can continue with&hellip;</p>
+
+<!-- h4 Option 2 Inconsistent Constraints --></div>
+
+<h4>Option 1 &ndash; Washer in Wrong Orientation</h4><div>
+
+<p>That's the situation:</p>
+
+<img src="../../img/asm3/asm/fig-029.png" width="323" />
+
+<p>But let's see first what's happend in the <tt>Model Tree</tt>:</p>
+
+<img src="../../img/asm3/asm/fig-030.png" width="318" />
+
+<ul>
+<li>The project assembly container has gotten a new child node, <tt>Constraints002</tt>. To be precise, the node was already there, but not visible.</li>
+<li>There is a new node named <tt>PlaneCoincident</tt>. This is our constraint that we just have created.</li>
+<li>The constraint node has two child elements, <tt>_Element</tt> and <tt>_Element001</tt>. These are <tt>Link</tt> objects that point to other nodes with the same name.</li>
+</ul>
+
+<ol start="100">
+<li>Right-click the <tt>PlaneCoincident > _Element</tt> node, then click <tt>Select linked object</tt>.</li>
+</ol>
+
+<p>This carries us to another node with the same name, but with a different parent, named <tt>Elements002</tt>, which holds the <tt>Constraint Connectors</tt> of the project assembly container. It appears that all connectors that were used in a constraint are automatically published in the <tt>Constraint Connectors</tt> collection of the container assembly.</p>
+
+<ol start="101">
+<li>Set the description-<tt>Label2</tt> of <tt>Elements002</tt> to <tt>Constraint Connectors</tt>.</li>
+<li>Right-click the <tt>Elements002 > _Element</tt> node, then click <tt>Select linked object</tt> to follow the link chain to the next node.</li>
+</ol>
+
+<p>And indeed, that takes us to the <tt>Connector</tt> described as <tt>Washer Lower Inner Edge</tt>.</p>
+
+<p>Let's hold and think for a minute. On the previous page, we have defined that a project assembly container has no public constraint connectors, because a project is not intended to be mated with other assemblies. Clearly, the nodes in the <tt>Constraint Connectors</tt> child list are <em>internal connectors</em>. So if we find a way to designate them as "internal", we are back on track. A suggestion:</p>
+
+<div class="note">
+<p>Elements with no <tt>Description</tt> in the <tt>Constraint Connectors</tt> collection are considered "internal". A "public" or "external" connector has a non-blank description string.</p>
+</div>
+
+<p>So if we leave everything as is, the world is all right.</p>
+
+<p>Just to be curious:</p>
+
+<ol start="103">
+<li>Select the node <tt>Elements002 > _Element</tt>.</li>
+<li>Set the <tt>Label</tt> to "Washer Lower Inner Edge".</li>
+<li>Select the node <tt>Elements002 > _Element001</tt>.</li>
+<li>Set the <tt>Label</tt> to "Outer Hole Outer Chamfer Edge".</li>
+</ol>
+
+<p>Note that the <tt>Connectors</tt> under the <tt>Plane Coincident</tt> constraint also changed their names! </p>
+
+<p>To complete the documentation work, &hellip;</p>
+
+<ol start="107">
+<li>Select the <tt>Plane Coincident</tt> node.</li>
+<li>Set its <tt>Label2</tt> to "Washer on the right outer bore hole", or something similar descriptive.<br /><img src="../../img/asm3/asm/fig-031.png" width="395" /></li>
+</ol>
+
+<p>But now back to the problem: The washer is in the wrong orientation. We have three options to correct that:</p>
+
+<ul>
+<li>Use the washer's other connector.</li>
+<li>Bring the washer close to the desired position <em>and</em> orientation before creating the constraint.</li>
+<li>Dig through the properties of the constraint and see if we can find something useful.</li>
+</ul>
+
+<p>Start with number three. Try the various angle properties. Nothing happens. Try the offset property. That works &mdash; but not an ideal solution. </p>
+
+<p>Let's check number one. </p>
+
+<ol start="109">
+<li>Expand <tt>Parts002 > Assembly000 000 > Elements</tt>.</li>
+<li>Select <tt>Elements001</tt>.</li>
+</ol>
+
+<p>This is the washer upper inner edge. Inspect the edge in the 3D window. This could be the one.</p>
+
+<ol start="111">
+<li>Drag <tt>Elements001</tt> on <tt>Plane Coincident > Washer Lower Inner Edge</tt>.</li>
+</ol>
+
+<img src="../../img/asm3/asm/fig-033.png" width="225" />
+
+<p>This rebinds the constraint to a different connector. Note that the washer jumped into the desired position, finally. Also note that the label changed, it is now prefixed with an underline character. A look into the constraint connectors list shows a new entry, named "_Washer Lower Inner Edge". This is misleading, because it is the upper inner edge:</p>
+
+<ol start="112">
+<li>Right-click <tt>_Washer Lower Inner Edge</tt>, click <tt>Select linked object</tt>. This selects the same named node in the <tt>Constraint Connectors</tt> collection.</li>
+<li>Set its <tt>Label</tt> property to "Washer Upper Inner Edge".<br /><img src="../../img/asm3/asm/fig-032.png" width="427" /></li>
+</ol>
+
+<p>With this last action the tutorial is finished. Some final cleanup steps, as always:</p>
+
+<ol start="114">
+<li>Collapse all open nodes.</li>
+<li>Save a copy under the name "asm-005.fcstd".</li>
+</ol>
+
+<!-- h4 Washer in Wrong Orientation --></div>
+<!-- h3 Mating Washer and Block --></div>
+
+<h3>Conclusion</h3><div>
+
+<p>In this tutorial we have learned</p>
+<ul>
+<li>How to create an assembly component.</li>
+<li>Define its constraint connectors interface.</li>
+<li>Create a project assembly container to host the assembly components.</li>
+<li>Mate components by selecting constraint connectors and applying an assembly constraint.</li>
+<li>Pre-position components to help the solver deliver the expected result.</li>
+<li>Tweak constraint properties.</li>
+<li>Use <tt>Select linked object</tt> to find constraint connectors.</li>
+<li>Modify a constraint to use a different connector.</li>
+</ul>
+
+<p>In the next tutorial, we will try the second option, prepositioning the components to be mated to help the solver deliver the expected results.</p>
+
+<!-- h3 Conclusion --></div>
+
+<!-- h2 First Steps With Assemblies --></div>
+
+<h2 cbs="0">Pre-Positioning Components</h2><div>
+
+<p>In this small tutorial, we will try whether positioning components before mating them with constraints helps the solver to deliver better results. In the previous example we got the washer in the wrong orientation, so let's see if the strategy helps.</p>
+
+<ol start="1">
+<li>Load the file "asm-003.fcstd".</li>
+<li>Save as "asm.fcstd" to create the work file.</li>
+<li>Drag washer and block components on the project assembly container.</li>
+<li>Select the <tt>Washer Lower Inner Edge</tt> to get an idea how to move the component.<br /><img src="../../img/asm3/asm/fig-034.png" width="308" /></li>
+<li>Right-click the washer, then click <tt>Assembly 3 > Axial move part</tt>. The <tt>Translation Tool</tt> appears.</li>
+<li>Pull the washer up, and tilt it backwards by 15 degree or so.<br /><img src="../../img/asm3/asm/fig-035.png" width="308" /></li>
+<li>Select the washer's lower inner edge connector.</li>
+<li>Control-click on the <tt>Outer Hole Outer Chamfer Edge</tt> connector.</li>
+<li>Click the <tt>Plane Coincident</tt> button on the <tt>Assembly 3 Constraints</tt> toolbar.<br /><img src="../../img/asm3/asm/fig-036.png" width="284" /></li>
+</ol>
+
+<p>The washer jumped to the desired position, in the desired orientation. Q. e. d.</p>
+
+<p>Now let's have a look at how the solver did the job.</p>
+
+<ol start="10">
+<li>Collapse washer and block assemblies and their child nodes.</li>
+<li>Right-click on the <tt>Property Panel</tt> and uncheck <tt>Show all</tt>. This gives us a leaner interface.</li>
+<li>Select the block assembly, and inspect its <tt>Placement</tt> properties.<br /><img src="../../img/asm3/asm/fig-037.png" width="371" /></li>
+</ol>
+
+<p>It appears that the block remained in its initial position.</p>
+
+<ol start="13">
+<li>Select the washer assembly, and inspect its <tt>Placement</tt> properties.<br /><img src="../../img/asm3/asm/fig-038.png" width="390" /></li>
+</ol>
+
+<p>The washer was moved and rotated, but it could have been the other way round. If it is important that the block stays in its default position, select an arbitrary face and click the <tt>Lock Constraint</tt> toobar button <em>before you mate the components</em>. </p>
+
+<p>Some final cleanup steps:</p>
+
+<ol start="14">
+<li>Collapse all nodes.</li>
+<li>Save a copy under the name "asm-006.fcstd".</li>
+</ol>
+
+<!-- h2 Pre-Positioning Components --></div>
+
+<h2 cbs="0">Broken Constraint Connectors</h2><div>
+
+<p>In this tutorial we will learn how to repair a broken connector.</p>
+
+<p>Setting up the work file:</p>
+
+<ol start="1">
+<li>Load the file "asm-006.fcstd".</li>
+<li>Save it as "asm.fcstd" to create the workfile.</li>
+</ol>
+
+<img src="../../img/asm3/asm/fig-036.png" width="284" />
+
+<p>As you can see, the washer is mated to the bore hole chamfer on the upper face of the block. And one of the connectors involved is an outer chamfer edge. Let's see what happens if we delete the chamfer feature on the block body&emsp;</p>
+
+<ol start="3">
+<li>Hide the washer assembly.</li>
+<li>Right-click <tt>Assembly001 000 > Parts001 > Body001 > Chamfer</tt>, then click <tt>Delete</tt>.</li>
+</ol>
+
+<p>The chamfers on the upper faces of the block disappear as expected. But another node in the tree unfolded and presents two nodes with an error icon:</p>
+
+<img src="../../img/asm3/asm/fig-039.png" width="333" />
+
+<p>When you hover the mouse pointer of the first defective node, an error message box appears and notifies that a geometry element from Body001.Chamfer, Edge12 could not be found. Not surprising, we just deleted that thing.</p>
+
+<img src="../../img/asm3/asm/fig-040.png" />
+
+<p>The next steps illustrate how these broken connectors can be repaired.</p>
+
+<p>We will bind the upper edge of the pads to the connectors.</p>
+
+<ol start="5">
+<li>Select the broken connectors of the block component, and find out which one is under the washer. It is the first one, <tt>Element002</tt>.<br /><img src="../../img/asm3/asm/fig-041.png" width="288" /></li>
+<li>Select the upper edge of the corresponding bore hole in the 3D window. The edge is owned by <tt>Pad001</tt>.<br /><img src="../../img/asm3/asm/fig-042.png" width="282" /></li>
+<li>Drag <tt>Pad001</tt> on the broken connector identified in step 6, <tt>Element002</tt>.</li>
+<li>Change the description in <tt>Label2</tt> to "Outer Bore Hole Upper Edge".<br /><img src="../../img/asm3/asm/fig-043.png" width="311" /></li>
+<li>Repeat from step 7 with the other outer bore hole edge.</li>
+<li>Make the washer assembly visible.</li>
+<li>Collapse all nodes.</li>
+</ol>
+
+<p>Now let's verify that the constraint is still intact.</p>
+
+<ol start="12">
+<li>Select <tt>Assembly001 000 > Parts001 > Body001 > Pad001 > Sketch001</tt>.</li>
+<li>Expand the <tt>Constraints</tt> property.</li>
+<li>Set <tt>L0</tt> to "60 mm".</li>
+<li>Set <tt>L1</tt> to "40 mm".<br /><img src="../../img/asm3/asm/fig-044.png" width="305" /></li>
+</ol>
+
+<p>The block dimension were updated immediately, and the washer followed to the new bore hole location. If not, &hellip;</p>
+
+<ol start="16">
+<li>Right-click <tt>Pad001</tt>, click <tt>Recompute object</tt>.</li>
+<li>And/or click the menu <tt>Assembly3 > Solve constraints</tt>.</li>
+</ol>
+
+<p>Q. e. d.</p>
+
+<p>As always, final cleanup steps:</p>
+
+<ol start="18">
+<li>Collapse all nodes.</li>
+<li>Save a copy under the name "asm-007.fcstd".</li>
+</ol>
+
+<h3>Conclusion</h3><div>
+
+<p>In this tutorial we learned how to repair broken <tt>Constraint Connectors</tt> by rebinding them to another suitable geometry element.</p>
+
+<!-- h3 Conclusion --></div>
+<!-- h2 Broken Constraint Connectors --></div>
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>

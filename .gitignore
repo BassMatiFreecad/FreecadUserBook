@@ -1,6 +1,16 @@
 *.mp4
 *.vsdx
 *.zip
+*.fcstd1
+*.fcstd2
+*.fcstd3
+*.fcstd4
+*.fcstd5
+*.fcstd6
+*.fcstd7
+*.fcstd8
+*.fcstd9
+*.fcstd10
 .vs/
 old/*
 local/*
