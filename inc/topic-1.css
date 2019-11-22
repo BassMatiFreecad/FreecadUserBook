@@ -24,15 +24,6 @@ figcaption {
 	font-style: italic;
 	color: #808080;
 }
-.footer {
-	margin-left: -40px;
-	margin-top: 40px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	border-top: solid 1px silver;
-	text-align: center;
-	font-size: 75%;
-}
 
 gui {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -97,15 +88,67 @@ img {
 	max-width: 400px;
 }
 
+li > img {
+	margin: 15px 0px 5px 20px;
+}
+
 tt {
 	font-family: 'Arial Narrow', 'Franklin Gothic Medium', sans-serif,  'Times New Roman', Times;
 	font-size: 100%;
 	color: #4080A0;
 }
 
+ul.tree {
+	list-style-type: none;
+	padding-left: 5px;
+	line-height: 32px;
+}
+
+	ul.tree ul {
+		list-style-type: none;
+		padding-left: 0px;
+		overflow-y: hidden;
+		transition: height linear 1s;
+	}
+
+	ul.tree li {
+		padding-left: 32px;
+		min-height: 36px;
+		background-image: url(orange-circle-32-dot.png);
+		background-repeat: no-repeat;
+		background-position-x: 0px;
+		background-position-y: top;
+	}
+
+ul.tree li[cts="0"] {
+	background-image: url(orange-circle-32-minus.png);
+}
+
+ul.tree li[cts="1"] {
+	background-image: url(orange-circle-32-plus.png);
+}
+
+ul.tree li[cts="0"][active] {
+	background-image: url(orange-circle-32-minus-active.png);
+}
+
+ul.tree li[cts="1"][active] {
+	background-image: url(orange-circle-32-plus-active.png);
+}
+
 .boxed {
 	padding: 5px;
 	border: solid 1px silver;
+}
+
+.footer {
+	margin-left: -40px;
+	margin-top: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: solid 1px silver;
+	text-align: center;
+	font-size: 75%;
 }
 
 .info {
@@ -138,12 +181,37 @@ tt {
 	margin-bottom: 5px;
 }
 
+.navigation a {
+	text-decoration: none;
+}
+
+.navigation a:hover {
+	text-decoration: underline;
+}
+
+.no-padding {
+	padding: 0px;
+}
+
+.note {
+	border: solid 1px orange;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 9px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
 .nobullet {
 	list-style: none;
 }
 
-li > img {
-	margin: 15px 0px 5px 20px;
+.tip {
+	border: solid 1px;
+	border-color: cornflowerblue;
+	padding: 10px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 #page-menu {
@@ -194,8 +262,6 @@ li > img {
 #navigation-panel abstract {
 	display: inline;
 	white-space: normal;
-	xheight: auto;
-	xwidth: auto;
 }
 
 #navigation-panel div.abstractContainer {
@@ -230,62 +296,3 @@ li > img {
 #navigation-panel ul.tree li[cts="3"][active] {
 	background-image: url(orange-circle-32-minus-active.png);
 }
-
-.no-padding {
-	padding: 0px;
-}
-
-.note {
-	border: solid 1px orange;
-	padding-left: 10px;
-	padding-top: 5px;
-	padding-bottom: 9px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-.tip {
-	border: solid 1px;
-	border-color: cornflowerblue;
-	padding: 10px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-ul.tree {
-	list-style-type: none;
-	padding-left: 5px;
-	line-height: 32px;
-}
-
-ul.tree ul {
-	list-style-type: none;
-	padding-left: 0px;
-	overflow-y: hidden;
-	transition: height linear 1s;
-}
-
-ul.tree li {
-	padding-left: 32px;
-	min-height: 36px;
-	background-image: url(orange-circle-32-dot.png);
-	background-repeat: no-repeat;
-	background-position-x: 0px;
-	background-position-y: top;
-}
-
-ul.tree li[cts="0"] {
-	background-image: url(orange-circle-32-minus.png);
-}
-
-ul.tree li[cts="1"] {
-	background-image: url(orange-circle-32-plus.png);
-}
-
-ul.tree li[cts="0"][active] {
-	background-image: url(orange-circle-32-minus-active.png);
-}
-
-	ul.tree li[cts="1"][active] {
-		background-image: url(orange-circle-32-plus-active.png);
-	}

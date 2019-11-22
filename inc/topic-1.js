@@ -1,11 +1,6 @@
 		// Root object
 if ( typeof Synesis === "undefined" ) Synesis = { } ;
-
-		// Index Page functions
-		// Must be called before this file is processed.
-Synesis.initIndexPage = function ( ) {
-	Synesis.isIndexPage = true;
-} ;
+Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 
 		// Semaphore class for synchronization purposes
 ( function initSemaphore ( ) {
@@ -247,7 +242,7 @@ Synesis.initIndexPage = function ( ) {
 	Synesis.CollapsibleBlock.expand = function ( controller ) {
 		// Returns true if the controller state actually changed.
 		// Expand the block to the required height
-		if ( controller.getAttribute( Synesis.CollapsibleBlock.cban ) === "0" ) return false;
+		if ( controller.getAttribute( "cbs" ) === "0" ) return false;
 		// Controllers may not already be initialized.
 		if ( controller.Synesis && controller.Synesis.block ) {
 			// Set style height temporarily to "auto" to get the required numerical value for the transition.
@@ -260,9 +255,15 @@ Synesis.initIndexPage = function ( ) {
 			} , 100 );
 		}
 		// Update controller state.
-		controller.setAttribute( Synesis.CollapsibleBlock.cban, "0" );
+		controller.setAttribute( "cbs", "0" );
 		return true;
 	};
+
+		// Expand all collapsible blocks
+	Synesis.CollapsibleBlock.expandAll = function ( ) {
+		var controllers = document.querySelectorAll( "[cbs]" );
+		for ( var i = 0 ; i < controllers.length ; i ++ ) Synesis.CollapsibleBlock.expand( controllers[ i ] );
+	} ;
 
 		// Collapse a block
 	Synesis.CollapsibleBlock.collapse = function( controller ) {
@@ -271,15 +272,21 @@ Synesis.initIndexPage = function ( ) {
 		// Collapse the block on a new script engine loop.
 		window.setTimeout( function ( ) { controller.Synesis.block.style.height = "0px"; }, 100 );		
 		// Set the new controller state.
-		controller.setAttribute( Synesis.CollapsibleBlock.cban, "1" );
+		controller.setAttribute( "cbs", "1" );
 	};
+
+		// Collapse all collapsible blocks
+	Synesis.CollapsibleBlock.collapseAll = function ( ) {
+		var controllers = document.querySelectorAll( "[cbs]" );
+		for ( var i = 0 ; i < controllers.length ; i ++ ) Synesis.CollapsibleBlock.collapse( controllers[ i ] );
+	} ;
 
 		// Click event handler for the collapsible block controllers.
 	Synesis.CollapsibleBlock.clickHandler = function ( evt ) { 
 		evt = evt || window.event;
 		// Bypass if the controller icon has not been hit.
 		if ( evt.offsetX > 40 ) return;
-		switch ( this.getAttribute( Synesis.CollapsibleBlock.cban ) ) {
+		switch ( this.getAttribute( "cbs" ) ) {
 		case "0" :  // block is expanded
 				Synesis.CollapsibleBlock.collapse( this );
 				break;
@@ -288,7 +295,7 @@ Synesis.initIndexPage = function ( ) {
 				break;
 		default:
 			console.error ( errorInfo + "Illegal controller state, reset to 0." );
-			controller.setAttribute( Synesis.CollapsibleBlock.cban, "0" );
+			controller.setAttribute( "cbs", "0" );
 			controller.Synesis.block.style.height = "auto";
 		}
 		// Declare the event handled.
@@ -305,9 +312,9 @@ Synesis.initIndexPage = function ( ) {
 		while ( target && target.tagName !== "BODY" ) {
 			// Look for a collapsible block controller.
 			var controller = target;
-			if ( ! controller.hasAttribute( Synesis.CollapsibleBlock.cban )) controller = target.previousElementSibling;
+			if ( ! controller.hasAttribute( "cbs" )) controller = target.previousElementSibling;
 			// If there is one, expand its block.
-			if ( controller && controller.hasAttribute( Synesis.CollapsibleBlock.cban )) result |= Synesis.CollapsibleBlock.expand( controller );
+			if ( controller && controller.hasAttribute( "cbs" )) result |= Synesis.CollapsibleBlock.expand( controller );
 			// Ascend to the parent node.
 			target = target.parentNode;
 		}
@@ -320,12 +327,9 @@ Synesis.initIndexPage = function ( ) {
 		// *	Must be called when the document has been loaded competely.
 		// *	Method deletes itself when done.
 		
-		// Special handling of index pages
-		// Set the collapsible block atttribute name
-		Synesis.CollapsibleBlock.cban =  Synesis.isIndexPage === true ? "cbt" : "cbs" ;
 		// Collect the collabsible block controllers on the page
 		// and exit if there is nothing to do.
-		var controllers = document.querySelectorAll( "[" + Synesis.CollapsibleBlock.cban + "]" );
+		var controllers = document.querySelectorAll( "[cbs]" );
 		if ( controllers.length === 0 ) return;
 
 		// Expand all blocks that contain the navigation target element (id in the hash).
@@ -348,7 +352,7 @@ Synesis.initIndexPage = function ( ) {
 			// TODO: Use a search function here to skip comment elements.
 			var block = controller.Synesis.block = controller.nextElementSibling;
 			// Collapse blocks if the controller status indicates so.
-			if ( controller.getAttribute( Synesis.CollapsibleBlock.cban ) === "1" ) block.style.height = "0px" ;
+			if ( controller.getAttribute( "cbs" ) === "1" ) block.style.height = "0px" ;
 			// Register event handlers.
 			controller.addEventListener( "click", Synesis.CollapsibleBlock.clickHandler.bind( controller ));
 			controller.style.transition = "margin-top linear 1s";
@@ -391,7 +395,7 @@ Synesis.initIndexPage = function ( ) {
 
 		// Collapsible Tree
 ( function initCollapsibleTree ( ) {
-	
+		// Node states: 0=expanded 1=collapsed
 	if ( typeof Synesis.CollapsibleTree === "undefined" ) Synesis.CollapsibleTree = { } ;
 
 		// Regular expression to find "abstract" tree nodes.
@@ -409,6 +413,18 @@ Synesis.initIndexPage = function ( ) {
 		ul.style.height = window.getComputedStyle( ul ).getPropertyValue( "height" );
 		window.setTimeout( function ( ) { ul.style.height = "0px" } , 100 ) ;
 	} ;
+		
+		// Collapses the entire tree.
+	Synesis.CollapsibleTree.collapseAll = function ( ) {
+			var controllers = document.querySelectorAll ( "[cts]" );
+			for ( var i = 0 ; i < controllers.length ; i ++ ) {
+				var li = controllers[ i ];
+				var ul = li.getElementsByTagName( "UL" )[ 0 ];
+				// Call the event handler for the state, and set the next state.
+				Synesis.CollapsibleTree.collapse( li, ul );
+				li.setAttribute( "cts", "1" );
+			}
+		} ;
 
 		// Expand a tree node.
 	Synesis.CollapsibleTree.expand = function ( li, ul ) {
@@ -419,6 +435,18 @@ Synesis.initIndexPage = function ( ) {
 				ul.style.height = h;
 			} , 100 ) ;
 		};
+		
+		// Expands the entire tree.
+	Synesis.CollapsibleTree.expandAll = function ( ) {
+			var controllers = document.querySelectorAll ( "[cts]" );
+			for ( var i = 0 ; i < controllers.length ; i ++ ) {
+				var li = controllers[ i ];
+				var ul = li.getElementsByTagName( "UL" )[ 0 ];
+				// Call the event handler for the state, and set the next state.
+				Synesis.CollapsibleTree.expand( li, ul );
+				li.setAttribute( "cts", "0" );
+			}
+		} ;
 
 		// Handles click events on node icons and collapses or expands nodes.
 	Synesis.CollapsibleTree.clickHandler = function ( evt ) {
@@ -431,6 +459,8 @@ Synesis.initIndexPage = function ( ) {
 			var ul = target.getElementsByTagName( "UL" )[ 0 ];
 			// Call the event handler for the state, and set the next state.
 			var nodeState = target.getAttribute( "cts" );
+			// ??? The tree should have a reference to the state map, defined by the
+			// actual implementation.
 			Synesis.CollapsibleTree.stateHandlerMap[ nodeState ]( target, ul );
 			li.setAttribute( "cts", ++nodeState % target.Synesis.nodeStates );
 			evt.stopPropagation( );
@@ -510,7 +540,7 @@ Synesis.initIndexPage = function ( ) {
 
 		// Document init function.
 	Synesis.Navigation.initDocument = function () {
-		// Find the navigation panel.
+		// Find the navigation tree container.
 		var navpanel = Synesis.Navigation.panel = document.getElementById( "navigation-panel" );
 		if ( ! navpanel ) navpanel = Synesis.Navigation.panel = document.getElementById( "navigation-tree" );
 		// Eventhandler to close the navpanel.
@@ -545,6 +575,7 @@ Synesis.initIndexPage = function ( ) {
 	} ;
 
 		// Defines the node states and associates handler functions.
+		// ??? The tree should have a reference to this map. 
 	Synesis.NavigationTree.stateHandlerMap = [ 
 		Synesis.CollapsibleTree.collapse,					// 0 - Abstract collapsed
 		Synesis.CollapsibleTree.expand,					// 1 - Child nodes collapsed
@@ -552,7 +583,6 @@ Synesis.initIndexPage = function ( ) {
 		Synesis.NavigationTree.hideAbstract			// 3 - Abstract expanded
 		] ;
 		
-	
 	Synesis.NavigationTree.clickHandler = function ( evt ) {
 		// *	this
 		// *		Points the to tree root node.
@@ -577,7 +607,7 @@ Synesis.initIndexPage = function ( ) {
 			node = node.parentNode;
 		}
 	} ;
-		
+	
 		// Sets the href attribute of naviation links found on the page.
 	Synesis.NavigationTree.initNavigationLinks = function( linktype, target ) {
 		if ( typeof target === "undefined" ) return;
@@ -662,20 +692,14 @@ Synesis.initIndexPage = function ( ) {
 
 		// Expand all collapsible blocks
 	Synesis.Menu.expandAll = function ( ) { 
-		var controllers = document.querySelectorAll( "[" + Synesis.CollapsibleBlock.cban + "]" );
-		for ( var i = 0 ; i < controllers.length ; i ++ ) {  
-			var controller = controllers[ i ];
-			Synesis.CollapsibleBlock.expand( controller );
-		} 
+		if ( Synesis.isIndexPage ) Synesis.CollapsibleTree.expandAll( );
+		else Synesis.CollapsibleBlock.expandAll( );
 	} ;
 
 		// Collapse all collapsible blocks
 	Synesis.Menu.collapseAll = function ( ) { 
-		var controllers = document.querySelectorAll( "[" + Synesis.CollapsibleBlock.cban + "]" );
-		for ( var i = 0 ; i < controllers.length ; i ++ ) {  
-			var controller = controllers[ i ];
-			Synesis.CollapsibleBlock.collapse( controller );
-		} 
+		if ( Synesis.isIndexPage ) Synesis.CollapsibleTree.collapseAll( );
+		else Synesis.CollapsibleBlock.collapseAll( );
 	} ;
 
 		// Open or close the navigation panel
