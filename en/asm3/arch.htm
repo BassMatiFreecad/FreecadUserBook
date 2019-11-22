@@ -4,8 +4,8 @@
 <meta name="author" content="USPR">
 <meta name="creation-date" content="2019-19-13">
 <meta name="editor" content="USPR">
-<meta name="modification-date" content="2019-19-13">
-<meta name="document-version" content="2">
+<meta name="modification-date" content="2019-19-22">
+<meta name="document-version" content="3">
 <meta name="template-version-date" content="2019-11-17">
 <link rel="stylesheet" href="../../inc/topic-1.css" />
 </head><body>
@@ -93,13 +93,17 @@
 
 <!-- h2 Breaking Models --></div>
 
-<h2 cbs="0">Buiding Structures With Assembly Objects</h2><div>
+<h2 cbs="0">Building Structures With Assembly Objects</h2><div>
 
 <p>The <tt>Assembly</tt> object is a container object for parts that define the geometry of the assembly, very much like a Freecad <tt>Part</tt> object. <tt>Constraint Connectors</tt> and <tt>Constraints</tt> are managed inside an <tt>Assembly</tt> object, so everything you want to apply assembly contraints on must be wrapped by an <tt>Assembly</tt> container.</p>
+
+<p>The fact that an <tt>Assembly</tt> can contain other <tt>Assemblies</tt> means that we can build hierarchical designs with tree structures.</p>
 
 <h3>Assembly Components</h3><div>
 
 <p>An assembly component is a regular <tt>Assembly</tt> object that contains any number of parts (geometry defining Freecad objects), but no other <tt>Assembly</tt> objects. An assembly component usually publishes <tt>Constraint Connectors</tt> for mating with other assembly components or subassemblies.</p>
+
+<p>The following terms are used throughout this tutorial. Technically, they are all <tt>Assembly</tt> objects, but used with some subtle differences.</p>
 
 <div style="display: none">
 
@@ -166,6 +170,44 @@
 </dl>
 
 <!-- h2 Object Names --></div>
+
+<h2 cbs="0">Recommended Workflows</h2><div>
+
+<p>The following workflow is recommended to create an <tt>Assembly</tt> object in Freecad:</p>
+
+<ol>
+<li>Create a new <tt>Assembly</tt> object.</li>
+<li>Add one or more <tt>Parts</tt> to the <tt>Assembly</tt> that define the geometry.</li>
+<li>Optional: Define zero or more <tt>Contraint Connectors</tt> and bind them to a geometry element.</li>
+</ol>
+
+<p>The prerequisites to work with <tt>Assembly 3</tt> <tt>Constraints</tt> are</p>
+
+<ol>
+<li>There is an <tt>Assembly Container</tt> that contains one or more <tt>Assembly</tt> objects.</li>
+<li>The <tt>Assembly</tt> objects to be constrained have one or more <tt>Constraint Connectors</tt> defined.</li>
+</ol>
+
+<p>The recommended workflow for creating constraints:</p>
+
+<ol>
+<li>Select one or more <tt>Constraint Connectors</tt> from <tt>Assemblies</tt> in the <tt>Assembly Container</tt>.</li>
+<li>Select a suitable <tt>Constraint</tt>.</li>
+</ol>
+
+
+<p>The quick & dirty workflow for creating constraints:</p>
+
+<ol>
+<li>Select one or more geometry elements from <tt>Assembly</tt> objects contained in the <tt>Container Assembly</tt>.</li>
+<li>Select a suitable <tt>Constraint</tt>.</li>
+</ol>
+
+<p>This workflow creates the necessary <tt>Constraint Connectors</tt> and binds them to the selected geometry elements <em>on the fly</em>.</p>
+
+<p>This kind of workflow is common to assembly workbenches that do not have the notion of <tt>Constraint Connectors</tt> or something equivalent. It indeed does save you some clicks, but you should use this workflow <em>only if you are familiar</em> with <tt>Constraint Connectors</tt>, and how to create and modify them.</p>
+
+<!-- h2 Recommended Workflows --></div>
 
 <div id="script-area">
 <script src="../../inc/topic-1.js"></script>
