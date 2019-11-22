@@ -1,10 +1,14 @@
-# FreecadUserBook
+# The Freecad User Book
 Resources for learning and using FreeCAD
 
 Motivation
 
 Currently I am a Freecad learner, but I want to organize and document my learning curve so that others can participate and find answers to their questions.
 
+The form I have chosen is the a mixture of information and step-by-step tutorials. These are in general very detailed and fine-grained so that a Freecad newbie should be able to follow. An expert should have no problem to quickly scan through the instructions and find the relevant information.
+
+Some topics are supported by additional video footage. This material is more condensed and does not provide the in-depth information found in the text.
+ 
 
 Status
 
@@ -21,6 +25,9 @@ Why I don't want to write a WIKI
 
 4 - JavaScript is used to support the user interface to a large extent. I'm not sure whether JS can be used to automate WIKI pages, and what the limitations are.
 
+5 - Small Devices
+The content should be easily readable on small devices (smartphones etc.) or narrow browser windows. This requires that the content automatically fills the available width, and flows down as required. Something like a "responsive layout". As a benefit, you can arrange the web browser in a small strip side-by-side with the Freecad window, and still read comfortably.
+
 
 Why I should perhaps write a WIKI
 
@@ -28,7 +35,6 @@ There is currently no book-wide search function in the script code. Currently th
 
 
 How to use this book
-
 
 The book is written in pure HTML, CSS and JavaScript. To open it, navigate the to root folder, and open the index.htm page. Click on the link that matches your preferred language. This takes you to the table of contents page of the book in that language. Use the navigation features from there on.
 
@@ -48,4 +54,5 @@ I am not perfect. If you find typos, something wrong or have suggestions, you ca
 A Final Word
 
 Well... have an nice journey, and enjoy!
+
 BassMati
