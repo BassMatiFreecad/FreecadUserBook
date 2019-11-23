@@ -488,6 +488,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 				var ul = uls[ j ];
 				var parent = ul.parentNode;
 				if ( ! parent.Synesis ) parent.Synesis = { } ;
+//				if ( typeof parent.Synesis.nodeStates === "undefined" ) parent.Synesis.nodeStates = 2 ;
 				if ( typeof parent.Synesis.nodeStates === "undefined" ) parent.Synesis.stateActionMap = Synesis.CollapsibleTree.stateActionMap;
 				if ( ! parent.hasAttribute( "cts" )) {
 					ul.style.height = "0px" ;
@@ -554,6 +555,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			var target = evt.target || evt.srcElement;
 			if ( target && target.tagName !== "A" ) Synesis.Navigation.hide( );
 		}.bind( navpanel ) ) ;
+//		navpanel.style.left = "-" + (navpanel.offsetWidth - 2) + "px";
 		Synesis.Navigation.hide( );
 		window.setTimeout( function ( ) { navpanel.style.transition = "left linear 1s" ; }, 100 );
 		// Harakiri
@@ -568,18 +570,19 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 	if ( ! Synesis.NavigationTree ) Synesis.NavigationTree = { } ;
 
 	Synesis.NavigationTree.showAbstract = function ( li, ul ) {
-		var abstract = li.Synesis.abstract;
-		abstract.style.marginBottom = "10px";
-		abstract.style.height = "auto" ;
-		var h = window.getComputedStyle( abstract ).getPropertyValue( "height" );
-		abstract.style.height = "0px" ;
-		abstract.style.marginBottom = "0px" ;
-		window.setTimeout ( function ( ) { abstract.style.height = h; abstract.style.marginBottom = "10px"; } , 100 ) ;
+		var container = li.Synesis.abstractContainer;
+//		container.style.height = li.Synesis.abstractContainer.firstChild.offsetHeight + 20 + "px";
+			//window.getComputedStyle( li.Synesis.abstractContainer.firstChild ).getPropertyValue( "height" );
+
+		container.style.height = "auto" ;
+		var h = window.getComputedStyle( container ).getPropertyValue( "height" );
+		console.info( "container height=" + h );
+		container.style.height = "0px" ;
+		window.setTimeout ( function ( ) { container.style.height = h; } , 100 ) ;
 	} ;
 
 	Synesis.NavigationTree.hideAbstract = function ( li, ul ) {
-		li.Synesis.abstract.style.height = "0px" ;
-		li.Synesis.abstract.style.marginBottom = "0px";
+		li.Synesis.abstractContainer.style.height = "0px" ;
 	} ;
 
 		// Defines the node states and associates handler functions.
@@ -600,6 +603,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			var ul = target.getElementsByTagName( "UL" )[ 0 ];
 			// Call the event handler for the current state
 			var state = target.getAttribute( "cts" );
+			console.info("state=" + state );
 			target.Synesis.stateActionMap[ state ]( target, ul );
 			//  Set the next state, depending on the presence of an abstract element.
 			target.setAttribute( "cts", ++ state % target.Synesis.stateActionMap.length );
@@ -649,11 +653,19 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 				// Setup the abstract element.
 				var abstract = abstracts[ j ];
 				var node = abstract.parentNode;
+//				abstract.style.width = window.getComputedStyle( node ).getPropertyValue( "width" );
 				if ( ! node.Synesis ) node.Synesis = { } ;
+//				node.Synesis.nodeStates = 4;
 				node.Synesis.stateActionMap = Synesis.NavigationTree.stateActionMap;
-				abstract.style.height = "0px" ;
-				// Save a reference in the node info.
-				node.Synesis.abstract = abstract;
+				// Insert a new abstract container.
+				var container = document.createElement( "DIV" );
+//				container.style.width = "auto";
+				container.style.height = "0px" ;
+				container.className = "abstractContainer" ;
+				node.insertBefore( container, abstract );
+				// Move the abstract into the container.
+				container.appendChild( abstract );
+				node.Synesis.abstractContainer = container;
 			}
 			//
 			// Find nodes that link to the current document.

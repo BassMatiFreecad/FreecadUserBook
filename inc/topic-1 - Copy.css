@@ -1,8 +1,5 @@
 abstract {
 	display: block;
-	overflow: hidden;
-	transition: height linear 1s;
-	line-height: 24px;
 }
 
 body {
@@ -270,11 +267,11 @@ ul.tree li[cts="1"][active] {
 }
 
 #navigation-panel abstract {
+	display: inline;
 	white-space: normal;
-	overflow: visible;
 }
 
-#navigation-panel div.xabstractContainer {
+#navigation-panel div.abstractContainer {
 	display:block;
 	width: auto;
 	margin-left: 40px;
@@ -305,12 +302,4 @@ ul.tree li[cts="1"][active] {
 
 #navigation-panel ul.tree li[cts="3"][active] {
 	background-image: url(orange-circle-32-minus-active.png);
-}
-
-#navigation-tree ul.tree li[cts="2"] {
-	background-image: url(orange-circle-32-plus.png);
-}
-
-#navigation-tree ul.tree li[cts="3"] {
-	background-image: url(orange-circle-32-minus.png);
 }
