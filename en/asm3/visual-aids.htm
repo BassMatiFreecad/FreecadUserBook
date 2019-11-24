@@ -1,0 +1,191 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Assembly 3 - Visual Aids</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-11-13">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-11-13">
+<meta name="document-version" content="2">
+<meta name="template-version-date" content="2019-11-17">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+</head><body>
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>Visual Aids</h1>
+
+<div id="navigation-panel"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Visual Aid</tag>, <tag>Constraint</tag>, <tag>Color</tag>, <tag>Highlight</tag>.</p>
+</div>
+
+<div>
+<p>Some visual aids can be used to help with constraints. On this page we will explore how they work, and how they can be engaged in a useful way.</p>
+</div>
+
+<h2 cbs="0">Auto Element Visibility</h2><div>
+
+<p>The menu switch <tt>Assembly3 > Auto element visibility</tt> controls the visibility of <tt>Constraint Connectors</tt>, and how the are accented when the mouse hovers over its <tt>Model Tree</tt> element.</p>
+
+<p>The switch has a system-wide scope.</p>
+
+<h3>Auto Element Visibility On</h3><div>
+
+<p><tt>Constraint Connectors</tt> are highlighted in the preselection color when the mouse hovers over the <tt>Connector</tt> in the <tt>Model Tree</tt>. To be precise, not exactly the <tt>Connector</tt> is highlighted, instead, it is the geometry element that is bound to the <tt>Connector</tt>. The connector itself has no visible 3D element, but determines the color.</p>
+
+<p>You cannot control the visibility of of <tt>Connectors</tt> manually by pressing the space bar when the node is selected.</p>
+
+<!-- h3 Auto Element Visibility On --></div>
+
+<h3>Auto Element Visibility Off</h3><div>
+
+<p>With <tt>Auto Element Visibility</tt> off, you can control the visibility of <tt>Connectors</tt> by pressing the space bar.</p>
+
+<!-- h3 Auto Element Visibility Off --></div>
+
+<div class="note"><p>Interestingly, a <tt>Connector</tt> has two <tt>Visibility</tt> flags on the property pages, one, on the <tt>View</tt> tab, and one on the <tt>Data</tt> tab. Both seem to have no effect, they appear to be read-only.</p></div>
+
+<!-- h2 Auto Element Visibility --></div>
+
+<h2 cbs="0">Override Material</h2><div>
+
+<p>If you set the <tt>Override Material</tt> property to <tt>true</tt>, the the element replaces the default color of child elements with the color set in the <tt>Connector Color</tt> property.</p>
+
+<!-- h2 Override Material --></div>
+
+<h2 cbs="0">Connector Color</h2><div>
+
+<p>The color of the geometry element that is bound to a <tt>Connector</tt> is determined by three parent nodes:</p>
+
+<ul>
+<li>The actual <tt>Constraint</tt> parent node</li>
+<li>The <tt>Constraints</tt> grand parent node</li>
+<li>The <tt>Connectors</tt>parent node.</li>
+</ul>
+
+<p>The general rule is: A parent node overrides the colors defined by the child node.</p>
+
+<p>The behavior can be customized with two properties on the <tt>View Tab</tt> of the <tt>Property Panel</tt>:</p>
+
+<ul>
+<li><tt>Override Material</tt> (true or false)</li>
+<li><tt>Shape Material</tt> (color)</li>
+</ul>
+
+<p>If <tt>Override Material</tt> is <tt>true</tt>, the connector color is defined by the <tt>Shape Material</tt> color property. If <tt>Override Material</tt> is <tt>false</tt>, the connector color is shown in the color defined by the child node.</p>
+
+<!-- h2 Connector Color --></div>
+
+<h2 cbs="0">Exercise</h2><div>
+
+<p>Words can be confusing, so here is a tutorial that walks you through the matter, step by step:</p>
+
+<ol>
+<li>Open the file <a href="../../files/asm3/visual-aids/constraint-colors-001.FCStd">constraint-colors-001.fcstd</a> in Freecad.</li>
+<li>Save it under the workfile name "constraint-colors.fcstd".</li>
+<li>Switch to the <tt>Assembly 3</tt> workbench.</li>
+<li>Open the menu <tt>Assembly3 > Element style > Auto element visibility</tt>, and turn it off. (The menu icon background should be grey.)</li>
+<li>In the <tt>Model Tree</tt>, select <tt>Assembly 002 > Constraints 002 > Plane Coincident 000</tt> > <tt>Cylinder Bottom</tt>.</li>
+<li>Make it visible.</li>
+<li>Deselect <tt>Cylinder Bottom</tt>.<br />The lower edge of the cylinder, the that is bound to the connector, should light up in the default color.<br /><img src="../../img/asm3/visual-aids/fig-001.png" width="184" /></li>
+<li>Select the <tt>Plane Coincident 000</tt> node.</li>
+<li>Click the <tt>View Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Set <tt>Override Material</tt> to <tt>true</tt>.</li>
+<li>Click the <tt>Shape Material</tt> value twice to open the <tt>Select Colors</tt> dialog.</li>
+<li>Choose a color of your choice, then click <tt>OK</tt>.</li>
+<li>Deselect <tt>Plane Coincident 000</tt>.<br />The cylinder edge should now show up in your selected color.<br /><img src="../../img/asm3/visual-aids/fig-002.png" width="175" /></li>
+<li>Show <tt>Plane Coincident 000 > Cube Face</tt>.</li>
+<li>Deselect <tt>Plane Coincident 000 > Cube Face</tt>.<br />The constrained face of the cube should now have the selected color, too.<br /><img src="../../img/asm3/visual-aids/fig-003.png" width="177" /></li>
+</ol>
+
+<p>The parent node of <tt>Plane Coincident 000</tt>, <tt>Constraints 002</tt>, also has the ability to override colors:</p>
+
+<ol start="16">
+<li>Select the <tt>Constraints 002</tt> node.</li>
+<li>Click the <tt>View Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Set <tt>Override Material</tt> to <tt>true</tt>.</li>
+<li>Choose a color of your choice, then click <tt>OK</tt>.<br />The geometry elements of the parts should now show your second color.<br /><img src="../../img/asm3/visual-aids/fig-004.png" width="173" /></li>
+</ol>
+
+<p>The <tt>Constraint Connectors</tt> of the two parts are also published under the <tt>Connectors 002</tt> parent node, which has the same abilities:</p>
+
+<ol start="16">
+<li>Hide <tt>Plane Coincident 002</tt>.<br />The connectors are no longer colored.</li>
+<li>Hover over the mouse pointer over the child nodes of <tt>Plane Coincident 002</tt>.<br />The connectors are not highlighted when the parent node is hidden.</li>
+<li>Select the child nodes of <tt>Plane Coincident 002</tt>.<br />The selection is not shown when the parent node is hidden.</li>
+<li>Make the child nodes of <tt>Plane Coincident 002</tt> visible.<br />The connectors are still not shown in the 3D window.</li>
+<li>Hide the contraint connectors.</li>
+</ol>
+
+<p>Now let's move to the <tt>Connectors 002</tt> group and child nodes.</p>
+
+<ol start="">
+<li>Make <tt>Connectors 002 > Cube Face</tt> visible.</li>
+<li>Select <tt>Connectors 002</tt>.</li>
+<li>Click the <tt>View Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Set <tt>Override Material</tt> to <tt>true</tt>.</li>
+<li>Choose a third color into the <tt>Shape Material</tt> property.</li>
+<li>Deselect <tt>Connectors 002</tt>.<br />The cube face should now show your third selected color.<br /><img src="../../img/asm3/visual-aids/fig-005.png" width="179" /></li>
+</ol>
+
+<div class="note"><p>Note that you cannot set the color of constraint connectors individually. The color set is always determined by their parent node. Hint: Constraint connectors have no <tt>Override Material</tt> property.</p></div>
+
+<p>An interesting effect appears if two separate links to the same connector are made visible:</p>
+
+<ol start="">
+<li>Make <tt>Plane Coincident 000</tt> visible.</li>
+<li>Deselect everything.</li>
+<li>Make <tt>Plane Coincident 000 > Cube Face</tt> visible. We now have two colors:<br /><img src="../../img/asm3/visual-aids/fig-006.png" width="177" /></li>
+</ol>
+
+<p>The color feature is inactive if <tt>Auto element visibility</tt> is turned on:</p>
+
+<ol start="25">
+<li>Turn the menu <tt>Assembly3 > Element style > Auto element visibility</tt> on.</li>
+<li>Hover the mouse over the <tt>Connector</tt> nodes.<br />They are highlighted in the 3D window.</li>
+<li>Select <tt>Connectors</tt>. They are highlighted in the 3D window.</li>
+<li>Click on an empty space to remove the selection.<br />The connectors are no longer highlighted.</li>
+</ol>
+
+<p>We can now observe the following:</p>
+
+<ul>
+<li>The connector geometry is no longer colored.</li>
+<li>The connectors are invisible.</li>
+<li>Connector geometry is highlighted when the mouse hovers over the tree node.</li>
+<li>Connector geometry is highlighted when they are selected.</li>
+<li>Connectors are automatically hidden when they are deselected.</li>
+</ul>
+
+<!-- h2 Exercise --></div>
+
+<h2 cbs="0">Conclusion</h2><div>
+
+<p>Under normal circumstances, you will work with <tt>Auto element visibility</tt> on. Constraint connectors are highlighted as needed.</p>
+
+<p>During complex and difficult assemblies, you might want to turn <tt>Auto element visibility</tt> off, and control the visibility of connectors manually, for example to have a visual guide while working through a series of connectors that must be constrained. For example, a proven strategy that worked for me:</p>
+
+<ol>
+<li>Turn the visibility of connectors to be processed <em>on</em> on both components.</li>
+<li>Pick the first (next) pair of visible connectors, then select a suitable constraint.</li>
+<li>Turn the visibility off for this pair of connectors.</li>
+<li>Repeat from step 2 until all connectors have been processed.</li>
+</ol>
+
+<!-- h2 Conclusion --></div>
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>
