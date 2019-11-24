@@ -13,14 +13,18 @@
 <h1>The Freecad User Book</h1>
 
 <div id="page-menu"></div>
-
 <h1>Links and Link Arrays</h1>
-
 <div id="navigation-panel"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>Link Array</tag>, <tag>Constraint</tag>, <tag>Constraint Connector</tag>, <tag>Subassembly</tag>.</p>
+</div>
 
 <div>
 
 <p>The Assembly 3 workbench introduces a powerful new concept: the <em>Link Object</em>. The <tt>Link</tt> enables lightweight copies of an object. A link stands for and points to a link source (or link target) object, which provides the geometric definition. If the definition is changed, all links "inherit" these changes.</p>
+
+<div class="imgbox"><img src="../../img/asm3/link/fig-060.png" width="181"</div>
 
 <p>Links work quite similar to a web page link: Many users can follow the same HTML link and view a copy of the web page in their browsers. If the page author modifes and updates the page file on the server, all users will get the new content as soon as they refresh their page view.</p>
 
@@ -32,12 +36,10 @@
 
 <p>We will also build subassemblies and learn that a subassembly, just like a component or a project assembly container, is an ordinary <tt>Assembly</tt> object. While a component has only external (public) constraint connectors, a project assembly container has only internal connectors, and a subassembly has both internal and external constraint connectors.</p>
 
-<p class="info">I used my naming convention for the Link objects, exploiting Freecad's numbering feature to create unique object names and preserving the link source object name. This convention served me well, but you can use your own convention or accept the names suggested by Freecad.</p>
-
+<div class="info">
+<p>I used my naming convention for the Link objects, exploiting Freecad's numbering feature to create unique object names and preserving the link source object name. This convention served me well, but you can use your own convention or accept the names suggested by Freecad.</p>
 </div>
 
-<h3 cbs="1">Tags</h3><div>
-<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>Link Array</tag>, <tag>Constraint</tag>, <tag>Constraint Connector</tag>, <tag>Subassembly</tag>.</p>
 </div>
 
 <h2 id="files" cbs="1">Files</h2><div>
