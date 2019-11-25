@@ -19,6 +19,23 @@
 <p><tag>Freecad</tag>, <tag>Exercise</tag>, <tag>Part Design</tag>, <tag>Sketcher</tag>, <tag>Cube</tag>, <tag>Corner</tag>, <tag>Rotation</tag>, <tag>Geometry Sketch</tag>.</p>
 </div>
 
+<h3 cbs="1">Freecad Version Info</h3><div>
+<p class="code">
+OS: Windows 10 (10.0)
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.17089 +1543 (Git)
+Build type: Release
+Branch: LinkStage3
+Hash: 950c082111ae5ebeefb4dddc90a80dc9b54b2408
+Python version: 3.6.8
+Qt version: 5.12.1
+Coin version: 4.0.0a
+OCC version: 7.3.0
+Locale: English/United States (en_US)
+</p>
+</div>
+
 <div id="abstract">
 <p>This exercise describes how to create a cube that sits in one of its corner, with the opposite corner vertically above the other, similar to those chocolate cubes hanging on a Christmas tree.</p>
 <p>The trick is to begin with a cube in a specific orientation, with the vertical edges on the XZ and YZ planes. Then rotate the thing about the y axis until two opposite corners come to rest exactly on the z axis.</p>
@@ -42,7 +59,7 @@
 
 <h2>Instructions</h2><div>
 
-<h3>Workfile Setup</h3><div>
+<h3 cbs="0">Workfile Setup</h3><div>
 
 <ol>
 <li>Create a new file.</li>
@@ -52,7 +69,7 @@
 
 <!-- h3 Workfile Setup --></div>
 
-<h3>Geometry and Helper Sketches</h3><div>
+<h3 cbs="0">Geometry and Helper Sketches</h3><div>
 
 <p>We begin with a <tt>Sketch</tt> that helps to calculate the rotation angle.</p>
 
@@ -111,7 +128,7 @@
 
 <!-- h3 Geometry and Helper Sketches --></div>
 
-<h3>Creating the Cube</h3><div>
+<h3 cbs="0">Creating the Cube</h3><div>
 
 <p>The next step creates the actual cube:</p>
 
@@ -142,7 +159,7 @@
 
 <!-- h3 Creating the Cube --></div>
 
-<h3>Geometry Analysis</h3><div>
+<h3 cbs="0">Geometry Analysis</h3><div>
 
 <p>The top and bottom faces are parallel to the XY plane, and the vertical edges intersect with the X and Y axes:</p>
 
@@ -206,7 +223,7 @@ CDA = atan(HSL/HFDL)
 
 <!-- h3 Geometry Analysis --></div>
 
-<h3>Rotating The Cube Into Position</h3><div>
+<h3 cbs="0">Rotating The Cube Into Position</h3><div>
 
 <p>The next instructions rotate the cube about the Y axis:</p>
 
@@ -240,7 +257,7 @@ CDA = atan(HSL/HFDL)
 
 <!-- h3 Rotating The Cube Into Position --></div>
 
-<h3>Cleanup Steps</h3><div>
+<h3 cbs="0">Cleanup Steps</h3><div>
 
 <ol start="63">
 <li>Close open nodes in the <tt>Model Tree</tt>.</li>
