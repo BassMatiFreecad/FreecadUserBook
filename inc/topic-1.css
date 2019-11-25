@@ -17,6 +17,10 @@ dd + dt {
 	margin-top: 20px;
 }
 
+div.code {
+	margin-top: -20px;
+}
+
 dt img {
 	vertical-align: middle;
 	margin-right: 20px;
@@ -94,6 +98,12 @@ img {
 	max-width: 400px;
 }
 
+kbd {
+	font-family: 'Lucida Console', monospace;
+	border: 1px solid #B0B0B0;
+	padding: 2px 2px 0px 2px;
+}
+
 li > img {
 	margin: 15px 0px 5px 20px;
 }
@@ -149,6 +159,12 @@ ul.tree li[cts="1"][active] {
 .boxed {
 	padding: 5px;
 	border: solid 1px silver;
+}
+
+.code {
+	font-family: 'Lucida Console', monospace;
+	font-size: 80%;
+	white-space: pre;
 }
 
 .footer {
