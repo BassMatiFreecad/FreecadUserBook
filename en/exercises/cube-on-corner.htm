@@ -1,0 +1,267 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Excercides - Cube On Corner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-11-13">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-11-13">
+<meta name="document-version" content="2">
+<meta name="template-version-date" content="2019-11-17">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+</head><body>
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>Cube On Corner</h1>
+<div id="navigation-panel"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Exercise</tag>, <tag>Part Design</tag>, <tag>Sketcher</tag>, <tag>Cube</tag>, <tag>Corner</tag>, <tag>Rotation</tag>, <tag>Geometry Sketch</tag>.</p>
+</div>
+
+<div id="abstract">
+<p>This exercise describes how to create a cube that sits in one of its corner, with the opposite corner vertically above the other, similar to those chocolate cubes hanging on a Christmas tree.</p>
+<p>The trick is to begin with a cube in a specific orientation, with the vertical edges on the XZ and YZ planes. Then rotate the thing about the y axis until two opposite corners come to rest exactly on the z axis.</p>
+<p>The exact rotation angle is determined with a geometry sketch. A detailed algebraic analysis confirms the graphical result.</p>
+</div>
+
+<div class="imgbox"><img src="../../img/exercises/cube-on-corner/fig-001.png" width="239" /></div>
+
+<h3 cbs="1">Files</h3><div><dl>
+<dt id="file-001"><a href="../../files/exercises/cube-on-corner/cube-on-corner-001.fcstd">cube-on-corner-001.fcstd</a></dt>
+<dd>Finished project.</dd>
+</dl></div>
+
+<!--
+<h3 cbs="1">Videos</h3><div><dl>
+<dt id="vid-001"><a href="???.mp4">???.mp4</a></dt>
+<dd>Title</dd>
+<dd>Description</dd>
+</dl></div>
+-->
+
+<h2>Instructions</h2><div>
+
+<h3>Workfile Setup</h3><div>
+
+<ol>
+<li>Create a new file.</li>
+<li>Save it under the name "cube-on-corner.fcstd".</li>
+<li>Create a new group node and name it "Repository".</li>
+</ol>
+
+<!-- h3 Workfile Setup --></div>
+
+<h3>Geometry and Helper Sketches</h3><div>
+
+<p>We begin with a <tt>Sketch</tt> that helps to calculate the rotation angle.</p>
+
+<ol start="4">
+<li>Switch to the <tt>Sketcher</tt> workbench.</li>
+<li>Select the document node in the <tt>Model Tree</tt>.</li>
+<li>Create a new <tt>Sketch</tt> on the <tt>XZ Plane</tt>.</li>
+<li>Draw the following figure:<br /><img src="../../img/exercises/cube-on-corner/fig-002.png" width="280" /></li>
+</ol>
+
+<p>The lower edge points must be contrained to the x axis, and the edge must be vertical:</p>
+
+<ol start="8">
+<li>Make sure you create (red) driving constraints. If not, click the menu <tt>Sketch > Constraints > Toggle reference/driving</tt>.</li>
+<li>Constrain the length of the vertical edge to "5 mm".</li>
+<li>Name the constraint "HSL".</li>
+<li>Constraint the length of the horizontal edge, and use the following formula: <br /><span class="code">Constraints.HSL * sqrt(2)</span></li>
+<li>Name the constraint "HFDL".<br />The sketch if fully constrained at this point.</li>
+<li>Click the menu <tt>Sketch > Constraints > Toggle reference/driving</tt> to create (blue) reference constraints.</li>
+<li>Click the menu <tt>Sketch > Constraints > Angle</tt>.</li>
+<li>Select the triangle's hypothenusis and the X axis to create an angular (reference) constraint.</li>
+<li>Name it "CDA".</li>
+<li>Select the triangle's hypothenusis and the Z axis to create an angular (reference) constraint.</li>
+<li>Name it "CCDA".<br />
+<img src="../../img/exercises/cube-on-corner/fig-003.png" width="246" />
+</li>
+<li><tt>Leave</tt> the <tt>Sketch</tt>.</li>
+<li>Rename it to "Sketch 000".</li>
+<li>Move the sketch node to the <tt>Repository</tt> folder.</li>
+<li>Hide the Sketch.</li>
+</ol>
+
+<p>The constraint names have the following meaning:</p>
+
+<dl>
+<dt>HSL</dt><dd>Half of the Side Length</dd><dd>This value defines the cube side length, it will be twice this value.</dd>
+<dt>HFDL</dt><dd>Half of the Face Diagonal Length</dd><dd>Half of the distance between opposite corners of a cube face.</dd><dd>The formula will be explained later we have created the cube.</dd>
+<dt>CDA</dt><dd>Cube Diagonal Angle</dd><dd>The angle of the diagonal that lies on the XY plane.</dd>
+<dt>CCDA</dt><dd>Complementary Cube Diagonal Angle</dd><dd>This is the angle we will have to rotate the cube to get it standing on the corner.</dd>
+</dl>
+
+<p>We continue with a helper sketch with a line on the z axis, which shall help to give a visual orientation.</p>
+
+<ol start="23">
+<li>Select the document node in the <tt>Model Tree</tt>.</li>
+<li>Create a new Sketch on the XY plane.</li>
+<li>Draw a line, and constraint the end points to the Z axis.</li>
+<li>Constrain the end points symmetrical to the X axis.</li>
+<li>Constraint the length of the line and use the following formula:<br /><span class="code">Sketch.Constraints.HFDL * 2 + 15 mm</span>.</li>
+<li>Name the constraint "VLL" for "vertical line length".</li>
+<li><tt>Leave</tt> the sketch.</li>
+<li>Rename it to "Sketch 001".</li>
+<li>Move the sketch to the <tt>Repository</tt> folder.</li>
+<li>Hide the sketch.</li>
+</ol>
+
+<!-- h3 Geometry and Helper Sketches --></div>
+
+<h3>Creating the Cube</h3><div>
+
+<p>The next step creates the actual cube:</p>
+
+<ol start="33">
+<li>Switch to the <tt>Part Design</tt> workbench.</li>
+<li>Select the document node in the <tt>Model Tree</tt>.</li>
+<li>Create a new <tt>Body</tt>.</li>
+<li>Create a new <tt>Sketch</tt> on the XY plane.</li>
+<li>Create a <tt>Square</tt> with the center constrained to the sketch origin, and one edge constrained to the X axis.</li>
+<li>Constrain the lenght of a side to the formula:<br /><span class="code">2*Sketch.Constraints.HSL</span><br />The result should be 10 mm.</li>
+<li>Name the length constraint to "SL" for "side length".</li>
+<li><tt>Leave</tt> the sketch.</li>
+</ol>
+
+<p>The sketch should look like the following image:</p>
+
+<img src="../../img/exercises/cube-on-corner/fig-004.png" width="249" />
+
+<ol start="41">
+<li>Create a new <tt>Part Design > Pad</tt> with a length of "10 mm", symmetrical to the sketch plane.</li>
+<li>Set the length value to the expression "<span class="code">Sketch.Constraints.HSL*2</span>".</li>
+<li>Check <tt>Symmetrical to sketch plane</tt>.</li>
+<li>Click <tt>OK</tt> to create the pad.</li>
+<li>Make the <tt>Body > Origin</tt> visible.</li>
+<li>Hide <tt>Origin > XZ Plane</tt> and <tt>Origin > YZ Plane</tt>.</li>
+<li>Press <kbd>0</kbd> on the keyboard to get into the standard isometric view.</li>
+</ol>
+
+<!-- h3 Creating the Cube --></div>
+
+<h3>Geometry Analysis</h3><div>
+
+<p>The top and bottom faces are parallel to the XY plane, and the vertical edges intersect with the X and Y axes:</p>
+
+<img src="../../img/exercises/cube-on-corner/fig-005.png" width="277" />
+
+<ol start="48">
+<li>Hide <tt>Sketch 001</tt>.</li>
+<li>Show <tt>Sketch 000</tt>.</li>
+<li>Select the cube <tt>Body</tt>.</li>
+<li>Click the menu <tt>View > Appearance</tt>.</li>
+<li>Drag the <tt>Transparency</tt> slider to approximately 70%.</li>
+</ol>
+
+<p>This makes our reference sketch inside the cube visible. A triangle leg rests on the XY plane, with the left end point on the origin of the body's coordinate system, which is also the center of the cube. The upper edge coincides with the upper right corner of the cube:</p>
+
+<img src="../../img/exercises/cube-on-corner/fig-006.png" width="284" />
+
+<p>From this view we can easily derive the vertical leg of the triangle as half of the cube side length:</p>
+
+<div class="code">
+HSL = SL / 2
+</div>
+
+<p>With a view from above, the length of the other leg is easy to find:</p>
+
+<img src="../../img/exercises/cube-on-corner/fig-007.png" width="253" />
+
+<p>It is a cathetus of a symmetrical rectangular triangle between the origin and two corners of the cube. The hypothenusis is identical with the cube side length SL. Applying the Pythagorean theorem, we can find the length HFDL of a cathetus as </p>
+
+<div class="code">
+2 squ(HFDL) = squ(SL)
+squ(HFDL) = squ(SL)/2
+HFDL = sqrt(squ(SL)/2)
+ = sqrt(squ(SL))/sqrt(2)
+ = SL/sqrt(2) 
+</div>
+
+<p>With SD=10 mm follows the half side diagonal length HFDL=7.071 mm</p>
+
+<p>The angle near the sketch origin can be obtained with trigonometric functions:</p>
+
+<div class="code">
+CDA = atan(HSL/HFDL)
+ = atan((SL/2)/(SL/sqrt(2)))
+ = atan(SL/2/SL*sqrt(2))
+ = atan(sqrt(2)/2)
+ = atan(sqrt(2)/sqrt(2)/sqrt(2))
+ = atan(1/sqrt(2))
+ = 36.26 deg
+ </div>
+
+ <p>Note that the angle is independent from the size of the cube. The value is always 36.26 degree.</p>
+
+ <p>The complementary ange, CCDA, is the rotation angle we are looking for:</p>
+
+ <div class="code">
+ CCDA = 90 deg - CDA = 54.74 deg
+ </div>
+
+ <p>These results confirm the values obtained from the graphical solution in <tt>Sketch 000</tt>.</p>
+
+<!-- h3 Geometry Analysis --></div>
+
+<h3>Rotating The Cube Into Position</h3><div>
+
+<p>The next instructions rotate the cube about the Y axis:</p>
+
+<ol start="53">
+<li>Select <tt>Body</tt>.</li>
+<li>Expand the <tt>Placement</tt> property.</li>
+<li>Expand the <tt>Placement > Axis</tt> property.</li>
+<li>Set <tt>Angle</tt> to the expression "90 deg - atan(sqrt(1/2))".</li>
+<li>Set <tt>Axis > y</tt> to 1.</li>
+<li>Set <tt>Axis > z</tt> to 0.</li>
+</ol>
+
+<p>The local coordinate system of the body rotates with the body, so it is now more or less useless. Same with <tt>Sketch 000</tt>, but the helper sketch is helpful now. Hence the name&hellip;</p>
+
+<ol start="59">
+<li>Hide <tt>Body > Origin</tt>.</li>
+<li>Hide <tt>Sketch 000</tt>.</li>
+<li>Show <tt>Sketch 001</tt>.</li>
+<li>Press <kbd>0</kbd> to get into the isometric standard view.</li>
+</ol>
+
+<img src="../../img/exercises/cube-on-corner/fig-008.png" width="212" />
+
+<p>The cube stands on its tip. The helper line goes through the corners at the bottom and top.</p>
+
+<p>A view from the top confirms the impression:</p>
+
+<img src="../../img/exercises/cube-on-corner/fig-009.png" width="212" />
+
+<p>Q. e. d.</p>
+
+<!-- h3 Rotating The Cube Into Position --></div>
+
+<h3>Cleanup Steps</h3><div>
+
+<ol start="63">
+<li>Close open nodes in the <tt>Model Tree</tt>.</li>
+<li>Save a copy under the name "cube-on-corner-001.fcstd".</li>
+</ol>
+
+<!-- h3 Cleanup Steps --></div>
+
+<!-- h2 Instructions --></div>
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>
