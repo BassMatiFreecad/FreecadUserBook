@@ -564,9 +564,11 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 
 		// Navigation Tree
 ( function initNavigationTree() {
+
 		// Overrides CollapsibleTree and add functions.
 	if ( ! Synesis.NavigationTree ) Synesis.NavigationTree = { } ;
 
+		// Opens the node to show the abstract.
 	Synesis.NavigationTree.showAbstract = function ( li, ul ) {
 		var abstract = li.Synesis.abstract;
 		abstract.style.marginBottom = "10px";
@@ -577,19 +579,27 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		window.setTimeout ( function ( ) { abstract.style.height = h; abstract.style.marginBottom = "10px"; } , 100 ) ;
 	} ;
 
+		// Hides the abstract block.
 	Synesis.NavigationTree.hideAbstract = function ( li, ul ) {
 		li.Synesis.abstract.style.height = "0px" ;
 		li.Synesis.abstract.style.marginBottom = "0px";
 	} ;
 
-		// Defines the node states and associates handler functions.
-	Synesis.NavigationTree.stateActionMap = [ 
+		// Node states and associated handler functions for tree nodes.
+	Synesis.NavigationTree.stateActionMapNode = [ 
 		Synesis.NavigationTree.hideAbstract,			// 0 - Abstract expanded, Child nodes collapsed
 		Synesis.NavigationTree.showAbstract,			// 1 - Abstract collapsed, Child nodes collapsed
 		Synesis.CollapsibleTree.expand,					// 2 - Abstract expanded, Child nodes collapsed
 		Synesis.CollapsibleTree.collapse					// 3 - Abstract expanded, Child nodes expanded
 		] ;
+	
+		// Node states and associated handler functions for leaf nodes.
+	Synesis.NavigationTree.stateActionMapLeaf = [ 
+		Synesis.NavigationTree.hideAbstract,		// 0 - Abstract expanded, Child nodes collapsed
+		Synesis.NavigationTree.showAbstract		// 1 - Abstract collapsed, Child nodes collapsed
+		] ;
 		
+		// Handles click events on node icons.
 	Synesis.NavigationTree.clickHandler = function ( evt ) {
 		// *	this
 		// *		Points the to tree root node.
@@ -607,6 +617,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		}
 	} ;
 
+		// Unfolds the entire path from root to node.
 	Synesis.NavigationTree.expandPath = function ( root, node ) {
 		while ( node && node !== root ) {
 			if ( node.tagName === "UL" ) node.style.height = "auto" ;
@@ -640,7 +651,8 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		for ( var i = 0 ; i < trees.length ; i ++ ) {
 			var tree = trees[ i ];
 			// Add that navigation tree click event handler, which takes the role
-			// of the standard tree click event handler.
+			// of the standard tree click event handler. Note that a navigation tree
+			// must have the "customHandler" attribute.
 			tree.addEventListener( "click" , Synesis.NavigationTree.clickHandler );
 			//
 			// Treat nodes with an "abstract" element.
@@ -650,7 +662,13 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 				var abstract = abstracts[ j ];
 				var node = abstract.parentNode;
 				if ( ! node.Synesis ) node.Synesis = { } ;
-				node.Synesis.stateActionMap = Synesis.NavigationTree.stateActionMap;
+				// Set the correct action map on the node.
+				if ( abstract.nextElementSibling && abstract.nextElementSibling.tagName === "UL" )
+					node.Synesis.stateActionMap = Synesis.NavigationTree.stateActionMapNode;
+				else {
+					node.Synesis.stateActionMap = Synesis.NavigationTree.stateActionMapLeaf ;
+					if ( ! node.hasAttribute( "cts" )) node.setAttribute( "cts", "1" );
+					}
 				abstract.style.height = "0px" ;
 				// Save a reference in the node info.
 				node.Synesis.abstract = abstract;
@@ -662,7 +680,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			for ( var j = 0 ; j < anchors.length ; j ++ ) {
 				var anchor = anchors[ j ];
 				if ( anchor.pathname === docpath ) {
-					// Indicated that the node is "active" and expand the path to the node.
+					// Indicate that the node is "active" and expand the path to the node.
 					anchor.parentNode.setAttribute( "active", "1" );
 					Synesis.NavigationTree.expandPath( tree, anchor.parentNode.parentNode );
 					// Store references to the neighbour nodes.
