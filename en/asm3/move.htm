@@ -1,0 +1,423 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Section - Moving Subassemblies</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-11-25">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-11-25">
+<meta name="document-version" content="1">
+<meta name="template-version-date" content="2019-11-25">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+</head><body>
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>Moving Subassemblies</h1>
+<div id="navigation-panel"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Netsted Subassemblies</tag>, <tag>Moving</tag>.</p>
+</div>
+
+<h3 cbs="1">Freecad Version Info</h3><div>
+<p class="code">
+OS: Windows 10 (10.0)
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.17089 +1543 (Git)
+Build type: Release
+Branch: LinkStage3
+Hash: 950c082111ae5ebeefb4dddc90a80dc9b54b2408
+Python version: 3.6.8
+Qt version: 5.12.1
+Coin version: 4.0.0a
+OCC version: 7.3.0
+Locale: English/United States (en_US)
+</p>
+</div>
+
+<div id="abstract">
+<p>If the level of nested subassemblies exceeds 1, mover don't work as expected when it comes to moving parts. Instead of moving just the part, the whole assembly moves. What is going on here&hellip;?</p>
+</div>
+
+<h3 cbs="1">Files</h3><div><dl>
+<dt id="file-001"><a href="../../files/asm3/move/move-001.fcstd">move-001.fcstd</a></dt>
+<dd>Building the repositoriy: Sphere created.</dd>
+<dt id="file-002"><a href="../../files/asm3/move/move-002.fcstd">move-002.fcstd</a></dt>
+<dd>Building the repositoriy: Cube created.</dd>
+<dt id="file-003"><a href="../../files/asm3/move/move-003.fcstd">move-003.fcstd</a></dt>
+<dd>Building the repositoriy: Loft created.</dd>
+<dt id="file-004"><a href="../../files/asm3/move/move-004.fcstd">move-004.fcstd</a></dt>
+<dd>Assembly structure created.</dd>
+<dt id="file-005"><a href="../../files/asm3/move/move-005.fcstd">move-005.fcstd</a></dt>
+<dd>Assembly structure filled with components.</dd>
+</dl></div>
+
+<!-- 
+<h3 cbs="1">Videos</h3><div><dl>
+<dt id="vid-001"><a href="???.mp4">???.mp4</a></dt>
+<dd>Title</dd>
+<dd>Description</dd>
+</dl></div>
+-->
+
+<h2 cbs="0">Move Tools</h2><div>
+
+<p>Position Properties</p>
+<p>Quick Mover</p>
+<p>Axial Mover</p>
+
+<!-- h2 Move Tools --></div>
+
+<h2 cbs="0">Creating the Repository</h2><div>
+
+<ol start="1">
+<li>Switch to the <tt>Part Design</tt> workbench.</li>
+<li>Create a new file, and save it under the work file name "move.fcstd".</li>
+<li>Create a new <tt>Group</tt> node and name it "Repository".</li>
+</ol>
+
+<p>We will work with a single component, a sphere:</p>
+
+<ol start="4">
+<li>Select the document node in the <tt>Model Tree</tt>.</li>
+<li>Create a new <tt>Part Design > Body</tt>.</li>
+<li>Create a new <tt>Part Design > Sketch</tt> on the XY plane.</li>
+<li>Create a <tt>Sketch > Geometries > Arc by center</tt>.</li>
+<li>Constrain the arc center on the sketch origin.</li>
+<li>Constrain the end points on the X axis.</li>
+<li>Constrain the radius to "5 mm".</li>
+<li>Create a <tt>Sketch > Geometries > Line</tt>.</li>
+<li>Constrain the end points of the line to the end points of the arc.</li>
+</ol>
+
+<p>The sketch is fully constrained now:</p>
+
+<img src="../../img/asm3/move/fig-001.png" width="289" />
+
+<ol start="13">
+<li><tt>Leave</tt> the sketch.</li>
+<li>Create a new <tt>Part Design > Revolution</tt>.</li>
+<li>Select the <tt>horizontal sketch axis</tt> and click <tt>OK</tt>.</li>
+<li>Collapse the <tt>Body</tt> nodes.</li>
+</ol>
+
+<p>Now wrap the body with an <tt>Assembly</tt>:</p>
+
+<ol start="17">
+<li>Switch to the <tt>Assembly 3</tt> workbench.</li>
+<li>Create a new <tt>Assembly</tt>.</li>
+<li>Set the <tt>Label</tt> property to "Sphere".</li>
+<li>Drag the <tt>Body</tt> on the <tt>Sphere</tt> node.</li>
+<li>Collapse the child nodes.</li>
+<li>Move the <tt>Sphere</tt> to the <tt>Repository</tt>.</li>
+<li>Hide the <tt>Sphere</tt>.</li>
+</ol>
+
+<img src="../../img/asm3/move/fig-002.png" width="107" />
+
+<ol start="24">
+<li>Save a copy of the project file under the name "move-001.fcstd".</li>
+</ol>
+
+<p>The components have been created, now we will create the nested assembly structures.</p>
+
+<!-- h2 Creating the Repository --></div>
+
+<h2 cbs="0">Assembly Structure</h2><div>
+
+<div class="info"><p>If you want to quick-start from here, load the file <a href="../../files/asm3/move/move-001.fcstd">move-001.fcstd</a>, and save it under the work file name "move.fcstd".</p></div>
+
+<ol start="25">
+<li>Make shure you have the <tt>Assembly 3</tt> workbench active.</li>
+<li>Create a new <tt>Assembly</tt>, name it "Project Assembly Container".</li>
+<li>Create a new <tt>Assembly</tt>, name it "Level 2 Assembly".</li>
+<li>Drag <tt>Level 2 Assembly</tt> on <tt>Project Assembly Container</tt>.</li>
+<li>Create a new <tt>Assembly</tt>, name it "Level 3 Assembly".</li>
+<li>Drag <tt>Level 3 Assembly</tt> on <tt>Level 2 Assembly</tt>.</li>
+<li>Create a new <tt>Assembly</tt>, name it "Level 4 Assembly".</li>
+<li>Drag <tt>Level 4 Assembly</tt> on <tt>Level 3 Assembly</tt>.</li>
+</ol>
+
+<p>You should have the following structure in the <tt>Model Tree</tt>:</p>
+
+<img src="../../img/asm3/move/fig-003.png" width="248" />
+
+<ol start="33">
+<li>Save a copy of the project file under the name "move-002.fcstd".</li>
+</ol>
+
+<!-- h2 Assembly Structure --></div>
+
+<h2 cbs="0">Adding Components</h2><div>
+
+<p>Now will add components into the assembly containers.</p>
+
+<div class="info"><p>If you want to quick-start from here, load the file <a href="../../files/asm3/move/move-002.fcstd">move-002.fcstd</a>, and save it under the work file name "move.fcstd".</p></div>
+
+<ol start="34">
+<li>Right-click the <tt>Sphere</tt> component in the <tt>Repository</tt>, then click <tt>Link actions > Make link</tt>.</li>
+<li>Activate the <tt>View Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Set <tt>Override Material</tt> to "true".</li>
+<li>Select a color of your choice into the <tt>Shape Material</tt> property.</li>
+<li>Drag the <tt>Sphere 001</tt> on the <tt>Project Assembly Container</tt>.</li>
+</ol>
+
+<p>Now the second sphere.</p>
+
+<ol start="39">
+<li>Right-click the <tt>Sphere</tt> component in the <tt>Repository</tt>, then click <tt>Link actions > Make link</tt>.</li>
+<li>Activate the <tt>View Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Set <tt>Override Material</tt> to "true".</li>
+<li>Select a color of your choice into the <tt>Shape Material</tt> property.</li>
+<li>Activate the <tt>Data Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Expand the <tt>Placement > Position</tt> property.</li>
+<li>Set the <tt>z</tt> property to "-15 mm".</li>
+<li>Drag the <tt>Sphere 002</tt> on the <tt>Level 2 Assembly</tt>.</li>
+</ol>
+
+<p>Repeat from step 39 for the components <tt>Sphere 3</tt> at <code>z = -30 mm</code>, and <tt>Sphere 4</tt>  at <code>z = -45 mm</code>. Move them into the <tt>Level 2</tt> and <tt>Level 3</tt> assemblies.</p>
+
+<p>You should now have the following arrangement:</p>
+
+<img src="../../img/asm3/move/fig-004.png" width="88" />
+
+<p>And the <tt>Model Tree</tt> structure:</p>
+
+<img src="../../img/asm3/move/fig-005.png" width="232" />
+
+<ol start="47">
+<li>Collapse the child nodes of <tt>Parts001</tt>.</li>
+<li>Save a copy of the work file under the name "move-003.fcstd".</li>
+</ol>
+
+<!-- h2 Adding Components --></div>
+
+<h2 cbs="0">Moving Components</h2><div>
+
+<p>In this section we will move components in space.</p>
+<p>You have already seen the <tt>Placement > Position</tt> property work as expected. Now we will work the the <tt>Axial Mover</tt>, <tt>Assembly Part Mover</tt> and the <tt>Quick Mover</tt> tools.</p>
+
+<img src="../../img/asm3/move/fig-006.png" />
+
+<div class="info"><p>If you want to quick-start from here, load the file <a href="../../files/asm3/move/move-003.fcstd">move-003.fcstd</a>, and save it under the work file name "move.fcstd".</p></div>
+
+<h3 cbs="0">Moving Sphere 1</h3><div>
+
+<p>We will start with the <tt>Axial Mover</tt> on <tt>Sphere 1</tt>.</p>
+
+<img src="../../img/asm3/icons/axial-move.png" />
+
+<ol start="49">
+<li>Press <kbd>1</kbd> on the keyboard to switch to the front view.</li>
+<li>Select <tt>Sphere 1</tt> in the <tt>Model Tree</tt>. This object is a <tt>Part</tt> of the <tt>Project Assembly Container</tt>.</li>
+<li>Click the menu <tt>Assembly3 > Axial move part</tt>.<br />A tool appears in the 3D window that looks and works exactly like the standard Freecad <tt>Transform</tt> tool.<br /><img src="../../img/asm3/move/fig-008.png" width="223" /></li>
+<li>Drag the blue arrow to the side, then press <kbd>Esc</kbd>.<br />The topmost sphere moved as expectd.</li>
+<li><tt>Undo</tt> the move command.</li>
+</ol>
+
+<p>Now we will try the <tt>Assembly Part Mover</tt></p>
+
+<img src="../../img/asm3/icons/assembly-move.png" />
+
+<ol start="54">
+<li>Press <kbd>0</kbd> to get to the standard isometric view.</li>
+<li>Select <tt>Sphere 1</tt> in the <tt>Model Tree</tt>.</li>
+<li>Click the menu <tt>Assembly3 > Axial move part</tt>.<br />A tool with a set of three perpendicular rings and arrows appears in the 3D window.<br /><img src="../../img/asm3/move/fig-009.png" width="135" /></li>
+<li>Press <kbd>1</kbd> to show the standard front view.</li>
+<li>Drag the mover arrows in the center to the side, then <br />The topmost sphere moved as expectd.<br /><img src="../../img/asm3/move/fig-010.png" width="148" /></li>
+<li>Note that the <tt>Project Assembly Container</tt> is highlighted in the <tt>Model Tree</tt>.<br />This indicates that the node is being edited.</li>
+<li>Press <kbd>Esc</kbd>.</li>
+<li><tt>Undo</tt> the move command.</li>
+</ol>
+
+<p>If you drag an arrow cross of the <tt>Assembly Part Mover</tt>, you can move the part in the plane of the arrow cross. If you drag a ring, the part is rotated about the ring axis (which is not easily seen on a sphere&hellip;).</p>
+
+<p>Now we will try the <tt>Quick Mover</tt>.</p>
+
+<ol start="62">
+<li>Select <tt>Sphere 1</tt> in the <tt>Model Tree</tt>.</li>
+<li>Click the menu <tt>Assembly 3 > Quick move</tt>.</li>
+<li>Move the mouse pointer. The selected object follows the pointer until you click.</li>
+<li>Note that the parent node of the moved object is selected, <tt>Parts001</tt>.</li>
+<li>Undo the move command.</li>
+</ol>
+
+<p>Three different tools to move objects. Choose the one that suits you preferences best.</p>
+
+<!-- h3 Sphere 1 --></div>
+
+<h3 cbs="0">Level 1 Subassembly</h3><div>
+
+<p>Repeat the move tests with <tt>Level 2 Assembly</tt>, a member of the <tt>Project Assembly Container</tt> like <tt>Sphere 1</tt>.</p>
+
+<p>The results are similar, the whole subassembly is moved. The difference is that the mover tools now appear over <tt>Sphere 1</tt>, which is also a member of the <tt>Project Assembly Container</tt>.</p>
+
+<p>Another difference: The <tt>Assembly Part Mover</tt> changed its size to accommodate the size of the assembly.</p>
+
+<img src="../../img/asm3/move/fig-011.png" width="191" />
+
+<!-- h3 Level 1 Subassembly --></div>
+
+<h3 cbs="0">Sphere 2</h3><div>
+
+<ol start="67">
+<li>Select the node <tt>Sphere 2</tt>.</li>
+<li>Activate the <tt>Axial Mover</tt>.<br />The mover tool appears centered over <tt>Sphere 2</tt>.</li>
+<li>Drag on the tip of the blue arrow.<br />Surprisingly, the whole <tt>Level 1 Subassembly</tt> is moved.</li>
+<li>Try the <tt>Assembly Part Mover</tt>.<br />Same result.</li>
+<li>Try the <tt>Quick Mover</tt>.<br />Same result.</li>
+<li>Undo the move commands.</li>
+</ol>
+
+<img src="../../img/asm3/move/fig-012.png" width="196" />
+
+<p>The mover tools are centered over the sphere, but the whole <tt>Level 1 Subassembly</tt> is moved.</p>
+
+<!-- h3 Sphere 2 --></div>
+
+<h3 cbs="0">Level 3 Assembly</h3><div>
+
+<ol start="73">
+<li>Try the mover tools on <tt>Level 3 Assembly</tt>.</li>
+</ol>
+
+<p>The mover tools are centered over <tt>Sphere 1</tt>.</p>
+<p>The whole <tt>Level 2 Assembly</tt> is moved.</p>
+
+
+<!-- h3 Level 3 Assembly --></div>
+
+<h3 cbs="0">Sphere 3</h3><div>
+
+<ol start="74">
+<li>Try the mover tools on <tt>Sphere 3</tt>.</li>
+</ol>
+
+<p>The mover tools are centered over <tt>Sphere 3</tt>.</p>
+<p><tt>Level 2 Assembly</tt> is moved.</p>
+
+<!-- h3 Sphere 3 --></div>
+
+<h3 cbs="0">Level 4 Assembly</h3><div>
+
+<ol start="75">
+<li>Try the mover tools on <tt>Level 4 Assembly</tt>.</li>
+</ol>
+
+<p>The mover tools are centered over <tt>Sphere 4</tt>.</p>
+<p><tt>Level 2 Assembly</tt> is moved.</p>
+
+<!-- h3 Level 4 Assembly --></div>
+
+<h3 cbs="0">Sphere 4</h3><div>
+
+<ol start="76">
+<li>Try the mover tools on <tt>Sphere 4</tt>.</li>
+</ol>
+
+<p>The mover tools are centered over <tt>Sphere 4</tt>.</p>
+<p><tt>Level 2 Assembly</tt> is moved.</p>
+
+<!-- h3 Sphere 4 --></div>
+
+<h3 cbs="0">Conclusion</h3><div>
+
+<p>Although the mover tools seem to behave "erratic" when subassemblies or components in subassemblies are moved, but there is a method to the madness:</p>
+
+<ul class="note" style="padding-left: 30px;">
+<li>Components in the highest level (zero) assembly are moved as usual.</li>
+<li>Components in subassemblies always move the Level 2 Assembly.</li>
+</ul>
+
+<p>This does not make much sense if you select nodes in the <tt>Model Tree</tt> to move them, but it <em>does make perfect sense</em> if you select components in the 3D window: Because assembly containers have no visual representation in the 3D window, it cannot be decided when you select <tt>Sphere 4</tt> whether you want to move the sphere, or its parent, <tt>Level 4 Assembly</tt>, or its parent <tt>Level 3 Assembly</tt>, or its parent <tt>Level 2 Assembly</tt>. The only certainty is that the first level assembly, the <tt>Project Assembly Container</tt>, can never be moved, because this element provides the project-wide global coordinate system.</p>
+
+<!-- h3 Conclusion --></div>
+<!-- h2 Moving Components --></div>
+
+<h2 cbs="0">The Double Selection Trick</h2><div>
+
+<p>But what if you really wanted to move a component further down the hierarchy? There are two options:</p>
+
+<ul>
+<li>Drag the parent assembly container on the project document node, move your components, and drag the parent assembly container back to where it belongs.</li>
+<li>Use the double-selection trick.</li>
+</ul>
+
+<p>The double selection trick is simple: Select the object to be moved, and its parent container. But before checking that out, let's add another sphere to the <tt>Level 4 Assembly</tt>:</p>
+
+<ol start="77">
+<li>Right-click the <tt>Sphere</tt> in the <tt>Repository</tt>, then click <tt>Link actions > Make link</tt>.</li>
+<li>Rename it to <tt>Sphere 4b</tt>.</li>
+<li>Drag it on <tt>Level 4 Assembly</tt>.</li>
+<li>Switch to the <tt>View Tab</tt> on the <tt>Property Panel</tt>.</li>
+<li>Set <tt>Override Material</tt> to "true".</li>
+<li>Select a color of your choice into the <tt>Shape Material</tt> property.</li>
+<li>Switch to the <tt>Data Tab</tt>.</li>
+<li>Set the <tt>Placement > Position > x</tt> property to "15 mm".</li>
+<li>Set the <tt>z</tt> property to "-45 mm".</li>
+</ol>
+
+<img src="../../img/asm3/move/fig-013.png" width="100" />
+
+<p>The new sphere should appear at the side of <tt>Sphere 4</tt>. Now Let's test it.</p>
+
+<ol start="86">
+<li>Select <tt>Sphere 4</tt> and <tt>Level 4 Assembly</tt>.<br /><img src="../../img/asm3/move/fig-014.png" width="232" /></li>
+<li>Move the sphere somewhat to the right.<br /><img src="../../img/asm3/move/fig-015.png" width="129" /></li>
+</ol>
+
+<p>That works, <tt>Sphere 4</tt> moved.</p>
+
+<ol start="88">
+<li>Undo the move command.</li>
+<li>Select <tt>Sphere 4</tt> and <tt>Level 3 Assembly</tt>.</li>
+<li>Select the mover tool of your choice from the <tt>Assembly3</tt> menu.</li>
+<li>Move the sphere somewhat to the right.<br /><img src="../../img/asm3/move/fig-016.png" width="129" /></li>
+</ol>
+
+<p><tt>Level 4 Assembly moved</tt>.</p>
+
+<ol start="92">
+<li>Undo the move command.</li>
+<li>Select <tt>Sphere 4</tt> and <tt>Level 2 Assembly</tt>.</li>
+<li>Select the mover tool of your choice from the <tt>Assembly3</tt> menu.</li>
+<li>Move the sphere somewhat to the right.<br /><img src="../../img/asm3/move/fig-017.png" width="137" /></li>
+</ol>
+
+<p><tt>Level 3 Assembly</tt> moved.</p>
+
+<ol start="96">
+<li>Undo the move command.</li>
+<li>Select <tt>Sphere 4</tt> and <tt>Project Assembly Container</tt>, which is the first level assembly.</li>
+<li>Move the sphere somewhat to the right.<br /><img src="../../img/asm3/move/fig-018.png" width="138" /></li>
+</ol>
+
+<p><tt>Level 2 Assembly</tt> moved.</p>
+
+<!-- h2 The Double Selection Trick --></div>
+
+<h2 cbs="0">Conclusion</h2><div>
+
+<p>The examples in the previous section showed that there is a set of simple rules, followd by the movers:</p>
+
+<div class="note"><p>1. The selected component low in the hierarchy is used as a grip.</p>
+<p>2. The Assembly below the higher selected component is moved.</p>
+<p>3. If only one component was selected, the highest assembly is considered to be selected implicitly.</p></div>
+
+<!-- h2 Conclusion --></div>
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>
