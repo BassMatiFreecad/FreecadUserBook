@@ -554,6 +554,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			var target = evt.target || evt.srcElement;
 			if ( target && target.tagName !== "A" ) Synesis.Navigation.hide( );
 		}.bind( navpanel ) ) ;
+		navpanel.style.display = "block";
 		Synesis.Navigation.hide( );
 		window.setTimeout( function ( ) { navpanel.style.transition = "left linear 1s" ; }, 100 );
 		// Harakiri
