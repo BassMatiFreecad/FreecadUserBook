@@ -1,10 +1,3 @@
-abstract {
-	display: block;
-	overflow: hidden;
-	transition: height linear 1s;
-	line-height: 24px;
-}
-
 body {
 	font-family: "Segoe", "Segoe UI", "Sans-Serif";
 	line-height: 160%;
@@ -105,7 +98,7 @@ kbd {
 }
 
 li > img {
-	margin: 15px 0px 5px 20px;
+	margin: 15px 0px 5px 0px;
 }
 
 tt {
@@ -214,6 +207,15 @@ ul.tree li[cts="1"][active] {
 	text-decoration: underline;
 }
 
+.navigation abstract {
+	white-space: normal;
+	display: block;
+	overflow: hidden;
+	transition: height linear 1s;
+	line-height: 24px;
+}
+
+
 .no-padding {
 	padding: 0px;
 }
@@ -283,7 +285,7 @@ ul.tree li[cts="1"][active] {
 	white-space: nowrap;
 }
 
-#navigation-panel abstract {
+#xnavigation-panel abstract {
 	white-space: normal;
 	overflow: visible;
 }
@@ -311,6 +313,14 @@ ul.tree li[cts="1"][active] {
 
 #navigation-panel ul.tree li[active] {
 	background-image: url(orange-circle-32-dot-active.png);
+}
+
+#navigation-panel ul.tree li[cts="0"][active] {
+	background-image: url(orange-circle-32-minus-active.png);
+}
+
+#navigation-panel ul.tree li[cts="1"][active] {
+	background-image: url(orange-circle-32-plus-active.png);
 }
 
 #navigation-panel ul.tree li[cts="2"][active] {
