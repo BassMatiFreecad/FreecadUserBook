@@ -211,10 +211,9 @@ ul.tree li[cts="1"][active] {
 	white-space: normal;
 	display: block;
 	overflow: hidden;
-	transition: height linear 1s;
+	transition: height linear 1s, margin-bottom 1s;
 	line-height: 24px;
 }
-
 
 .no-padding {
 	padding: 0px;

@@ -567,7 +567,10 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 
 		// Overrides CollapsibleTree and add functions.
 	if ( ! Synesis.NavigationTree ) Synesis.NavigationTree = { } ;
-
+		
+		// References the path nodes from root to the current document parent.
+	Synesis.NavigationTree.pathNodes = [ ] ;
+	
 		// Opens the node to show the abstract.
 	Synesis.NavigationTree.showAbstract = function ( li, ul ) {
 		var abstract = li.Synesis.abstract;
@@ -583,6 +586,20 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 	Synesis.NavigationTree.hideAbstract = function ( li, ul ) {
 		li.Synesis.abstract.style.height = "0px" ;
 		li.Synesis.abstract.style.marginBottom = "0px";
+	} ;
+
+		// Retrieves the abstract block.
+	Synesis.NavigationTree.getAbstract = function ( node ) {
+		// *	node : The tree node (LI) or one of its child nodes.
+		// *	returns : null or the abstract element of the tree node.
+		//
+		// Ascend to the LI element 
+		while ( node && node.tagName !== "LI" ) node = node.parentNode;
+		if ( ! node ) return null;
+		// Retrieve abstract child elements and test the parent referenc
+		// of the first in the list.
+		var abstracts = node.getElementsByTagName( "ABSTRACT" );
+		if ( abstracts && abstracts.length > 0 && abstracts[ 0 ].parentNode === node ) return abstracts[ 0 ] ;
 	} ;
 
 		// Node states and associated handler functions for tree nodes.
@@ -619,9 +636,13 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 
 		// Unfolds the entire path from root to node.
 	Synesis.NavigationTree.expandPath = function ( root, node ) {
+		// *	Node must be the parent node of the current page node.
 		while ( node && node !== root ) {
 			if ( node.tagName === "UL" ) node.style.height = "auto" ;
-			else if ( node.tagName === "LI" ) node.setAttribute( "cts", "0" );
+			else if ( node.tagName === "LI" ) {
+				node.setAttribute( "cts", "0" );
+				Synesis.NavigationTree.pathNodes.unshift( node );
+			}
 			node = node.parentNode;
 		}
 	} ;
@@ -654,7 +675,7 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			// of the standard tree click event handler. Note that a navigation tree
 			// must have the "customHandler" attribute.
 			tree.addEventListener( "click" , Synesis.NavigationTree.clickHandler );
-			//
+			
 			// Treat nodes with an "abstract" element.
 			var abstracts = tree.getElementsByTagName( "ABSTRACT" );
 			for ( var j = 0 ; j < abstracts.length ; j ++ ) {
@@ -673,24 +694,35 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 				// Save a reference in the node info.
 				node.Synesis.abstract = abstract;
 			}
-			//
-			// Find nodes that link to the current document.
+			
+			// Find the node that links to the current document.
 			var anchors = tree.getElementsByTagName( "A" );
 			var docpath = document.location.pathname;
 			for ( var j = 0 ; j < anchors.length ; j ++ ) {
 				var anchor = anchors[ j ];
-				if ( anchor.pathname === docpath ) {
-					// Indicate that the node is "active" and expand the path to the node.
-					anchor.parentNode.setAttribute( "active", "1" );
-					Synesis.NavigationTree.expandPath( tree, anchor.parentNode.parentNode );
-					// Store references to the neighbour nodes.
-					if ( ! Synesis.NavigationTree.currentPage ) {
-						if ( j > 0 ) Synesis.NavigationTree.previousPage = anchors[ j - 1 ];
-						Synesis.NavigationTree.currentPage = anchors[ j ];
-						if ( j < anchors.length - 1 ) Synesis.NavigationTree.followingPage = anchors[ j + 1 ];
-					}
-				}
-			} 
+				if ( anchor.pathname !== docpath ) continue;
+				// This code runs only once.
+				// Indicate that the node is "active" 
+				anchor.parentNode.setAttribute( "active", "1" );
+				// Expand the path to the document node
+				Synesis.NavigationTree.expandPath( tree, anchor.parentNode.parentNode );
+				// Store references to current and neighbour nodes.
+				Synesis.NavigationTree.currentPage = anchors[ j ];
+				Synesis.NavigationTree.previousPage = j > 0 ? anchors[ j - 1 ] : anchors[ anchors.length - 1 ];
+				Synesis.NavigationTree.followingPage = j < anchors.length - 1 ? anchors[ j + 1 ] : anchors[ 0 ];
+				// Initialize the document abstract box.
+				var abstractTarget = document.getElementById( "abstract");
+				if ( ! abstractTarget ) break;
+				var abstractSource = Synesis.NavigationTree.getAbstract( anchor.parentNode );
+				if ( ! abstractSource ) break;
+				// Fill the abstract target container
+				abstractTarget.innerHTML = abstractSource.innerHTML;
+				// Look no further
+				break;
+			}
+
+			// Check: Document in ToC?
+			if ( ! Synesis.NavigationTree.currentPage ) console.warn( "Page has no entry in the table-of-contents." );
 		}
 		
 		// Initialize navigation links in the document.
