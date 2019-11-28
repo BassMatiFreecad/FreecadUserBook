@@ -15,6 +15,43 @@
 <h1>External Repositories</h1>
 
 <div id="navigation-panel"></div>
+<div id="abstract"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>External Link</tag>, <tag>Repository</tag>, <tag>External Repository</tag>, <tag>Replace With Link</tag>, <tag>Indirection</tag>, <tag>Link Layer</tag>.</p>
+</div>
+<h3 cbs="1">Freecad Version Info</h3><div>
+<p class="code">
+OS: Windows 10 (10.0)
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.17089 +1543 (Git)
+Build type: Release
+Branch: LinkStage3
+Hash: 950c082111ae5ebeefb4dddc90a80dc9b54b2408
+Python version: 3.6.8
+Qt version: 5.12.1
+Coin version: 4.0.0a
+OCC version: 7.3.0
+Locale: English/United States (en_US)
+</p>
+</div>
+<h3 cbs="1">Files</h3><div>
+<dl>
+<dt id="file-001"><a href="../../files/asm3/link-1/link-011.fcstd">link-011.fcstd</a></dt><dd>Initial State File</dd>
+<dt id="file-002"><a href="../../files/asm3/xrepo/xrepo-001.fcstd">xrepo-001.fcstd</a></dt><dd>Project File Example 1, Moved Components</dd>
+<dt id="file-003"><a href="../../files/asm3/xrepo/xrepo-lib-001.fcstd">xrepo-lib-001.fcstd</a></dt><dd>Repository File Example 1, Moved Components</dd>
+<dt id="file-004"><a href="../../files/asm3/xrepo/xrepo-002.fcstd">xrepo-002.fcstd</a></dt><dd>Project File Example 2, Extra Link Layer</dd>
+<dt id="file-005"><a href="../../files/asm3/xrepo/xrepo-lib-002.fcstd">xrepo-lib-002.fcstd</a></dt><dd>Repository File Example 2, Extra Link Layer</dd>
+<dt id="file-006"><a href="../../files/asm3/xrepo/xrepo-003.fcstd">xrepo-002.fcstd</a></dt><dd>Project File Example 3, Replaced Component</dd>
+<dt id="file-007"><a href="../../files/asm3/xrepo/xrepo-lib-003.fcstd">xrepo-lib-002.fcstd</a></dt><dd>Repository File Example 3, Replaced Component</dd>
+</dl></div>
+<h3 cbs="1">Videos</h3><div>
+<dl>
+<dt id="vid-001"><a href="link-2-001.mp4">xrepo-001.mp4</a></dt><dd>Moving Components to an External Repository</dd>
+<dt id="vid-002"><a href="link-2-002.mp4">xrepo-002.mp4</a></dt><dd>Extra Indirection Layer in the Local Repository</dd>
+<dt id="vid-003"><a href="link-2-003.mp4">xrepo-002.mp4</a></dt><dd>Replacing a Component</dd>
+</dl></div>
 
 <div>
 <p>In this section we will develop concepts to organize re-usable (standard) components in respositories. We already used a local repository inside the project file and links in the design to reference respository components. In these tutorials we will move standard components to an <em>external</em> repository. Such a respository can be shared among projects.
@@ -23,28 +60,6 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>We will demonstrate how <tt>Assembly 3</tt> <tt>Links</tt> work across files, and how to repair broken links.</p>
 </div>
-
-<h3 cbs="1">Tags</h3><div>
-<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>External Link</tag>, <tag>External Repository</tag>, <tag>Replace With Link</tag>.</p>
-</div>
-
-<h3 cbs="1">Files</h3><div>
-<ul>
-<li id="file-001"><a href="../../files/asm3/link-1/link-011.fcstd">link-011.fcstd</a>&emsp;Initial State File</li>
-<li id="file-002"><a href="../../files/asm3/xrepo/xrepo-001.fcstd">xrepo-001.fcstd</a>&emsp;Project File Example 1, Moved Components</li>
-<li id="file-003"><a href="../../files/asm3/xrepo/xrepo-lib-001.fcstd">xrepo-lib-001.fcstd</a>&emsp;Repository File Example 1, Moved Components</li>
-<li id="file-004"><a href="../../files/asm3/xrepo/xrepo-002.fcstd">xrepo-002.fcstd</a>&emsp;Project File Example 2, Extra Link Layer</li>
-<li id="file-005"><a href="../../files/asm3/xrepo/xrepo-lib-002.fcstd">xrepo-lib-002.fcstd</a>&emsp;Repository File Example 2, Extra Link Layer</li>
-<li id="file-006"><a href="../../files/asm3/xrepo/xrepo-003.fcstd">xrepo-002.fcstd</a>&emsp;Project File Example 3, Replaced Component</li>
-<li id="file-007"><a href="../../files/asm3/xrepo/xrepo-lib-003.fcstd">xrepo-lib-002.fcstd</a>&emsp;Repository File Example 3, Replaced Component</li>
-</ul></div>
-
-<h3 cbs="1">Videos</h3><div>
-<ul>
-<li id="vid-001"><a href="link-2-001.mp4">xrepo-001.mp4</a>&emsp;Moving Components to an External Repository</li>
-<li id="vid-002"><a href="link-2-002.mp4">xrepo-002.mp4</a>&emsp;Extra Indirection Layer in the Local Repository</li>
-<li id="vid-003"><a href="link-2-003.mp4">xrepo-002.mp4</a>&emsp;Replacing a Component</li>
-</ul></div>
 
 <h2 cbs="0">Moving Components to an External Repository</h2><div>
 
@@ -64,7 +79,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 <li><a href="#file-004">/xrepo-lib-001.fcstd</a>&emsp;Finished external repostitory for the first example.</li>
 </ul></div>
 
-<ol start="1">
+<ol >
 <li>Open the file <a href="#file-001">link-011.fcstd</a>.</li>
 <li>Save it under the work file name "xrepo.fcstd".</li>
 <li>Open the <tt>Repository</tt> node in the project file.<br /><img src="../../img/asm3/xrepo/fig-001.png" width="285" /></li>
@@ -72,14 +87,14 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Here are the components used in the project. The first three are standard components, washer, nut and screw. These are likely to be re-used in other projects, so it might be a good idea to store them in a separate file.</p>
  
-<ol start="4">
+<ol >
 <li>Click the menu <tt>File > New</tt>.</li>
 <li>Click the menu <tt>File > Save as...</tt> to save it under the library work file name "xrepo-lib.fcstd".</li>
 </ol>
 
 <p>We will start with the washer component <tt>Assembly000 000</tt>, and move it to the new repository file.</p>
 
-<ol start="6">
+<ol >
 <li>Save the project file <tt>xrepo</tt>. When asked to save the dependency files, click <tt>Yes</tt>.</li>
 <li>In the <tt>Model Tree</tt>, drag the first (next) component <tt>Assembly000 000</tt> from the local <tt>Repository</tt> folder and drop it on the external repository node <tt>xrepo-lib</tt>.<br /><img src="../../img/asm3/xrepo/fig-002.png" width="288" /></li>
 <li>Right-click the project file <tt>xrepo</tt>, click <tt>Mark to recompute</tt>.</li>
@@ -93,7 +108,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>As mentioned above, the <tt>Linked Object</tt> property is empty. Fortunately, the <tt>Label</tt> value still gives a hint to what object we have to look for: <tt>Assembly000 000</tt>. This is a benefit of the strange naming convention I used for <tt>Links</tt>.</p>
 
-<ol start="13">
+<ol >
 <li>Select the link node <tt>Assembly000 001</tt>.</li>
 <li>Click on the value field of its property <tt>Linked Object</tt>.</li>
 <li>Click on the button with the horizontal ellipsis that appears in the right corner. This opens the <tt>Link Dialog</tt>.</li>
@@ -101,7 +116,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>The link dialog window shows all model nodes of a file in a simple list.</p>
 
-<ol start="16">
+<ol >
 <li>Select the entry <tt>xrepo-lib</tt> into the combo box.</li>
 <li>Enter "Ass" into the <tt>Search</tt> text box. This sets a filter for the listbox content, only assembly objects are listed now.</li>
 <li>Select the <tt>Assembly000 000</tt> entry.<br /><img src="../../img/asm3/xrepo/fig-005.png" width="218" /></li>
@@ -110,13 +125,13 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>The washers on the underside of the block re-appeared in the 3D window, but the node still has this error icon.</p>
 
-<ol start="20">
+<ol >
 <li>Right-click the node, then click <tt>Recompute object</tt>.</li>
 </ol>
 
 <p>The error icon disappeared, the node is OK now.</p>
 
-<ol start="21">
+<ol >
 <li>Repeat from step 13 for the second broken model tree node.</li>
 </ol>
 
@@ -124,7 +139,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>To check whether there are still hidden errors in the project file you can&hellip;</p>
 
-<ol start="22">
+<ol >
 <li>Collapse all nodes, right-click the project file node <tt>xrepo</tt>, and click <tt>Mark to recompute</tt>.</li>
 <li>Click the menu <tt>Edit > Refresh</tt>.</li>
 </ol>
@@ -132,7 +147,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 <p>If nothing unfolds, the file is OK.</p>
 <p>Now move the hex nut component:</p>
 
-<ol start="24">
+<ol >
 <li>Repeat from step 6 with the <tt>Assembly001 000</tt>.</li>
 </ol>
 
@@ -142,7 +157,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>The cylinder head screw will make problems. That is one of the reasons we saved the file before every transaction.</p>
 
-<ol start="25">
+<ol >
 <li>Save project and repository files.</li>
 <li>Drag <tt>Assembly002 000</tt> on <tt>xrepo-lib</tt>.</li>
 </ol>
@@ -157,7 +172,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>The following recipe shows a method to find the element(s) that causes problems:</p>
 
-<ol start="27">
+<ol >
 <li>Delete <tt>Pad005</tt> (and optionally <tt>Sketch006</tt> and <tt>XY_Plane003</tt>) in the repository file.</li>
 <li>Ignore the warning and click <tt>Yes</tt> to continue.</li>
 </ol>
@@ -166,7 +181,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <img src="../../img/asm3/xrepo/fig-011.png" width="261" />
 
-<ol start="29">
+<ol >
 <li>Select <tt>Pad003</tt>.</li>
 <li>Carefully browse through the properties.</li>
 </ol>
@@ -189,7 +204,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>The third option will be chosen in the next tutorial, so we'll go for the second option, revert the files.</p>
 
-<ol start="31">
+<ol >
 <li>Select the repository file.</li>
 <li>Click the menu <tt>File > Revert</tt>. Accept the warning.</li>
 <li>Select the project file.</li>
@@ -199,7 +214,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Cleanup:</p>
 
-<ol start="36">
+<ol >
 <li>Collapse all nodes.</li>
 <li>Save the project file under the name "xrepo-001.fcstd".</li>
 <li>Save the repsitory file under the name "xrepo-lib-001.fcstd".</li>
@@ -246,16 +261,18 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 <li>Save the new file under the work file name "xrepo-lib.fcstd".</li>
 </ol>
 
+<div class="note"><p>Note that you <em>must save</em> an external repository file before a link into the file can be created, because the file name is part of the link information.</p></div>
+
 <p>Now we will replace the first repository component with a <tt>Link</tt>:</p>
 
-<ol start="7">
+<ol >
 <li>Right-click the washer node, click <tt>Link actions > Replace with link</tt>.<br /><img src="../../img/asm3/xrepo/fig-006.png" width="285" /></li>
 </ol>
 
 <p>The component in the repository has been replaced by the link node <tt>Assembly000 003</tt>, and the component has moved down near the end of the model tree.
 </p>
 
-<ol start="8">
+<ol >
 <li>Make sure to have hidden properties visible: Right-click on the <tt>Property Panel</tt>, click <tt>Select all</tt>.</li>
 <li>Copy the <tt>Label2</tt> value from <tt>Assembly000 000</tt> to <tt>Assembly000 003</tt>.</li>
 <li>Hide the link object <tt>Assembly000 003</tt>.</li>
@@ -264,7 +281,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Everything looks fine, but&hellip;</p>
 
-<ol start="12">
+<ol >
 <li>Right-click the <tt>Repository</tt> node, click <tt>Recompute object</tt>.</li>
 </ol>
 
@@ -274,7 +291,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Fortunately, we already know how to deal with that:</p>
 
-<ol start="13">
+<ol >
 <li>Select the first (next) problem node in the model tree.</li>
 <li>Click the <tt>Linked Object</tt> property value area.</li>
 <li>Click the button with the &hellip; at the right side to open the <tt>Link</tt> editor window.<br /><img src="../../img/asm3/xrepo/fig-005.png" width="219" /></li>
@@ -294,7 +311,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>To verify that there are no more problems with the file, &hellip;</p>
 
-<ol start="20">
+<ol >
 <li>Collapse all expanded nodes.</li>
 <li>Right-click on the project file node, then click <tt>Mark for recompute</tt>.</li>
 <li>Click the menu <tt>Edit > Refresh</tt>.</li>
@@ -302,7 +319,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>If the project file is OK, no new problem nodes are unfolded.</p>
 
-<ol start="23">
+<ol >
 <li>Click the menu <tt>File > Save</tt> to save the working copy of the project file.</li>
 <li>When asked to save the dependency files, click <tt>Yes</tt>.</li>
 <li>Repeat from step 7 with the second standard component, the hex nut <tt>Assembly001 000</tt>.</li>
@@ -310,7 +327,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>As we have learned from the previous exercise, the cylinder head screw <tt>Assembly002 000</tt> causes problems because of a reference to <tt>Pad005.Length</tt> in the <tt>Pad003.Length</tt> value.</p>
 
-<ol start="26">
+<ol >
 <li>Select the node <tt>Assembly002 000 > Parts002 > Body002 > Pad003</tt>.</li>
 <li>Discard the formula in the <tt>Length</tt> property, and set it to a fixed value of "35 mm".</li>
 <li>Collapse <tt>Assembly002 000</tt>.</li>
@@ -318,13 +335,13 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Now the component is prepared to be moved to the external repository</p>
 
-<ol start="29">
+<ol >
 <li>Repeat from step 7 for <tt>Assembly002 000</tt>.</li>
 </ol>
 
 <p>Final cleanup:</p>
 
-<ol start="30">
+<ol >
 <li>Collapse all nodes.</li>
 <li>Save a copy of the project file under the name "xrepo-002.fcstd".</li>
 <li>Save a copy of the repository file under the name "xrepo-lib-002.fcstd".</li>
@@ -369,7 +386,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>We will now create a second screw in the respository file.</p>
 
-<ol start="6">
+<ol >
 <li>Switch to the <tt>Part Design</tt> workbench.</li>
 <li>Select the repository file node.</li>
 <li>Create a new <tt>Body</tt>.</li>
@@ -399,7 +416,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Wrap the new Body with an Assembly object:</p>
 
-<ol start="29">
+<ol >
 <li>Select the repository file <tt>xrepo-lib</tt>.</li>
 <li>Switch to the <tt>Assembly3</tt> workbench.</li>
 <li>Create a new <tt>Assembly</tt> element.</li>
@@ -412,7 +429,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Create the constraint connector:</p>
 
-<ol start="35">
+<ol >
 <li>Set <tt>Label2</tt> of <tt>Elements003</tt> to "Constraint Connectors".</li>
 <li>Select the edge between shaft and head in the 3D window.</li>
 <li>Drag the associated <tt>Pad007</tt> on the <tt>Constraint Connectors</tt> node.</li>
@@ -421,7 +438,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>To make the new screw compatible with the old one, the public constraint connectors must have the same label name:</p>
 
-<ol start="39">
+<ol >
 <li>Select the <tt>Head Seat</tt> constraint connector of the cylinder head screw.</li>
 <li>Copy the <tt>Label</tt> property value.</li>
 <li>Select the <tt>Head Seat</tt> constraint connector of the hexagon head screw.</li>
@@ -440,7 +457,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Final cleanup steps:</p>
 
-<ol start="43">
+<ol >
 <li>Collapse all open nodes.</li>
 <li>Hide <tt>Assembly003 000</tt>.</li>
 <li>Save a copy of the repository file under the name "asm2-link-2-lib-003.fcstd".</li>
@@ -453,7 +470,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 <p>In the current preview version of <tt>Assembly 3</tt>, the copy function is not always reliable, and sometimes produces access violations, sometimes the copy dialog looks different. It is not clear whether the model structure is damaged, or not, so we will opt for the safe road.</p>
 </div>
 
-<ol start="46">
+<ol >
 <li>Open the <tt>Repository</tt> node in the project file.</li>
 <li>Select the screw component <tt>Assembly002 000</tt>.</li>
 <li>Click on the value field of the <tt>Linked Object</tt> property.</li>
@@ -467,7 +484,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>Now we will verify that the constraints in the project are still operational.</p>
 
-<ol start="55">
+<ol >
 <li>Switch to the <tt>Assembly 3</tt> workbench.</li>
 <li>Open the <tt>Block</tt> assembly node in the local <tt>Repository</tt> folder.</li>
 <li>Drill down to the <tt>Sketch006</tt> node.</li>
@@ -506,13 +523,13 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>So we can search for the repository file, and load it manually:</p>
 
-<ol start="5">
+<ol >
 <li>Open the renamed resository file.</li>
 </ol>
 
 <p>Now we can reassign the broken <tt>Linked Object</tt> fields. The error info specifies the name of the linked object, but this is the internal name, not the searchable <tt>Label</tt> value. Fortunately, our naming convention gives the hint to name to search for.</p>
 
-<ol start="6">
+<ol >
 <li>Select the node <tt>Assembly000 003</tt> in the project file.</li>
 <li>Click on the value field of the <tt>Linked Object</tt> property.</li>
 <li>Click on the horizontal ellipsis button to open the <tt>Link</tt> editor dialog.</li>
@@ -524,7 +541,7 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <p>The missing washer component re-appears in the 3D window.</p>
 
-<ol start="13">
+<ol >
 <li>Repeat from step 6 for the other broken links.</li>
 <li>When done, right-click the project file node, then click <tt>Mark for recompute</tt>.</li>
 <li>Click the menu <tt>Edit > Refresh</tt>.</li>
@@ -542,6 +559,145 @@ This tutorial  borders, and how components can be organized in repositories.</p>
 
 <!-- h2 Repository File Renamed or Moved --></div>
 
+<h2 cbs="0">Partial Loading</h2><div>
+
+<p>If you open a project that contains links to an external repository, the repository is also opened, but only the linked parts are loaded into memory. This space-saver allows you to work with very large libraries with a lot of "unused" parts inside, without having to worry about memory constraints.</p>
+
+<p>If you explicitly open the repository, the entire library is loaded into memory. This allows to add links to other parts in the repository to the project.</p>
+
+<p>If you close a repository file, the linked parts disappear from the 3D view. If you re-open the repository, the parts reappear.</p>
+
+<p>If you open a different repository with the same parts but different implementations, these alternative parts appear in the project. This allows you to swap one repository file for another with different part implementations. The only requirement is that the internal names and the <tt>Connector</tt> names of objects are the identical in both repositories.</p>
+
+<!-- h2 <Partial Loading --></div>
+
+<h2 id="xrepo-workflow" cbs="0">External Repository Workflow</h2><div>
+
+<p>In this section we will explore the recommended workflow with external repositories, and the effect of the object naming convention.</p>
+
+<h4 cbs="1">Files</h4><div><dl>
+<dt><a href="../../files/asm3/xrepo/xrepo-workflow-001.fcstd">xrepo-workflow-001.fcstd</a></dt><dd>Project workfile with repository folers.</dd>
+<dt><a href="../../files/asm3/xrepo/xrepo-workflow-002.fcstd">xrepo-workflow-002.fcstd</a></dt><dd>Project with linked components.</dd>
+<dt><a href="../../files/asm3/xrepo/xrepo-workflow-lib-001.fcstd">xrepo-workflow-lib-001.fcstd</a></dt><dd>Repository file with sample components.</dd>
+</dl></div>
+
+<p>As always, we begin with setting up the work files.</p>
+
+<ol start="1">
+<li>Create a new project file.</li>
+<li>Save it under the name "xrepo-workflow.fcstd".</li>
+<li>Create a new <tt>Group</tt> node and name it "Imported Components".</li>
+<li>Create a new <tt>Group</tt> node and name it "Project Repository".</li>
+<li>Save a copy of the workfile under the name "xrepo-workflow-001.fcstd".</li>
+<li>Open the file <a href="../../files/asm3/xrepo/xrepo-workflow-lib-001.fcstd">xrepo-workflow-lib-001.fcstd</a>.</li>
+<li>Save it under the work file name "xrepo-workflow-lib.fcstd".<br />This is our component repository.</li>
+</ol>
+
+<p>Have a look at the component names (the <tt>Label</tt> property) in the repository.</p>
+
+<img src="../../img/asm3/xrepo/fig-033.png" width="175" />
+
+<p>I used a key string that identifes the component and its main characteristics: A washer, a hex nut and a cylinder head screw. The composition of such a key string is usually company-specific, but there should be rules for naming standard components.</p>
+
+<p>The other rule I recommend to follow here is the postfix " 000": This stands for the <em>definition of a component</em>.</p>
+
+<p>The description string (in the <tt>Label2</tt> property) was left empty, you can add additional information here that might be useful for selecting a component. Note that this information is not usually copied when a <tt>Link</tt> is created from a component definition.</p>
+
+<p>In a project file, the <tt>Description</tt> should contain information about the purpose of a component in the design.</p>
+
+<p>In the next step we will create links to some of the components and import them into the project:</p>
+
+<ol>
+<li>Select all three components in the <tt>xrepo-workflow-lib</tt>.</li>
+<li>Right-click on the selection, then click <tt>Link actions > Make link</tt>.<br /><img src="../../img/asm3/xrepo/fig-034.png" width="180" />
+</li>
+</ol>
+
+<p>Three component <tt>Links</tt> are added to the repository file. Now we will move them to the local repository in the project file.</p>
+
+<ol>
+<li>Drag the selected <tt>Link</tt> objects in the repository on the project file node <tt>xrepo-workflow</tt>.<br />The <tt>Links</tt> moved to the bottom of the project file. They are still selected.</li>
+<li>Drag the selection on the <tt>Project Repository</tt> node.<br /><img src="../../img/asm3/xrepo/fig-035.png" width="172" /></li>
+<li>Drag the selection on the <tt>Project Repository</tt> node.<br /><img src="../../img/asm3/xrepo/fig-036.png" width="175" /></li>
+</ol>
+
+<p>Currently it is not possible to drag the link objects from the repository and drop them directly on the group node.</p>
+
+<p>Note the node names: The instance counter has been incremented to "001". In our naming convention this means that the node is a member of the indirection layer, and not to be used directly in the construction. The next steps demonstrate how to use them in the <tt>Project Assembly Container</tt>:</p>
+
+<ol>
+<li>Switch to the <tt>Assembly 3</tt> workbench.</li>
+<li>Create a new <tt>Assembly</tt>.</li>
+<li>Rename it to "Project Assembly Container".</li>
+<li>Select the three components in the <tt>Project Repository</tt>.</li>
+<li>Right-click on the selection, then click <tt>Link actions > Make link</tt>.</li>
+<li>Drag the new links on the <tt>Project Assembly Container</tt>.<br /><img src="../../img/asm3/xrepo/fig-037.png" width="200" /></li>
+</ol>
+
+<p>Note the instance numbers. A value greater than one indicates a component used in the construction. The workflow implements the scheme illustrated in figure 25:</p>
+
+<img src="../../img/asm3/xrepo/fig-025.png" width="211" />
+
+<p>The following table summarizes this relationship:</p>
+
+<style>#table-001 tr td:first-child { text-align: center; }</style>
+<table id="table-001" class="flat-borders"><thead><tr>
+	<th>Index</th>
+	<th>Usage</th>
+</tr></thead><tbody><tr>
+	<td>000</td>
+	<td>Component Definition</td>
+</tr><tr>
+	<td>001</td>
+	<td>Link layer in local repository</td>
+</tr><tr>
+	<td>002</td>
+	<td rowspan="2">Component links used in the project</td>
+</tr><tr>
+	<td>&hellip;</td>
+</tr></tbody></table>
+
+<p>The naming scheme offers the following benefits:</p>
+
+<ul>
+<li>Components can be exchanged on the project level by changing the 001 link in the indirection layer.</li>
+<li>Broken links can be repaired by searching for the component with the same key string and the index 000.</li>
+<li>External repository components can easily be imported (into the dedicated folder) to create a self-contained project file.</li>
+</ul>
+
+<p>Final project file cleanup:</p>
+
+<ol>
+<li>Collapse all nodes.</li>
+<li>Save a copy of the project file under the name "xrepo-workflow-002.fcstd".</li>
+</ol>
+
+<p>The repository file was not changed, so we don't need to save it.</p>
+
+<!-- h2 Working With External Repositories --></div>
+
+<h2 id="import-links" cbs="0">Import Links</h2><div>
+
+<p>There are situations where you want to move components from an external repository into the project file, for example to hand out the entire project so someone else in a single file.</p>
+
+<p>This can be done with the <tt>Import Link</tt> command. The workflow is as follows:</p>
+
+<ol start="1">
+<li>Open the file <a href="../../files/asm3/xrepo/xrepo-003.fcstd">xrepo-003.fcstd</a>.</li>
+<li>Save it under the work file name "import-link.fcstd".</li>
+<li>Open the <tt>Repository</tt> folder.</li>
+<li>Identify the external <tt>Link</tt> elements. They have a link icon in the lower left corner, and a chevron in the lower right corner.<br /><img src="../../img/asm3/xrepo/fig-029.png" width="90" /><br />You should be able to find three components:<br /><img src="../../img/asm3/xrepo/fig-030.png" width="262" /></li>
+<li>Select the identified components.</li>
+<li>Right-click on the selection, then click <tt>Import links</tt>.<br />Three new components were added to the project file.<br /><img src="../../img/asm3/xrepo/fig-031.png" width="287" /></li>
+<li>Drag them to the <tt>Repository</tt>.<br /><img src="../../img/asm3/xrepo/fig-032.png" width="283" /></li>
+</ol>
+
+<p>Note that their <tt>Label</tt> Names have not changed, and even the <tt>Description</tt> fields were copied from the external repository components.</p>
+
+<p>Note that we now have the component definition (Assembly999 000) and the component indirection layer (Assembly999 009) in the repository. If we </p>
+
+<!-- h2 Import Links --></div>
+
 <div id="script-area">
 <script src="../../inc/topic-1.js"></script>
 <script>
@@ -551,7 +707,7 @@ Synesis.Loader.request ( {
 	uris : "table-of-contents.htm" ,
 	targetContainers : "navigation-panel" ,
 	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
-	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument, Synesis.OrderedList.initStartAttributes ]
 } ) ;
 </script>
 
