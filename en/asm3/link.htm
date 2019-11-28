@@ -15,16 +15,69 @@
 <div id="page-menu"></div>
 <h1>Links and Link Arrays</h1>
 <div id="navigation-panel"></div>
+<div id="abstract"></div>
 
 <h3 cbs="1">Tags</h3><div>
 <p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Link</tag>, <tag>Link Array</tag>, <tag>Constraint</tag>, <tag>Constraint Connector</tag>, <tag>Subassembly</tag>.</p>
+</div>
+<h3 cbs="1">Freecad Version Info</h3><div>
+<p class="code">
+OS: Windows 10 (10.0)
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.17089 +1543 (Git)
+Build type: Release
+Branch: LinkStage3
+Hash: 950c082111ae5ebeefb4dddc90a80dc9b54b2408
+Python version: 3.6.8
+Qt version: 5.12.1
+Coin version: 4.0.0a
+OCC version: 7.3.0
+Locale: English/United States (en_US)
+</p>
+</div>
+<h3 id="files" cbs="1">Files</h3><div>
+
+<dl>
+<dt><a href="../../files/asm3/link/link-001.fcstd">link-001.fcstd</a></dt><dd>Empty project file with the Repository group</dd>
+<dt><a href="../../files/asm3/link/link-002.fcstd">link-002.fcstd</a></dt><dd>Washer added to repository</dd>
+<dt><a href="../../files/asm3/link/">link-003.fcstd</a></dt><dd>Nut added to repository</dd>
+<dt><a href="../../files/asm3/link/link-004.fcstd">link-004.fcstd</a></dt><dd>Screw added to repository</dd>
+<dt><a href="../../files/asm3/link/link-005.fcstd">link-005.fcstd</a></dt><dd>Block added to repository</dd>
+<dt><a href="../../files/asm3/link/link-007.fcstd">link-007.fcstd</a></dt><dd>Nut & Washer subassembly created</dd>
+<dt><a href="../../files/asm3/link/link-008.fcstd">link-008.fcstd</a></dt><dd>Bolt & Washer subassembly created</dd>
+<dt><a href="../../files/asm3/link/link-008.fcstd">link-008.fcstd</a></dt><dd>Project assembly container created and block component added</dd>
+<dt><a href="../../files/asm3/link/link-009.fcstd">link-009.fcstd</a></dt><dd>Bolt subassembly mounted</dd>
+<dt><a href="../../files/asm3/link/link-010.fcstd">link-010.fcstd</a></dt><dd>Nut subassembly mounted</dd>
+<dt><a href="../../files/asm3/link/link-011.fcstd">link-011.fcstd</a></dt><dd>Geometry changes and constraint effects</dd>
+</dl>
+
+</div>
+<h3 id="vid" cbs="1">Videos</h3><div>
+
+<p class="note">In the videos the outdated term "mating connectors" was used for "constraint connectors". Additionally, the file old prefix "asm3-link-1" instead of "link".</p>
+
+<dl>
+<dt id="vid-001"><a href="https://youtu.be/xDQBBVK2RHE" local="link-001">link-001</a></dt><dd>Local Repository</dd>
+<dt id="vid-002"><a href="https://youtu.be/YRm0UbB2rgc" local="link-002">link-002</a></dt><dd>Washer Component</dd>
+<dt id="vid-003"><a href="https://youtu.be/enmVAMJo6Tw" local="link-003">link-003</a></dt><dd>Nut Component</dd>
+<dt id="vid-004"><a href="https://youtu.be/xHpLXY_z_os" local="link-004">link-004</a></dt><dd>Screw Component</dd>
+<dt id="vid-005"><a href="https://youtu.be/VlABNolf1fc" local="link-005">link-005</a></dt><dd>Block Component</dd>
+<dt id="vid-006"><a href="https://youtu.be/eFSK79ScFYw" local="link-006">link-006</a></dt><dd>Nut & Washer Subassembly</dd>
+<dt id="vid-007"><a href="https://youtu.be/8YkZT2T-its" local="link-007">link-007</a></dt><dd>Bolt & Washer Subassembly</dd>
+<dt id="vid-008"><a href="https://youtu.be/H9KyJRFeHVA" local="link-008">link-008</a></dt><dd>Project Assembly Container</dd>
+<dt id="vid-009"><a href="https://youtu.be/_UP-L9GqSh4" local="link-009">link-009</a></dt><dd>Mounting the Bolt Subassembly</dd>
+<dt id="vid-010"><a href="https://youtu.be/SJp25JGrwjA" local="link-010">link-010</a></dt><dd>Mouting the Nut Subassembly</dd>
+<dt id="vid-011"><a href="https://youtu.be/VXXDJi2tyww" local="link-011">link-011</a></dt><dd>Geometry Modifications and Constraint Enforcements</dd>
+</dl>
+
 </div>
 
 <div>
 
 <p>The Assembly 3 workbench introduces a powerful new concept: the <em>Link Object</em>. The <tt>Link</tt> enables lightweight copies of an object. A link stands for and points to a link source (or link target) object, which provides the geometric definition. If the definition is changed, all links "inherit" these changes.</p>
 
-<div class="imgbox"><img src="../../img/asm3/link/fig-060.png" width="181"</div>
+<div class="imgbox"><img src="../../img/asm3/link/fig-060.png" width="181" /></div>
 
 <p>Links work quite similar to a web page link: Many users can follow the same HTML link and view a copy of the web page in their browsers. If the page author modifes and updates the page file on the server, all users will get the new content as soon as they refresh their page view.</p>
 
@@ -39,44 +92,6 @@
 <div class="info">
 <p>I used my naming convention for the Link objects, exploiting Freecad's numbering feature to create unique object names and preserving the link source object name. This convention served me well, but you can use your own convention or accept the names suggested by Freecad.</p>
 </div>
-
-</div>
-
-<h2 id="files" cbs="1">Files</h2><div>
-
-<ul style="list-style-type: none">
-<li><a href="../../files/asm3/link/link-001.fcstd">01 &ensp; Empty project file with the Repository group</a></li>
-<li><a href="../../files/asm3/link/link-002.fcstd">02 &ensp; Washer added to repository</a></li>
-<li><a href="../../files/asm3/link/link-003.fcstd">03 &ensp; Nut added to repository</a></li>
-<li><a href="../../files/asm3/link/link-004.fcstd">04 &ensp; Screw added to repository</a></li>
-<li><a href="../../files/asm3/link/link-005.fcstd">05 &ensp; Block added to repository</a></li>
-<li><a href="../../files/asm3/link/link-007.fcstd">06 &ensp; Nut & Washer subassembly created</a></li>
-<li><a href="../../files/asm3/link/link-008.fcstd">07 &ensp; Bolt & Washer subassembly created</a></li>
-<li><a href="../../files/asm3/link/link-008.fcstd">08 &ensp; Project assembly container created and block component added</a></li>
-<li><a href="../../files/asm3/link/link-009.fcstd">09 &ensp; Bolt subassembly mounted</a></li>
-<li><a href="../../files/asm3/link/link-010.fcstd">10 &ensp; Nut subassembly mounted</a></li>
-<li><a href="../../files/asm3/link/link-011.fcstd">11 &ensp; Geometry changes and constraint effects</a></li>
-</ul>
-
-</div>
-
-<h2 id="vid" cbs="1">Videos</h2><div>
-
-<p class="note">In the videos the outdated term "mating connectors" was used for "constraint connectors". Additionally, the file old prefix "asm3-link-1" instead of "link".</p>
-
-<ul style="list-style-type: none">
-<li id="vid-001"><a href="https://youtu.be/xDQBBVK2RHE" local="link-001">01 &ensp; Local Repository</a></li>
-<li id="vid-002"><a href="https://youtu.be/YRm0UbB2rgc" local="link-002">02 &ensp; Washer Component</a></li>
-<li id="vid-003"><a href="https://youtu.be/enmVAMJo6Tw" local="link-003">03 &ensp; Nut Component</a></li>
-<li id="vid-004"><a href="https://youtu.be/xHpLXY_z_os" local="link-004">04 &ensp; Screw Component</a></li>
-<li id="vid-005"><a href="https://youtu.be/VlABNolf1fc" local="link-005">05 &ensp; Block Component</a></li>
-<li id="vid-006"><a href="https://youtu.be/eFSK79ScFYw" local="link-006">06 &ensp; Nut & Washer Subassembly</a></li>
-<li id="vid-007"><a href="https://youtu.be/8YkZT2T-its" local="link-007">07 &ensp; Bolt & Washer Subassembly</a></li>
-<li id="vid-008"><a href="https://youtu.be/H9KyJRFeHVA" local="link-008">08 &ensp; Project Assembly Container</a></li>
-<li id="vid-009"><a href="https://youtu.be/_UP-L9GqSh4" local="link-009">09 &ensp; Mounting the Bolt Subassembly</a></li>
-<li id="vid-010"><a href="https://youtu.be/SJp25JGrwjA" local="link-010">10 &ensp; Mouting the Nut Subassembly</a></li>
-<li id="vid-011"><a href="https://youtu.be/VXXDJi2tyww" local="link-011">11 &ensp; Geometry Modifications and Constraint Enforcements</a></li>
-</ul>
 
 </div>
 

@@ -15,9 +15,26 @@
 <h1>Visual Aids</h1>
 
 <div id="navigation-panel"></div>
+<div id="abstract"></div>
 
 <h3 cbs="1">Tags</h3><div>
 <p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Visual Aid</tag>, <tag>Constraint</tag>, <tag>Color</tag>, <tag>Highlight</tag>.</p>
+</div>
+<h3 cbs="1">Freecad Version Info</h3><div>
+<p class="code">
+OS: Windows 10 (10.0)
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.17089 +1543 (Git)
+Build type: Release
+Branch: LinkStage3
+Hash: 950c082111ae5ebeefb4dddc90a80dc9b54b2408
+Python version: 3.6.8
+Qt version: 5.12.1
+Coin version: 4.0.0a
+OCC version: 7.3.0
+Locale: English/United States (en_US)
+</p>
 </div>
 
 <div>
@@ -32,15 +49,15 @@
 
 <h3>Auto Element Visibility On</h3><div>
 
-<p><tt>Constraint Connectors</tt> are highlighted in the preselection color when the mouse hovers over the <tt>Connector</tt> in the <tt>Model Tree</tt>. To be precise, not exactly the <tt>Connector</tt> is highlighted, instead, it is the geometry element that is bound to the <tt>Connector</tt>. The connector itself has no visible 3D element, but determines the color.</p>
+<p><tt>Constraint Connectors</tt> are highlighted in the preselection color when the mouse hovers over the <tt>Connector</tt> in the <tt>Model Tree</tt>. To be precise, not the <tt>Connector</tt> is highlighted, butj the geometry element that is bound to the <tt>Connector</tt>. The connector itself has no visible 3D element except its <a href="#ccs">local coordinate system</a>.</p>
 
-<p>You cannot control the visibility of of <tt>Connectors</tt> manually by pressing the space bar when the node is selected.</p>
+<p>You cannot control the visibility of of a selected <tt>Connectors</tt> manually by pressing the space bar when this switch is on.</p>
 
 <!-- h3 Auto Element Visibility On --></div>
 
 <h3>Auto Element Visibility Off</h3><div>
 
-<p>With <tt>Auto Element Visibility</tt> off, you can control the visibility of <tt>Connectors</tt> by pressing the space bar.</p>
+<p>With <tt>Auto Element Visibility</tt> off, the visibility <tt>Connectors</tt> and the color of the associated geometry elements can be controlled manually. </p>
 
 <!-- h3 Auto Element Visibility Off --></div>
 
@@ -76,6 +93,22 @@
 <p>If <tt>Override Material</tt> is <tt>true</tt>, the connector color is defined by the <tt>Shape Material</tt> color property. If <tt>Override Material</tt> is <tt>false</tt>, the connector color is shown in the color defined by the child node.</p>
 
 <!-- h2 Connector Color --></div>
+
+<h2 id="ccs" cbs="0">Connector Coordinate System</h2><div>
+
+<p>To examine the orientation of a <tt>Constraint Connector</tt>, a local coordinate system (LCS) can be shown on connectors. The LCS shows only positive axes, which makes it possible to recognize its orientation:</p>
+
+<img src="../../img/asm3/visual-aids/fig-007.png" width="233" />
+
+<p>This is helpful when you orient components before applying an <tt>Assembly Constraint</tt>.</p>
+
+<p>The switch can be found the menu <tt>Assembly3 > Element style > Show element coordinate system</tt>, and has a system-wide scope.</p>
+
+<p>If the switch <tt>Auto element visibility</tt> is off and the connectors are made visible, the connector coordinate system are shown in colors:</p>
+
+<img src="../../img/asm3/visual-aids/fig-008.png" width="256" />
+
+<!-- h2 Connector Coordinate System --></div>
 
 <h2 cbs="0">Exercise</h2><div>
 

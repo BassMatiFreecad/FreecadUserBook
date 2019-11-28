@@ -12,18 +12,29 @@
 
 <h1>The Freecad User Book</h1>
 <div id="page-menu"></div>
-<h1>First Assembly Demo</h1>
-
+<h1>First Steps With Assemblies</h1>
 <div id="navigation-panel"></div>
-
-<div>
-<p></p>
-</div>
+<div id="abstract"></div>
 
 <h3 cbs="1">Tags</h3><div>
 <p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Constraint</tag>, <tag>Connector</tag>, <tag>Container</tag>.</p>
 </div>
-
+<h3 cbs="1">Freecad Version Info</h3><div>
+<p class="code">
+OS: Windows 10 (10.0)
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.17089 +1543 (Git)
+Build type: Release
+Branch: LinkStage3
+Hash: 950c082111ae5ebeefb4dddc90a80dc9b54b2408
+Python version: 3.6.8
+Qt version: 5.12.1
+Coin version: 4.0.0a
+OCC version: 7.3.0
+Locale: English/United States (en_US)
+</p>
+</div>
 <h3 cbs="1">Files</h3><div>
 <dl>
 <dt id="file-001"><a href="../../files/asm3/asm/asm-001.fcstd">asm-001.fcstd</a></dt><dd>Washer Component</dd>
@@ -36,16 +47,11 @@
 
 </dl></div>
 
-<h3 cbs="1">Videos</h3><div>
-<ul>
-<li id="vid-001"><a href="???.mp4">???.mp4</a>&emsp;Assembly 3 Video Title</li>
-</ul></div>
-
-<h2 cbs="0">First Steps With Assemblies</h2><div>
+<h2 cbs="0">Instructions</h2><div>
 
 <p>This tutorial will get you started with <tt>Assemblies</tt>. We will create two components, and mate them with an <tt>Assembly Constraint</tt>.</p>
 
-<h3>A Washer</h3><div>
+<h3 cbs="0">A Washer</h3><div>
 <ol start="1">
 <li>Create a new project file, and save it under the name "asm.fcstd".</li>
 <li>Switch to the <tt>Part Design</tt> workbench.</li>
@@ -106,7 +112,7 @@
 
 <!-- h3 A Washer --></div>
 
-<h3>A Block Component</h3><div>
+<h3 cbs="0">A Block Component</h3><div>
 
 <p>In this step we will define a simple block with a bunch of holes where we can attach the washers to.</p>
 
@@ -214,9 +220,11 @@
 
 <!-- h3 A Block Component --></div>
 
-<h3>Mating Washer and Block</h3><div>
+<h3 cbs="0">Mating Washer and Block</h3><div>
 
 <p>Now is the time to get involved with <tt>Assembly Constraints</tt>.</p>
+
+<div class="note"><p>It is necessary to have the model tree option <tt>Sync selection</tt> active to use this workflow. Click the menu <tt>View > Treeview actions</tt>, and make sure that the entry <tt>Sync selection</tt> is active.</p></div>
 
 <div class="info">
 <p>To start here from scratch, &hellip;</p>
@@ -412,7 +420,7 @@
 <!-- h4 Washer in Wrong Orientation --></div>
 <!-- h3 Mating Washer and Block --></div>
 
-<h3>Conclusion</h3><div>
+<h3 cbs="0">Conclusion</h3><div>
 
 <p>In this tutorial we have learned</p>
 <ul>
@@ -429,8 +437,7 @@
 <p>In the next tutorial, we will try the second option, prepositioning the components to be mated to help the solver deliver the expected results.</p>
 
 <!-- h3 Conclusion --></div>
-
-<!-- h2 First Steps With Assemblies --></div>
+<!-- h2 Instructions --></div>
 
 <h2 cbs="0">Pre-Positioning Components</h2><div>
 

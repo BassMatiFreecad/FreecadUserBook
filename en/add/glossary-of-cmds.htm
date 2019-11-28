@@ -1,0 +1,64 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Glossary of Commands</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-11-28">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-11-28">
+<meta name="document-version" content="1">
+<meta name="template-version-date" content="2019-11-25">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+<link rel="stylesheet" href="../../inc/glossary-1.css" />
+</head><body class="glossary">
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>Glossary of Commands</h1>
+<div id="navigation-panel"></div>
+<div id="abstract"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Glossary</tag>, <tag>Command</tag>.</p>
+</div>
+
+<h4 id="mark-to-recompute" cbs="1">Mark to Recompute</h4><div>
+<p>Sets a flag on an unmodified component to be recomputed with the <tt><a href="#refresh">Refresh</a></tt> command.</p>
+<p>Where to find: <tt>Model Tree</tt> node, context menu.</p>
+<p>Related: <tt><a href="#refresh">Refresh</a></tt>.</p>
+<p>Related: <tt><a href="#recompute-object">Recompute Object</a></tt>.</p>
+</div>
+
+<h4 id="refresh" cbs="1">Refresh</h4><div>
+<p>Recalculates the current document.</p>
+<p>Where to find: Menu <tt>Edit > Refresh</tt>, keyboard <kbd>F5</kbd>.</p>
+<p>Similar: <tt><a href="#recompute-object">Recompute Object</a></tt>.</p>
+<p>Related: <tt><a href="#mark-to-recompute">Mark to Recompute</a></tt>.</p>
+</div>
+
+<h4 id="recompute-object" cbs="1">Recompute Object</h4><div>
+<p>Recalculates the selected object.</p>
+<p>Similar: <tt><a href="#refresh">Refresh</a></tt>.</p>
+</div>
+
+
+<!-- 
+<h4 id="" cbs="1"></h4><div>
+<p></p>
+<p>Alias: <tt><a href="#"></a></tt>.</p>
+</div>
+-->
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>

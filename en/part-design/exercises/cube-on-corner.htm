@@ -7,18 +7,20 @@
 <meta name="modification-date" content="2019-11-13">
 <meta name="document-version" content="2">
 <meta name="template-version-date" content="2019-11-17">
-<link rel="stylesheet" href="../../inc/topic-1.css" />
+<link rel="stylesheet" href="../../../inc/topic-1.css" />
 </head><body>
 
 <h1>The Freecad User Book</h1>
 <div id="page-menu"></div>
 <h1>Cube On Corner</h1>
 <div id="navigation-panel"></div>
+<div id="abstract"></div>
+
+<div class="imgbox"><img src="../../../img/exercises/cube-on-corner/fig-001.png" width="239" /></div>
 
 <h3 cbs="1">Tags</h3><div>
 <p><tag>Freecad</tag>, <tag>Exercise</tag>, <tag>Part Design</tag>, <tag>Sketcher</tag>, <tag>Cube</tag>, <tag>Corner</tag>, <tag>Rotation</tag>, <tag>Geometry Sketch</tag>.</p>
 </div>
-
 <h3 cbs="1">Freecad Version Info</h3><div>
 <p class="code">
 OS: Windows 10 (10.0)
@@ -35,19 +37,12 @@ OCC version: 7.3.0
 Locale: English/United States (en_US)
 </p>
 </div>
-
-<div id="abstract">
-<p>This exercise describes how to create a cube that sits in one of its corner, with the opposite corner vertically above the other, similar to those chocolate cubes hanging on a Christmas tree.</p>
-<p>The trick is to begin with a cube in a specific orientation, with the vertical edges on the XZ and YZ planes. Then rotate the thing about the y axis until two opposite corners come to rest exactly on the z axis.</p>
-<p>The exact rotation angle is determined with a geometry sketch. A detailed algebraic analysis confirms the graphical result.</p>
-</div>
-
-<div class="imgbox"><img src="../../img/exercises/cube-on-corner/fig-001.png" width="239" /></div>
-
 <h3 cbs="1">Files</h3><div><dl>
-<dt id="file-001"><a href="../../files/exercises/cube-on-corner/cube-on-corner-001.fcstd">cube-on-corner-001.fcstd</a></dt>
+<dt id="file-001"><a href="../../../files/exercises/cube-on-corner/cube-on-corner-001.fcstd">cube-on-corner-001.fcstd</a></dt>
 <dd>Finished project.</dd>
 </dl></div>
+
+
 
 <!--
 <h3 cbs="1">Videos</h3><div><dl>
@@ -77,16 +72,16 @@ Locale: English/United States (en_US)
 <li>Switch to the <tt>Sketcher</tt> workbench.</li>
 <li>Select the document node in the <tt>Model Tree</tt>.</li>
 <li>Create a new <tt>Sketch</tt> on the <tt>XZ Plane</tt>.</li>
-<li>Draw the following figure:<br /><img src="../../img/exercises/cube-on-corner/fig-002.png" width="280" /></li>
+<li>Draw the following figure:<br /><img src="../../../img/exercises/cube-on-corner/fig-002.png" width="280" /></li>
 </ol>
 
-<p>The lower edge points must be contrained to the x axis, and the edge must be vertical:</p>
+<p>The lower edge points must be constrained to the x axis, and the edge must be vertical:</p>
 
 <ol start="8">
 <li>Make sure you create (red) driving constraints. If not, click the menu <tt>Sketch > Constraints > Toggle reference/driving</tt>.</li>
 <li>Constrain the length of the vertical edge to "5 mm".</li>
 <li>Name the constraint "HSL".</li>
-<li>Constraint the length of the horizontal edge, and use the following formula: <br /><span class="code">Constraints.HSL * sqrt(2)</span></li>
+<li>Constrain the length of the horizontal edge, and use the following formula: <br /><span class="code">Constraints.HSL * sqrt(2)</span></li>
 <li>Name the constraint "HFDL".<br />The sketch if fully constrained at this point.</li>
 <li>Click the menu <tt>Sketch > Constraints > Toggle reference/driving</tt> to create (blue) reference constraints.</li>
 <li>Click the menu <tt>Sketch > Constraints > Angle</tt>.</li>
@@ -94,7 +89,7 @@ Locale: English/United States (en_US)
 <li>Name it "CDA".</li>
 <li>Select the triangle's hypothenusis and the Z axis to create an angular (reference) constraint.</li>
 <li>Name it "CCDA".<br />
-<img src="../../img/exercises/cube-on-corner/fig-003.png" width="246" />
+<img src="../../../img/exercises/cube-on-corner/fig-003.png" width="246" />
 </li>
 <li><tt>Leave</tt> the <tt>Sketch</tt>.</li>
 <li>Rename it to "Sketch 000".</li>
@@ -145,7 +140,7 @@ Locale: English/United States (en_US)
 
 <p>The sketch should look like the following image:</p>
 
-<img src="../../img/exercises/cube-on-corner/fig-004.png" width="249" />
+<img src="../../../img/exercises/cube-on-corner/fig-004.png" width="249" />
 
 <ol start="41">
 <li>Create a new <tt>Part Design > Pad</tt> with a length of "10 mm", symmetrical to the sketch plane.</li>
@@ -163,7 +158,7 @@ Locale: English/United States (en_US)
 
 <p>The top and bottom faces are parallel to the XY plane, and the vertical edges intersect with the X and Y axes:</p>
 
-<img src="../../img/exercises/cube-on-corner/fig-005.png" width="277" />
+<img src="../../../img/exercises/cube-on-corner/fig-005.png" width="277" />
 
 <ol start="48">
 <li>Hide <tt>Sketch 001</tt>.</li>
@@ -175,7 +170,7 @@ Locale: English/United States (en_US)
 
 <p>This makes our reference sketch inside the cube visible. A triangle leg rests on the XY plane, with the left end point on the origin of the body's coordinate system, which is also the center of the cube. The upper edge coincides with the upper right corner of the cube:</p>
 
-<img src="../../img/exercises/cube-on-corner/fig-006.png" width="284" />
+<img src="../../../img/exercises/cube-on-corner/fig-006.png" width="284" />
 
 <p>From this view we can easily derive the vertical leg of the triangle as half of the cube side length:</p>
 
@@ -185,7 +180,7 @@ HSL = SL / 2
 
 <p>With a view from above, the length of the other leg is easy to find:</p>
 
-<img src="../../img/exercises/cube-on-corner/fig-007.png" width="253" />
+<img src="../../../img/exercises/cube-on-corner/fig-007.png" width="253" />
 
 <p>It is a cathetus of a symmetrical rectangular triangle between the origin and two corners of the cube. The hypothenusis is identical with the cube side length SL. Applying the Pythagorean theorem, we can find the length HFDL of a cathetus as </p>
 
@@ -245,13 +240,13 @@ CDA = atan(HSL/HFDL)
 <li>Press <kbd>0</kbd> to get into the isometric standard view.</li>
 </ol>
 
-<img src="../../img/exercises/cube-on-corner/fig-008.png" width="212" />
+<img src="../../../img/exercises/cube-on-corner/fig-008.png" width="212" />
 
 <p>The cube stands on its tip. The helper line goes through the corners at the bottom and top.</p>
 
 <p>A view from the top confirms the impression:</p>
 
-<img src="../../img/exercises/cube-on-corner/fig-009.png" width="212" />
+<img src="../../../img/exercises/cube-on-corner/fig-009.png" width="212" />
 
 <p>Q. e. d.</p>
 
@@ -269,11 +264,11 @@ CDA = atan(HSL/HFDL)
 <!-- h2 Instructions --></div>
 
 <div id="script-area">
-<script src="../../inc/topic-1.js"></script>
+<script src="../../../inc/topic-1.js"></script>
 <script>
 // Request document resources.
 Synesis.Loader.request ( {
-	uriPrefix: "../" ,
+	uriPrefix: "../../" ,
 	uris : "table-of-contents.htm" ,
 	targetContainers : "navigation-panel" ,
 	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 

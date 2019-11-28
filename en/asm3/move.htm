@@ -13,12 +13,13 @@
 <h1>The Freecad User Book</h1>
 <div id="page-menu"></div>
 <h1>Moving Subassemblies</h1>
+
 <div id="navigation-panel"></div>
+<div id="abstract"></div>
 
 <h3 cbs="1">Tags</h3><div>
 <p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Netsted Subassemblies</tag>, <tag>Moving</tag>.</p>
 </div>
-
 <h3 cbs="1">Freecad Version Info</h3><div>
 <p class="code">
 OS: Windows 10 (10.0)
@@ -35,37 +36,26 @@ OCC version: 7.3.0
 Locale: English/United States (en_US)
 </p>
 </div>
-
-<div id="abstract">
-<p>If the level of nested subassemblies exceeds 1, mover don't work as expected when it comes to moving parts. Instead of moving just the part, the whole assembly moves. What is going on here&hellip;?</p>
-</div>
-
 <h3 cbs="1">Files</h3><div><dl>
 <dt id="file-001"><a href="../../files/asm3/move/move-001.fcstd">move-001.fcstd</a></dt>
-<dd>Building the repositoriy: Sphere created.</dd>
+<dd>Repository with sphere component.</dd>
 <dt id="file-002"><a href="../../files/asm3/move/move-002.fcstd">move-002.fcstd</a></dt>
-<dd>Building the repositoriy: Cube created.</dd>
+<dd>Nested assemblies structure added.</dd>
 <dt id="file-003"><a href="../../files/asm3/move/move-003.fcstd">move-003.fcstd</a></dt>
-<dd>Building the repositoriy: Loft created.</dd>
+<dd>Assembly structure filled with sphere components.</dd>
 <dt id="file-004"><a href="../../files/asm3/move/move-004.fcstd">move-004.fcstd</a></dt>
-<dd>Assembly structure created.</dd>
-<dt id="file-005"><a href="../../files/asm3/move/move-005.fcstd">move-005.fcstd</a></dt>
-<dd>Assembly structure filled with components.</dd>
+<dd>Second sphere added to level 4 assembly container.</dd>
 </dl></div>
-
-<!-- 
-<h3 cbs="1">Videos</h3><div><dl>
-<dt id="vid-001"><a href="???.mp4">???.mp4</a></dt>
-<dd>Title</dd>
-<dd>Description</dd>
-</dl></div>
--->
 
 <h2 cbs="0">Move Tools</h2><div>
 
-<p>Position Properties</p>
-<p>Quick Mover</p>
-<p>Axial Mover</p>
+<p>The standard Freecad <tt>Transform</tt> tool doesn't work with <tt>Assembly</tt> objects, and there is a reason for it, as we will learn from this tutorial. To fill the gap, Realthunder's <tt>Assembly 3</tt> preview of Freecad introduces three different movers:</p>
+
+<ul>
+<li>Axial Mover</li>
+<li>Assembly Part Mover</li>
+<li>Quick Mover</li>
+</ul>
 
 <!-- h2 Move Tools --></div>
 
