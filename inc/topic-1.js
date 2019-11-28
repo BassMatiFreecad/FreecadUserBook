@@ -332,11 +332,13 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		var controllers = document.querySelectorAll( "[cbs]" );
 		if ( controllers.length === 0 ) return;
 
-		// Expand all blocks that contain the navigation target element (id in the hash).
-		// Only the controller status will be changed here.
+		// Expand all blocks that contain the first child node of
+		// the navigation target element (id in the hash).
+		// Only the block controller status will be changed here.
 		var hash = document.location.hash;
 		if ( hash ) {
 			var linkTarget = document.getElementById( hash.substr( 1 ));
+			var expand = linkTarget.firstElementChild ? linkTarget.firstElementChild : linkTarget ;
 			Synesis.CollapsibleBlock.expandParentBlocks( linkTarget );
 			window.setTimeout ( function( ) { 
 				linkTarget.scrollIntoView( { behavior:"smooth" } );
@@ -355,10 +357,11 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			if ( controller.getAttribute( "cbs" ) === "1" ) block.style.height = "0px" ;
 			// Register event handlers.
 			controller.addEventListener( "click", Synesis.CollapsibleBlock.clickHandler.bind( controller ));
-			controller.style.transition = "margin-top linear 1s";
+			controller.style.transition = "margin-top linear 1s, margin-bottom linear 1s";
 			block.addEventListener( "transitionend", Synesis.CollapsibleBlock.transitionEnd.bind( block ));
 			block.style.transition = "height linear 1s";
 		}
+
 		controllers = null;	// Release memory.
 
 		// Modify links that point to an element in the document.

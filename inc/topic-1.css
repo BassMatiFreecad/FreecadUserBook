@@ -54,11 +54,7 @@ h2[cbs] {
 	background-position-y: 7px;
 }
 
-h3[cbs] {
-	background-position-y: 2px;
-}
-
-h2[cbs], h3[cbs] {
+h2[cbs], h3[cbs], h4[cbs] {
 	margin-left: -20px;
 	margin-bottom: 0px;
 	padding-top: 3px;
@@ -68,11 +64,11 @@ h2[cbs], h3[cbs] {
 	background-position-x: 0px;
 }
 
-h2[cbs] + div, h3[cbs] + div {
-	overflow-y: hidden;
-	margin-left: -20px;
-	padding-left: 20px;
-}
+	h2[cbs] + div, h3[cbs] + div, h4[cbs] + div {
+		overflow-y: hidden;
+		margin-left: -20px;
+		padding-left: 20px;
+	}
 
 h2[cbs='0'], h3[cbs='0'] {
 	background-image: url(orange-circle-32-minus.png);
@@ -82,12 +78,32 @@ h2[cbs='1'], h3[cbs='1'] {
 	background-image: url(orange-circle-32-plus.png);
 }
 
-h2[cbs='1'] + div + h2[cbs='1'], h3[cbs='1'] + div + h3[cbs='1'] {
+h2[cbs='1'] + div + h2[cbs='1'], h3[cbs='1'] + div + h3[cbs='1'], h4[cbs='1'] + div + h4[cbs='1'] {
 	margin-top: 0px;
 }
 
-img { 
-	margin-left: 40px; 
+h3[cbs] {
+	background-position-y: 0px;
+}
+
+h4[cbs] {
+	background-position-y: 0px;
+	background-position-x: 4px;
+	min-height: 5px;
+	line-height: 120%;
+}
+
+h4[cbs='0'] {
+	background-image: url(orange-circle-26-minus.png);
+	margin-bottom: 20px;
+}
+
+h4[cbs='1'] {
+	background-image: url(orange-circle-26-plus.png);
+}
+
+img {
+	margin-left: 40px;
 	max-width: 400px;
 }
 
@@ -105,6 +121,14 @@ tt {
 	font-family: 'Arial Narrow', 'Franklin Gothic Medium', sans-serif,  'Times New Roman', Times;
 	font-size: 100%;
 	color: #4080A0;
+}
+
+tt > a {
+	text-decoration: none;
+}
+
+tt > a:hover {
+	text-decoration: underline;
 }
 
 ul.tree {
@@ -239,6 +263,11 @@ ul.tree li[cts="1"][active] {
 	margin-bottom: 30px;
 }
 
+#abstract {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
 #page-menu {
 	position: sticky;
 	top: 0px;
@@ -282,20 +311,6 @@ ul.tree li[cts="1"][active] {
 	overflow-y: auto;
 	background-color: white;
 	white-space: nowrap;
-}
-
-#xnavigation-panel abstract {
-	white-space: normal;
-	overflow: visible;
-}
-
-#navigation-panel div.xabstractContainer {
-	display:block;
-	width: auto;
-	margin-left: 40px;
-	overflow: hidden;
-	transition: height linear 1s;
-	line-height: 24px;
 }
 
 #navigation-panel ul { 
