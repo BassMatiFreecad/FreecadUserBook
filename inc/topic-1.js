@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 		// Root object
 if ( typeof Synesis === "undefined" ) Synesis = { } ;
 Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
@@ -812,5 +814,65 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		// Append the footer to the document.
 	document.body.appendChild( footer );
 		
+} ) ( ) ;
+
+		// Ordered List renumbering functions
+( function initOrderedList ( ) {
+		
+		// *	All OLs with a SCOPE attribute are considered to 
+		// *	be parts of the same list.
+		// *	All members with a missing SCOPE attribute are
+		// *	considered to be parts of the root (or primary) list.
+		// *	An existing START attribute will reset the scope 
+		// *	list counter.
+
+	Synesis.OrderedList = { } ;		// The namespace.
+
+		// This is the list numbering function.
+		// Call (asynchronously) when all document fragments
+		// have been integrated into the DOM.
+	Synesis.OrderedList.initStartAttributes = function ( ) {
+			
+			// Nested function, renumbers a scoped list
+		Synesis.OrderedList.renumber = function ( scope ) {
+			// *	scope : Argument to select elements of a specific list.
+			// Retrieve the OL elements that match the specified scope.
+			var elements = document.querySelectorAll( scope );
+			var counter = 1 ;
+			for ( var i = 0 ; i < elements.length ; i ++ ) {
+				var element = elements[ i ] ;
+				// If a start attribute was given, use it.
+				counter = parseInt( element.getAttribute( "start" ) || counter );
+				// Set the start attribute value for the partial list.
+				element.setAttribute( "start", counter );
+				// Increment the counter by the number of 
+				// direct  LI child elements
+				var items = element.querySelectorAll( "OL > LI" );
+				if ( items ) counter += items.length;
+			}
+			} ;
+
+		// Collect all ordered list elements.
+		var lists = document.querySelectorAll ( "OL" ) ;
+		// Create a list of scope attributes
+		var scopelist = [ ];
+		for ( var i = 0 ; i < lists.length ; i ++ ) {
+			var scope = lists[ i ].getAttribute( "scope" );
+			// Create the scope selector string. Lists with no 
+			// scope attribute are considered global, they get
+			// a special selector value.
+			if ( ! scope ) scope = ":not([scope])" ;
+			else scope = "[scope='" + scope + "']" ;
+			// Add the selector string to the list.
+			if ( ! scopelist.includes( scope )) scopelist.push( scope );
+		}
+		
+		// Process all lists with a specific scope
+		for ( var i = 0 ; i < scopelist.length ; i ++ ) Synesis.OrderedList.renumber( "OL" + scopelist[ i ] ) ;
+
+		// Job done, then harakiri.
+		delete Synesis.OrderedList;
+	} ;
+
 } ) ( ) ;
  
