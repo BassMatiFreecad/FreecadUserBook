@@ -332,13 +332,12 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		var controllers = document.querySelectorAll( "[cbs]" );
 		if ( controllers.length === 0 ) return;
 
-		// Expand all blocks that contain the first child node of
-		// the navigation target element (id in the hash).
+		// Expand all blocks that contain the navigation target element 
+		// (id in the hash), and the link target itself.
 		// Only the block controller status will be changed here.
 		var hash = document.location.hash;
 		if ( hash ) {
 			var linkTarget = document.getElementById( hash.substr( 1 ));
-			var expand = linkTarget.firstElementChild ? linkTarget.firstElementChild : linkTarget ;
 			Synesis.CollapsibleBlock.expandParentBlocks( linkTarget );
 			window.setTimeout ( function( ) { 
 				linkTarget.scrollIntoView( { behavior:"smooth" } );
