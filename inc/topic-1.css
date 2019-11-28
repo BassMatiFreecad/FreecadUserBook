@@ -117,6 +117,17 @@ li > img {
 	margin: 15px 0px 5px 0px;
 }
 
+table.flat-borders {
+	border : solid 1px silver;
+	border-collapse: collapse;
+}
+
+table.flat-borders th,td {
+	border: solid 1px silver;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
 tt {
 	font-family: 'Arial Narrow', 'Franklin Gothic Medium', sans-serif,  'Times New Roman', Times;
 	font-size: 100%;
