@@ -31,7 +31,7 @@ There is currently no book-wide search function in the script code. Currently th
 
 How to use this book
 
-To open the book, navigate the to root folder, and open the index.htm page [url]https://bassmatifreecad.github.io/FreecadUserBook/index.htm[/url]. Click on the link that matches your preferred language. This takes you to the table of contents page of the book in that language. Use the navigation features from there on. Home, back, forward and table-of-contents links on a sticky panel at the top of the page allow you to access the entire content. 
+To open the book, navigate the to root folder, and open the index.htm page https://bassmatifreecad.github.io/FreecadUserBook/index.htm. Click on the link that matches your preferred language. This takes you to the table of contents page of the book in that language. Use the navigation features from there on. Home, back, forward and table-of-contents links on a sticky panel at the top of the page allow you to access the entire content. 
 
 As an alternative, you can download the entire book and open the index.htm file(s) in a browser that supports file:// system urls. No web server is needed. Then you have everything is offline, except for the video content, which is (currently) hosted on Youtube.
 
