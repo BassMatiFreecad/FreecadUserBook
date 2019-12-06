@@ -64,11 +64,11 @@ h2[cbs], h3[cbs], h4[cbs] {
 	background-position-x: 0px;
 }
 
-	h2[cbs] + div, h3[cbs] + div, h4[cbs] + div {
-		overflow-y: hidden;
-		margin-left: -20px;
-		padding-left: 20px;
-	}
+h2[cbs] + div, h3[cbs] + div, h4[cbs] + div {
+	overflow-y: hidden;
+	margin-left: -20px;
+	padding-left: 20px;
+}
 
 h2[cbs='0'], h3[cbs='0'] {
 	background-image: url(orange-circle-32-minus.png);
@@ -103,9 +103,14 @@ h4[cbs='1'] {
 }
 
 img {
+	display: block;
+	margin-top: 10px;
 	margin-left: 40px;
 	max-width: 400px;
+	margin-bottom: 20px;
 }
+
+img + img { margin-top: 20px; }
 
 kbd {
 	font-family: 'Lucida Console', monospace;
@@ -115,6 +120,11 @@ kbd {
 
 li > img {
 	margin: 15px 0px 5px 0px;
+}
+
+ol {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
 table.flat-borders {

@@ -224,6 +224,48 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		else evt.cancelBubble = true;
 	} ;
 } ) ( ) ;
+
+		// Parses the document search string.
+( function initSearch ( ) {
+	// *	IIFE
+	// Create the result object.
+	Synesis.Search = { } ;
+	// Split the search string into components.
+	Synesis.Search.params = { } ;
+	var search = document.location.search;
+	if ( search && search.length > 0 ) search = search.substr( 1 ).split( "&" );
+	// Create entries in the Synesis search parameter object
+	for ( var i = 0 ; i < search.length ; i ++ ) {
+		var parts = search[ i ].split( "=" );
+		if ( parts.length === 1 ) parts.push( "" );
+		else parts[ 1 ] = decodeURIComponent( parts[ 1 ] );
+		Synesis.Search.params[ decodeURIComponent( parts[ 0 ]).trim( ) ] = parts[ 1 ].trim();
+	}
+} ) ( ) ;
+
+		// Initialize Tutorial settings
+( function initTutorial ( ) { 
+	
+	Synesis.Tutorial = { } ;
+
+		// Content init function, ment to be called
+		// asynchronously.
+	Synesis.Tutorial.initDocument = function ( ) {
+		// Initialize skill level filter.
+		var skill ;
+		skill = Synesis.Search.params["skill"] || Storage && localStorage && localStorage.getItem( "skill" ) || "0";
+		// Save the skill level value.
+		if ( Storage && localStorage ) window.localStorage.setItem( "skill", skill );
+		// Hide all elements with a skill attribut that does not match the requested skill level.
+		var elements = document.querySelectorAll( "[skill]:not([skill~='" + skill + "'])" );
+		for ( var i = 0 ; i < elements.length ; i ++ ) elements[ i ].style.display = "none" ;
+		// Initialize ordered instruction lists.
+		Synesis.OrderedList.initStartAttributes( );
+		// This is a one-shot function.
+		delete Synesis.Tutorial.initDocument;
+	} ;
+
+} ) ( ) ;	// IFFE
 	
 		// Collapsible block functions
 ( function initCollapsibleBlock ( ) {
@@ -346,14 +388,19 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 			} , 100 );
 		}
 
+		var forcedState; 
+		if ( Synesis.Search.params.expand && Synesis.Search.params.expand === "all" ) forcedState = "0" ;
+		if ( Synesis.Search.params.collapse && Synesis.Search.params.collapse === "all" ) forcedState = "1" ;
+
 		// Initialize controllers and blocks.
 		for ( var i = 0 ; i < controllers.length ; i ++ ) {
 			var controller = controllers[ i ];
 			// Create the root element for user-defined members.
 			if ( typeof controller.Synesis === "undefined" ) controller.Synesis = { } ;
 			// Find the associated collapsible block.
-			// TODO: Use a search function here to skip comment elements.
+			// TODO: Skip comment elements.
 			var block = controller.Synesis.block = controller.nextElementSibling;
+			if ( typeof forcedState !== "undefined" ) controller.setAttribute( "cbs" , forcedState );
 			// Collapse blocks if the controller status indicates so.
 			if ( controller.getAttribute( "cbs" ) === "1" ) block.style.height = "0px" ;
 			// Register event handlers.
@@ -826,52 +873,51 @@ Synesis.isIndexPage =  document.location.pathname.endsWith( "index.htm"  );
 		// *	An existing START attribute will reset the scope 
 		// *	list counter.
 
-	Synesis.OrderedList = { } ;		// The namespace.
-
+		// Create the namespace.
+	Synesis.OrderedList = { } ;
+	
 		// This is the list numbering function.
 		// Call (asynchronously) when all document fragments
 		// have been integrated into the DOM.
 	Synesis.OrderedList.initStartAttributes = function ( ) {
-			
-			// Nested function, renumbers a scoped list
-		Synesis.OrderedList.renumber = function ( scope ) {
-			// *	scope : Argument to select elements of a specific list.
-			// Retrieve the OL elements that match the specified scope.
-			var elements = document.querySelectorAll( scope );
-			var counter = 1 ;
-			for ( var i = 0 ; i < elements.length ; i ++ ) {
-				var element = elements[ i ] ;
-				// If a start attribute was given, use it.
-				counter = parseInt( element.getAttribute( "start" ) || counter );
-				// Set the start attribute value for the partial list.
-				element.setAttribute( "start", counter );
-				// Increment the counter by the number of 
-				// direct  LI child elements
-				var items = element.querySelectorAll( "OL > LI" );
-				if ( items ) counter += items.length;
-			}
-			} ;
+		
+		// Nested function, renumbers a scoped list, counts only
+		// visible LI elements.
+		Synesis.OrderedList.renumberScopedList = function ( scope ) {
+				// *	scope : Argument to select elements of a specific list.
+				// Retrieve the non-hidden OL elements that match the specified scope.
+				var elements = document.querySelectorAll( "OL:not([style='display: none;'])" + scope );
+				var counter = 1 ;
+				for ( var i = 0 ; i < elements.length ; i ++ ) {
+					var element = elements[ i ] ;
+					// If a start attribute was given, use it.
+					counter = parseInt( element.getAttribute( "start" ) || counter );
+					// Set the start attribute value for the partial list.
+					element.setAttribute( "start", counter );
+					// Increment the counter by the number of 
+					// direct, non-hidden LI child elements. 
+					var items = element.querySelectorAll( "OL > LI:not([style*='display:none'])" );
+					if ( items ) counter += items.length;
+				}
+				} ;
 
-		// Collect all ordered list elements.
-		var lists = document.querySelectorAll ( "OL" ) ;
-		// Create a list of scope attributes
-		var scopelist = [ ];
+		// Create a list of distinct scope attributes
+		// First element selects OLs with no scope attribute.
+		// They are considered global.
+		var scopelist = [ ":not([scope])" ];
+		// Collect all non-hidden ordered list elements 
+		// matching the current skill level filter.
+		var lists = document.querySelectorAll ( "[scope]" ) ;
 		for ( var i = 0 ; i < lists.length ; i ++ ) {
 			var scope = lists[ i ].getAttribute( "scope" );
-			// Create the scope selector string. Lists with no 
-			// scope attribute are considered global, they get
-			// a special selector value.
-			if ( ! scope ) scope = ":not([scope])" ;
-			else scope = "[scope='" + scope + "']" ;
+			// Create the scope selector string.
+			scope = "[scope='" + scope + "']" ;
 			// Add the selector string to the list.
 			if ( ! scopelist.includes( scope )) scopelist.push( scope );
 		}
 		
 		// Process all lists with a specific scope
-		for ( var i = 0 ; i < scopelist.length ; i ++ ) Synesis.OrderedList.renumber( "OL" + scopelist[ i ] ) ;
-
-		// Job done, then harakiri.
-		delete Synesis.OrderedList;
+		for ( var i = 0 ; i < scopelist.length ; i ++ ) Synesis.OrderedList.renumberScopedList( scopelist[ i ] ) ;
 	} ;
 
 } ) ( ) ;
