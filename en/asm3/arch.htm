@@ -2,9 +2,9 @@
 <html><head><title>FreeCAD User Book - Assembly 3 - The Architecture of Assembly Objects</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="USPR">
-<meta name="creation-date" content="2019-19-13">
+<meta name="creation-date" content="2019-11-13">
 <meta name="editor" content="USPR">
-<meta name="modification-date" content="2019-19-22">
+<meta name="modification-date" content="2019-12-01">
 <meta name="document-version" content="3">
 <meta name="template-version-date" content="2019-11-17">
 <link rel="stylesheet" href="../../inc/topic-1.css" />
@@ -18,11 +18,11 @@
 
 <div id="abstract"></div>
 
-<h3 cbs="1">Tags</h3><div>
+<h4 cbs="1">Tags</h4><div>
 <p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Constraint</tag>, <tag>Connector</tag>, <tag>Architecture</tag>.</p>
 </div>
 
-<h3 cbs="1">Freecad Version Info</h3><div>
+<h4 cbs="1">Freecad Version Info</h4><div>
 <p class="code">
 OS: Windows 10 (10.0)
 Word size of OS: 64-bit
@@ -52,20 +52,20 @@ Locale: English/United States (en_US)
 
 <!-- h2 Nature of Constraints --></div>
 
-<h2 cbs="0">Assembly 3 Constraints</h2><div>
+<h2 cbs="0">Constraints in Assembly 3</h2><div>
 
-<p>Constraints in the <tt>Assembly 3</tt> workbench are very similar, but they add an additional element, the <tt>Constraint Connector</tt>, or short <tt>Connector</tt>:</p>
+<p>The <tt>Assembly 3</tt> workbench adds an additional element, the <tt>Constraint Connector</tt>, or short <tt>Connector</tt>, to the scene:</p>
 
 <figcaption>Figure 2: Constraints Architecture in ASM3</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-002.png" width="127" /></div>
 
-<p>The purpose of the connector is to <em>publish</em> a specific geometry element of the component, and offer an interface where constraints can bind to. In other words, <tt>Assembly 3</tt> <tt>Constraints</tt> can only bind to <tt>Connectors</tt>.</p>
+<p>A connector binds to a geometry element of a part in the assembly on one side, and offers an interface where constraints can bind to on the other side, thereby 'connecting' a constraint to a geometry element.</p>
 
 <div class="note">
-<p>Please note that Realthunder's current <tt>Assembly3</tt> branch of Freecad uses the term <em>Element</em> for <tt>Constraint Connector</tt>. Unfortunately, the name 'Element' does not really suggest its purpose as 'constraint connector' does. For this reason, I used the term 'connector' in these tutorials.</p>
+<p>Please note that a connector in <tt>Assembly3</tt> is called "<em>Element</em>", which gives some clue that there is a geometry element behind it, but does not suggest its purpose to the unknowing.</p>
 </div>
 
-<p>At first glance, the introduction of connectors seems to be pointless, but there is a good reason behind: <tt>Connectors</tt> act as an additional layer of indirection. This becomes evident when we examine how a model <em>breaks</em> when it is modified.</p>
+<p>At first glance, the introduction of connectors seems to be pointless and add more work to the list, but there is a good reason behind: <tt>Connectors</tt> act as <em>additional layer of indirection</em>. This becomes evident when we examine how a model breaks when it is modified.</p>
 
 <!-- h2 Assembly 3 Constraints --></div>
 
@@ -90,7 +90,7 @@ Locale: English/United States (en_US)
 
 <p class="info">The problems arising from such design changes are known under the name "topo-naming problem". Search the Freecad Forum for the term. The discussions provide valuable background information.</p>
 
-<p>It is not a problem when only a single instance of a component is used with a single constraint. The developer reassigns another, suitable geometry element to the constraint, and the problem is solved. But with the number of component copies (clones) or the number of constraints used with a broken geometry, the problem gets bigger. Consider a standard component such as a bolt, which might be used in several hundreds of copies: </p>
+<p>The problem can be solved, the developer simply binds the constraint to another suitable geometry element. But the problem is multiplied by the number of instances of the component in the project, the number of constraints binding to their breaking geometry, the number of documents, and the number of projects using this breaking component. Consider a standard component such as a bolt, which might be used in several hundreds of copies: </p>
 
 <figcaption>Figure 6: Broken Constraints Multiplied</figcaption>
 <div class="imgbox"><img src="../../img/asm3/arch/fig-006.png" width="226" /></div>
@@ -112,6 +112,368 @@ Locale: English/United States (en_US)
 
 <!-- h2 Breaking Models --></div>
 
+<h2 cbs="0">The Structure of an Assembly</h2><div>
+
+<p>There are several node types that live in an <tt>Assembly</tt> node:</p>
+
+<dl>
+<dt>Assembly</dt><dd>A container object. Holds Parts, Elements and Constraints nodes.</dd>
+<dt>Elements</dt>
+<dd>Alias Connectors. A group node, holds a collection of Element (alias Connector) nodes.</dd>
+<dt>Element</dt>
+<dd>Alias Connector. Links to a geometry element of a Part in the Parts collection or to an Element (alias Connector) in a subassembly.</dd>
+<dd>Publishes that geometry element for connecting with a constraint.</dd>
+<dt>Constraints</dt>
+<dd>Group Node, holds a collection of Constraint nodes.</dd>
+<dt>Constraint</dt>
+<dd>Group node, holds a collection of ElementLink alias ConnectorLink nodes. Defines a geometrical relationship between parts by connecting to their elements (connectors).</dd>
+<dt>ElementLink</dt>
+<dd>Alias ConnectorLink. Child node of a Constraint node. Links (connects) to an Element (alias Connector).</dd>
+<dt>Parts</dt>
+<dd>Collection of Part or Assembly nodes. </dd>
+<dd>An Assembly in the Parts collection of a parent Assembly is called a subassembly.</dd>
+<dt>Part</dt>
+<dd>A Freecad object that generates a geometry (or geometry elements), or an Assembly object.</dd>
+</dl>
+
+<p>The following image shows an example of a simple <tt>Assembly</tt>:</p>
+
+<img src="../../img/asm3/arch/fig-011.png" width="158" />
+
+<p>The cylinder bottom edge is constrained to the cube top face by a <tt>Plane Coincident</tt> <tt>Constraint</tt>. And here is the project file structure:</p>
+
+<img src="../../img/asm3/arch/fig-012.png" width="350" />
+
+<p>The <tt>Constraints</tt>, <tt>Elements</tt> and <tt>Parts</tt> group nodes are easy to find under the <tt>Assembly</tt> node.</p>
+
+<p>Under the <tt>Parts</tt> node are two <tt>Part</tt> nodes (mind the distinct use of the plural s&hellip;). Both are <tt>Part Design</tt> <tt>Body</tt> elements, one defines the geometry of the cube, the other defines the cylinder.</p>
+
+<p>The <tt>Elements</tt> group node holds the <tt>Element</tt> nodes which define the connectors for assembly constraints. The first binds to the bottom edge of the cylinder, the other binds to the top face of the cube.</p>
+
+<p>The <tt>Contraints</tt> group node holds a <tt>Plane Coincident</tt><tt>Contraint</tt> node, which defines the geometrical relationship between cube and cylinder. Or, to be precise, between their constraint connectors. There are two <tt>ElementLink</tt> child nodes which link to these connectors.</p>
+
+<p>With a little bit of imagination, you can recognize the structure of figure 2 in the assemly:</p>
+
+<img src="../../img/asm3/arch/fig-039.png" width="274"/>
+
+<p>The following screenshot shows the same project file structure as above, but with renamed node labels. This should clarify the purpose of nodes:</p>
+
+<img src="../../img/asm3/arch/fig-013.png" width="388"/>
+
+<p>Note the difference in the <tt>ElementLink</tt> and <tt>Element</tt> node icons:</p>
+
+<img src="../../img/asm3/arch/fig-014.png" width="99"/>
+
+<p>The <tt>ElementLink</tt> has a link icon in the lower left corner, the <tt>Element</tt> icon has not &mdash; although both elements do link to another object:</p>
+
+<img src="../../img/asm3/arch/fig-015.png" width="344"/>
+
+<p>The <tt>ElementLink</tt> (alias <tt>ConnectorLink</tt>) links to the <tt>Element</tt> (<tt>alias Connector</tt>), and the <tt>Element</tt> (<tt>Connector</tt>) links to the geometry element <tt>Body.Pad.Face6</tt>:</p>
+
+<img src="../../img/asm3/arch/fig-016.png" width="351"/>
+
+<p>In case of geometry modifications, you can easily point the <tt>Connector</tt> to a different geometry element, without breaking constraints.</p>
+
+<!-- h2 The Structure of an Assembly--></div>
+
+<h2 cbs="0">Hands-On: Building the Assembly</h2><div>
+
+<p>Words can be confusing. And many words even more. So let's go for a test drive, and build the assembly that appeared in the screenshots of the previous section.</p>
+
+<h4 cbs="1">Files</h4><div><dl>
+<dt><a href="../../files/asm3/arch/asm-structure-001.fcstd">asm-structure-001.fcstd</a></dt>
+<dd>Cube and cylinder parts built.</dd>
+<dt><a href="../../files/asm3/arch/asm-structure-002.fcstd">asm-structure-002.fcstd</a></dt>
+<dd>Assembly container added.</dd>
+<dt><a href="../../files/asm3/arch/asm-structure-003.fcstd">asm-structure-003.fcstd</a></dt>
+<dd>Parts moved to the assembly container.</dd>
+<dt><a href="../../files/asm3/arch/asm-structure-004.fcstd">asm-structure-004.fcstd</a></dt>
+<dd>Connectors for geometry elements created.</dd>
+<dt><a href="../../files/asm3/arch/asm-structure-004.fcstd">asm-structure-005.fcstd</a></dt>
+<dd>Constraint created.</dd>
+</dl></div>
+
+<h4 cbs="1">Videos</h4><div><dl>
+<dt><a href="../../vid/asm3/arch/asm-structure-001-DE.mp4">asm-structure-001-DE.mp4</a></dt>
+<dd>Cube and cylinder parts built.</dd>
+<dt><a href="../../vid/asm3/arch/asm-structure-002-DE.mp4">asm-structure-002-DE.mp4</a></dt>
+<dd>Assembly container added.</dd>
+<dt><a href="../../vid/asm3/arch/asm-structure-003-DE.mp4">asm-structure-003-DE.mp4</a></dt>
+<dd>Parts moved to the assembly container.</dd>
+<dt><a href="../../vid/asm3/arch/asm-structure-004-DE.mp4">asm-structure-004-DE.mp4</a></dt>
+<dd>Connectors for geometry elements created.</dd>
+<dt><a href="../../vid/asm3/arch/asm-structure-004-DE.mp4">asm-structure-005-DE.mp4</a></dt>
+<dd>Constraint created.</dd>
+</dl></div>
+
+<h3 cbs="0">Cube and Cylinder Parts</h3><div>
+
+<p>We will build the cube and a cylinder in this section.</p>
+
+<ol start="1">
+<li>Create a new file, and save it under the work file name "asm-structure.fcstd".</li>
+<li>Switch to the <tt>View > Workbench > Part Design</tt> workbench.</li>
+<li>Create a new <tt>Part Design > Body</tt>.</li>
+<li>Create a new <tt>Part Design > Sketch</tt> on the XY plane.</li>
+<li>Create a <tt>Sketch > Geometries > Square</tt>.</li>
+<li>Constrain the center to the sketch origin.</li>
+<li>Constrain one side to be vertical or horizontal.</li>
+<li>Constrain the length of a side to "10 mm".<br />The sketch should be fully constrained now.<br /><img src="../../img/asm3/arch/fig-017.png" width="282"/>
+</li>
+<li><tt>Leave</tt> the sketch.</li>
+<li>Press <kbd>0</kbd> on the keyboard to get a standard isometric view on the scene.</li>
+<li>Create a new <tt>Part Design > Pad</tt> with a length of "10 mm".<br /><img src="../../img/asm3/arch/fig-018.png" width="212"/></li>
+<li>Right-click on the <tt>Property Panel</tt>, and make sure that <tt>Show all</tt> is "on".<br />Previously hidden properties such as <tt>Label2</tt> are visible now.</li>
+<li>Rename the part to "Cube Body".<br /><img src="../../img/asm3/arch/fig-019.png" width="181"/></li>
+<li>Collapse the <tt>Body</tt>.</li>
+<li>Hide the <tt>Body</tt>.</li>
+</ol>
+
+<p>The cube is done. Now the cylinder:</p>
+
+<ol>
+<li>Select the project file node.</li>
+<li>Create a new <tt>Body</tt>.</li>
+<li>Create a new <tt>Sketch</tt> on the XY plane.</li>
+<li>Create a <tt>Sketch > Geometries > Circle</tt>.</li>
+<li>Constrain the center to the sketch origin.</li>
+<li>Constraint the diameter to "5 mm".<br />The sketch should be fully constrained now.<br /><img src="../../img/asm3/arch/fig-020.png" width="193"/></li>
+<li><tt>Leave</tt> the sketch.</li>
+<li>Create a new <tt>Pad</tt> with a length of "10 mm".<br /><img src="../../img/asm3/arch/fig-021.png" width="126"/></li>
+<li>Set the <tt>Label2</tt> property value to "Cylinder Body".<br /><img src="../../img/asm3/arch/fig-022.png" width="205"/></li>
+<li>Make the cube body visible.</li>
+<li>Right-click on the <tt>Cylinder</tt> node, then click <tt>Transform</tt>.<br />A mover tool appears.</li>
+<li>Drag the blue arrow tip until the cylinder is somewhat above the cube.<br /><img src="../../img/asm3/arch/fig-023.png" width="243"/></li>
+<li>Click <tt>OK</tt> to close the mover.</li>
+</ol>
+
+<p>With the cylinder, both <tt>Parts</tt> are done. </p>
+
+<ol>
+<li>Collapse all open nodes.</li>
+<li>Save a copy of the project file under the name "asm-structure-001.fcstd".</li>
+</ol>
+
+<!-- h3 The Parts --></div>
+
+<h3 cbs="0">The Assembly Container</h3><div>
+
+<p>Now we will create the project <tt>Assembly</tt> container. The first steps set up the configuration:</p>
+
+<ol>
+<li>Switch to the <tt>View > Workbench > Assembly 3</tt> workbench.</li>
+<li>Make sure that the switch <tt>Assembly3 > Element style > Auto element visibility</tt> is "off".<br />This gives you manual control of the visibility of <tt>Connectors</tt> and <tt>ConnectorLinks</tt> in the 3D window.</li>
+<li>Make sure that the switch <tt>Assembly3 > Element style > Show element coordinate system</tt> is "on".<br />This gives you feedback about the orientation of a <tt>Connector</tt> in space (although not required for this tutorial).</li>
+<li>Make sure that the switch <tt>Assembly3 > Auto recompute</tt> is "off".<br />This allows you to manually solve constraints.<br /><img src="../../img/asm3/icons/auto-recompute.png" /></li>
+<li>Make sure that the switch <tt>View > Treeview actions > Sync selection</tt> is "on".<br />This makes sure that the associated feature node is selected in the <tt>Model Tree</tt> when you select a geometry element in the 3D window.</li>
+</ol>
+
+<p>Now we can create the <tt>Assembly</tt> object:</p>
+
+<ol>
+<li>Click the menu <tt>Assembly3 > Create assembly</tt>.</li>
+<li>Rename the new assembly node to "Project Assembly Container".<br /><img src="../../img/asm3/arch/fig-024.png" width="250"/></li>
+</ol>
+
+<p>A good point so save the status:</p>
+
+<ol>
+<li>Save a copy of the project file under the name "asm-structure-002.fcstd".</li>
+</ol>
+
+<p>The next steps embed the two <tt>Body</tt> nodes in the <tt>Assembly</tt> container:</p>
+
+<ol>
+<li>Select both <tt>Body</tt> nodes</li>
+<li>Drag them on the <tt>Assembly</tt> node.<br /><img src="../../img/asm3/arch/fig-025.png" width="257"/></li>
+</ol>
+
+<p>Notice that they appear now under the <tt>Parts</tt> group node.</p>
+
+<p class="note">Note that dragging parts on the <tt>Parts</tt> group node has the same effect as dragging them on the <tt>Assembly</tt> node.</p>
+
+<ol>
+<li>Save a copy of the file under the name "asm-structure-003.fcstd".</li>
+</ol>
+
+<!-- h3 The Project Assembly Container --></div>
+
+<h3 cbs="0">Creating Connectors</h3><div>
+
+<p>The next steps define the connectors which publish geometry elements to  constraints.</p>
+
+<ol>
+<li>In the 3D window, select the upper face of the cube.<br /><img src="../../img/asm3/arch/fig-026.png" width="176"/><br />This should select the <tt>Pad</tt> node in the <tt>Model Tree</tt>.<br /><img src="../../img/asm3/arch/fig-027.png" width="253"/></li>
+<li>Drag the <tt>Pad</tt> node on the <tt>Project Assembly Container > Elements</tt> group node.<br />This creates a new <tt>Element</tt> child node.<br /><img src="../../img/asm3/arch/fig-028.png" width="254"/></li>
+<li>Rename the <tt>Elements</tt> node to "Constraint Connectors".</li>
+<li>Rename the <tt>Element</tt> (<tt>Connector</tt>) node to "Cube Upper Face".<br /><img src="../../img/asm3/arch/fig-029.png" width="254"/></li>
+</ol>
+
+<p>Now let's inspect the property panel of the connector. The <tt>Linked Object</tt> property value should be "Pad (Body.Pad.Face6)". This tells us that the <tt>Connector</tt> (<tt>Element</tt>) publishes <tt>Face6</tt> of the cube.</p>
+
+<img src="../../img/asm3/arch/fig-016.png" width="351"/>
+
+<p>The next steps create a <tt>Connector</tt> that publishes the lower edge of the cylinder:</p>
+
+<ol>
+<li>In the 3D window, select the upper (!) edge of the cylinder.<br /><img src="../../img/asm3/arch/fig-030.png" width="169"/><br />That should select the <tt>Pad001</tt> node in the <tt>Model Tree</tt>.</li>
+<li>Drag <tt>Pad001</tt> on the <tt>Constraint Connectors</tt> node.<br />This creates a new child <tt>Element</tt>.</li>
+<li>Rename it to "Cylinder Bottom Edge".<br /><img src="../../img/asm3/arch/fig-031.png" width="262"/></li>
+</ol>
+
+<p>The <tt>Linked Object</tt> property should have the value "Pad001 (Body001.Pad001.Edge3)".</p>
+
+<img src="../../img/asm3/arch/fig-032.png" width="275"/>
+
+<p>But wait! We wanted to publish the bottom edge, not the top edge!</p>
+
+<p>We could <tt>Undo</tt> the last <tt>Drop</tt> command and retry. But instead, the following steps show how to rebind the <tt>Connector</tt> to a different geometry object:</p>
+
+<ol>
+<li>Select the bottom edge of the cylinder in the 3D window.<br />That should select <tt>Pad001</tt> in the <tt>Model Tree</tt>.</li>
+<li>Drag <tt>Pad001</tt> on the <tt>Cylinder Bottom Edge</tt> connector.</li>
+<li>Inspect the <tt>Linked Object</tt> property.</li>
+</ol>
+
+<p>It should now have the value "Pad001 (Body001.Pad001.Edge2)":</p>
+
+<img src="../../img/asm3/arch/fig-033.png" width="262"/>
+
+<p>That's the right one.</p>
+
+<p class="note">This is the procedure to repair broken connectors when the component design was modified.</p>
+
+<p>Constraint connectors are hidden by default.</p>
+
+<ol>
+<li>Make the constraint connectors in the <tt>Model Tree</tt> visible.</li>
+</ol>
+
+<p>Making a <tt>Connector</tt> visible highlights the associated geometry element with the colors defined by the <tt>Constraint Connectors</tt> parent node:</p>
+
+<img src="../../img/asm3/arch/fig-034.png" width="178"/>
+
+<p class="note">Note that <tt>Connector</tt> and <tt>ConnectorLink</tt> themselves have no visual representation. Instead, the associated geometry element is highlighted or pronounced when required.</p>
+
+<ol>
+<li>Hide the connectors</li>
+<li>Save a copy of the file under the name "asm-structure-004.fcstd".</li>
+</ol>
+
+<!-- h3 Creating Connectors --></div>
+
+<h3 cbs="0">Creating the Constraint</h3><div>
+
+<p>Now we will define a constraint that binds to these constraint connectors:</p>
+
+<ol>
+<li>Select the connectors <tt>Cylinder Bottom Edge</tt> and <tt>Cube Upper Face</tt>.</li>
+<li>Click the <tt>Plane Coincident</tt> constraint button on the <tt>Assembly 3 Constraints</tt> toolbar.<br /><img src="../../img/asm3/icons/constraint-coincidence.png" /></li>
+</ol>
+
+<p>There are changes in the <tt>Model Tree</tt>:</p>
+
+<img src="../../img/asm3/arch/fig-038.png" width="274"/>
+
+<p> Creating the first constraint makes the previously hidden <tt>Constraints</tt> group node visible, and creates a <tt>Constraint</tt> child node, named after the type of constraint you selected. The <tt>Plane Coincident</tt> constraint has two <tt>ConnectorLink</tt> child nodes, <tt>Cylinder Bottom Edge</tt> and <tt>Cube Upper Face</tt>, both visible and selected by default:</p>
+
+<img src="../../img/asm3/arch/fig-035.png" width="183"/>
+
+<p>If not selected, the geometry elements associated with the <tt>ConnectorLinks</tt> are highlighted in the color defined by one of their parent nodes, the <tt>Constraint Coincident</tt>, or the <tt>Constraints</tt> group node:</p>
+
+<img src="../../img/asm3/arch/fig-036.png" width="183"/>
+
+<p>When hidden, the geometry elements are shown in their default colors.</p>
+
+<p><tt>ConnectorLink</tt> nodes link to <tt>Connector</tt> nodes with the same name:</p>
+
+<ol>
+<li>Right-click the <tt>Plane Coincident > Cube Upper Face</tt> <tt>ConnectorLink</tt> node, then click <tt>Select linked object</tt>.<br />The <tt>Constraint Connectors > Cube Upper Face</tt> node is now selected in the <tt>Model Tree</tt>.</li>
+<li>Right-click that node, and click <tt>Select linked object</tt> again.<br />That  selects the <tt>Pad</tt> that generated the geometry element that is bound to the connector.</li>
+<li>Try the same with the <tt>Cube Upper Face</tt> <tt>ConnectorLink</tt> node.</li>
+</ol>
+
+<p>A quick look on the scene in the 3D window reveals that the parts haven't moved yet, they are still in their initial position, although a constraint has been defined. The reason: <tt>Auto-recompute</tt> is "off". So we must do that manually:</p>
+
+<ol>
+<li>Click the menu <tt>Assmbly3 > Solve constraints</tt>.<br />Cube and cylinder should instantly snap together.</li>
+</ol>
+
+<img src="../../img/asm3/arch/fig-037.png" width="176"/>
+
+<p>Final steps:</p>
+
+<ol>
+<li>Close all open nodes.</li>
+<li>Save a copy of the project file under the name "asm-structure-005.fcstd".</li>
+</ol>
+
+<!-- h3 Creating the Constraint --></div>
+
+<h3 cbs="0">Checking the Constraints</h3><div>
+
+<ol>
+<li>Right-click the cube <tt>Body</tt> node, then click <tt>Transform</tt>.<br />The Freecad Mover opens.</li>
+<li>Drag and/or rotate the cube, click <tt>OK</tt> to finish.<br />The cube moved, the cylinder stays in position.</li>
+<li>Click the menu <tt>Assembly3 > Solve constraints</tt>.<br />The cylinder jumps into the constrained position.</li>
+</ol>
+
+<p class="note">Note: Depending on your file, it is possible that the cube, the cylinder, or both objects change their position. To setup a part as fixed in the coordinate system of its <tt>Assembly</tt> container, you need to apply a <tt>Lock</tt> constraint on it. This will be shown later.</p>
+
+<ol>
+<li>Right-click the cylinder <tt>Body</tt> node, then click <tt>Transform</tt>.</li>
+<li>Move and/or rotate the cylinder.</li>
+<li>Click <tt>OK</tt> to finish.<br />The cube remains in position.</li>
+<li>Click the menu <tt>Assembly3 > Solve constraints</tt>.<br />The cylinder jumps back into its previous (contrained) position.</li>
+</ol>
+
+<p>Now let's explore the effect of <tt>Auto-recompute</tt>:</p>
+
+<ol>
+<li>Set the switch in the menu <tt>Assembly3 > Auto-recompute</tt>.<br /><img src="../../img/asm3/icons/auto-recompute.png" /></li>
+<li>Right-click the cube <tt>Body</tt> node, then click <tt>Transform</tt>.</li>
+<li>Drag and/or rotate the cube<br />The cylinder jumps into the constrained position as soon as the mouse button is released.</li>
+<li>Click <tt>OK</tt> to finish.</li>
+<li>Right-click the cylinder <tt>Body</tt> node, then click <tt>Transform</tt>.</li>
+<li>Drag and/or rotate the cube<br />The cylinder jumps back into the constrained position as soon as the mouse button is released.</li>
+<li>Click <tt>OK</tt> to finish.</li>
+</ol>
+
+<p>Now let's try an <tt>Assembly 3</tt> <tt>Mover</tt>:</p>
+
+<ol>
+<li>Select the cube <tt>Body</tt> node in the <tt>Model Tree</tt>.</li>
+<li>Click the menu <tt>Assembly3 > Move part</tt><br /><img src="../../img/asm3/icons/part-move.png" /></li>
+<li>Drag an arrow-cross to move the cube straight.</li>
+<li>Drag a rim to rotate the cube across the rim axis.</li>
+<li>Drag a point inside the mover to rotate the cube axross multiple axes.</li>
+</ol>
+
+<p>Observation: Cube and cylinder always stay togtether, the constraints are instantly resolved.</p>
+
+<ol>
+<li>Try the <tt>Axial Part Mover</tt>.<br /><img src="../../img/asm3/icons/axial-move.png" /></li>
+</ol>
+
+<p>Same behavior as the <tt>Part Mover</tt>.</p>
+
+<ol>
+<li>Try the <tt>Quick Mover</tt>.<br /><img src="../../img/asm3/icons/quick-move.png" /></li>
+</ol>
+
+<p>This one is different: The selected object can be moved freely, the other object(s) stay in place, until the mouse button is released. This is useful for large assemblies with many constraints, when the constrained objects are lagging behind the moved object.</p>
+
+<!-- h3 Checking the Constraints --></div>
+
+<h3 cbs="0">Conclusion</h3><div>
+
+<p>Following the recommended safe workflow, you should have no problems to create an <tt>Assembly</tt> filled with a number of parts, publish their geometry elements as <tt>Connectors</tt>, and apply <tt>Constraints</tt> on a set of <tt>Connectors</tt>.</p>
+
+<!-- h3 Conclusion --></div>
+
+<!-- h2 Hands-On: Building the Assembly --></div>
+
+<!--
 <h2 cbs="0">Building Structures With Assembly Objects</h2><div>
 
 <p>The <tt>Assembly</tt> object is a container object for parts that define the geometry of the assembly, very much like a Freecad <tt>Part</tt> object. <tt>Constraint Connectors</tt> and <tt>Constraints</tt> are managed inside an <tt>Assembly</tt> object, so everything you want to apply assembly contraints on must be wrapped by an <tt>Assembly</tt> container.</p>
@@ -139,7 +501,7 @@ Locale: English/United States (en_US)
 
 </div>
 
-<!-- h3 Assembly Components --></div>
+<!-- h3 Assembly Components - - ></div>
 
 <h3>Subassemblies</h3><div>
 
@@ -170,31 +532,31 @@ Locale: English/United States (en_US)
 
 </div>
 
-<!-- h2 Structure of the Assembly Object --></div>
+<!-- h2 Structure of the Assembly Object - -></div>
+-->
 
-<h2 cbs="0">Essential Glossary of Names</h2><div>
+<h2 cbs="0">Summary</h2><div>
 
-<p>In the current preview version of <tt>Assembly 3</tt>, some object names have been chosen a little bit unfortunate. Here is a list of node names you should know.</p>
+<p>I would like to point you to some important definitions in the <a href="got.htm">Glossary of Terms</a>:</p>
 
-<dl>
-<dt>Assembly</dt><dd>A container for objects that generate geometry elements, such as a <tt>Part Design</tt> <tt>Body</tt>, a <tt>Part</tt>, a solid, or other <tt>Assemblies</tt>. The fact that assemblies can be nested in assemblies allows the developer to create tree structures.</dd>
+<ul>
+<li><a href="got.htm#assembly">Assembly</a></li>
+<li><a href="got.htm#constraint">Constraint</a></li>
+<li><a href="got.htm#connector-link">ConnectorLink</a></li>
+<li><a href="got.htm#connectors">Connectors</a></li>
+<li><a href="got.htm#connector">Connector</a></li>
+<li><a href="got.htm#parts">Parts</a></li>
+<li><a href="got.htm#part">Part</a></li>
+</ul>
 
-<dt>Constraint</dt><dd>Defines a spatial relationship between geometry objects. Sometimes called <tt>Assembly Constraint</tt>.</dd>
+<!-- h2 Summary --></div>
 
-<dt>Elements</dt><dd>Contains the <tt>Constraint Connectors</tt> used in the <tt>Assembly</tt>. Should be renamed to <tt>Connectors</tt> or <tt>Constraint Connectors</tt></dd>
-
-<dt>Element</dt><dd>Represents a <tt>Constraint Connector</tt>. This is where an <tt>Assembly Constraint</tt> binds to. Should be renamed to <tt>Connector</tt> or <tt>Constraint Connector</tt>.</dd>
-
-<dt>Parts</dt><dd>A group node (or collection) that holds all kinds of geometry generating objects, such as <tt>Bodies</tt>, <tt>Parts</tt> or <tt>Assemblies</tt>. An <tt>Assembly</tt> can hold any number of <tt>Parts</tt>.</dd>
-</dl>
-
-<!-- h2 Object Names --></div>
-
+<!--
 <h2 cbs="0">Recommended Workflows</h2><div>
 
 <p>The following workflow is recommended to create an <tt>Assembly</tt> object in Freecad:</p>
 
-<ol>
+<ol start="1">
 <li>Create a new <tt>Assembly</tt> object.</li>
 <li>Add one or more <tt>Parts</tt> to the <tt>Assembly</tt> that define the geometry.</li>
 <li>Optional: Define zero or more <tt>Contraint Connectors</tt> and bind them to a geometry element.</li>
@@ -226,8 +588,8 @@ Locale: English/United States (en_US)
 
 <p>This kind of workflow is common to assembly workbenches that do not have the notion of <tt>Constraint Connectors</tt> or something equivalent. It indeed does save you some clicks, but you should use this workflow <em>only if you are familiar</em> with <tt>Constraint Connectors</tt>, and how to create and modify them.</p>
 
-<!-- h2 Recommended Workflows --></div>
-
+< ! - - h2 Recommended Workflows - - ></div>
+-->
 <div id="script-area">
 <script src="../../inc/topic-1.js"></script>
 <script>
@@ -237,7 +599,7 @@ Synesis.Loader.request ( {
 	uris : "table-of-contents.htm" ,
 	targetContainers : "navigation-panel" ,
 	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
-	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument, Synesis.OrderedList.initStartAttributes ]
 } ) ;
 </script>
 

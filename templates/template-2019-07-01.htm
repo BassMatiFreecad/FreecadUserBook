@@ -6,7 +6,7 @@
 <meta name="editor" content="USPR">
 <meta name="modification-date" content="2019-11-28">
 <meta name="document-version" content="1">
-<meta name="template-version-date" content="2019-11-25">
+<meta name="template-version-date" content="2019-11-29">
 <link rel="stylesheet" href="../../inc/topic-1.css" />
 </head><body>
 
@@ -55,7 +55,7 @@ Synesis.Loader.request ( {
 	uris : "table-of-contents.htm" ,
 	targetContainers : "navigation-panel" ,
 	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
-	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument, Synesis.OrderedList.initStartAttributes ]
 } ) ;
 </script>
 

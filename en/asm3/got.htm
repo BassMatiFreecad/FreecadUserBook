@@ -1,0 +1,124 @@
+<!DOCTYPE HTML> 
+<html><head><title>FreeCAD User Book - Assembly 3 - Glossary of Terms</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="USPR">
+<meta name="creation-date" content="2019-11-27">
+<meta name="editor" content="USPR">
+<meta name="modification-date" content="2019-12-04">
+<meta name="document-version" content="2">
+<meta name="template-version-date" content="2019-11-25">
+<link rel="stylesheet" href="../../inc/topic-1.css" />
+<link rel="stylesheet" href="../../inc/glossary-1.css" />
+</head><body class="glossary">
+
+<h1>The Freecad User Book</h1>
+<div id="page-menu"></div>
+<h1>Assembly 3 Glossary of Terms</h1>
+<div id="navigation-panel"></div>
+<div id="abstract"></div>
+
+<h3 cbs="1">Tags</h3><div>
+<p><tag>Freecad</tag>, <tag>Assembly 3</tag>, <tag>Glossary</tag>.</p>
+</div>
+
+<h4 id="assembly" cbs="1">Assembly</h4><div>
+<p>(1) A container for objects that generate geometry elements, such as a <tt>Part Design</tt> <tt>Body</tt>, a <tt>Part</tt>, a solid, or other <tt>Assembly</tt> objects. </p>
+<p>(2) Parent node for <tt><a href="#parts">Parts</a></tt>, <tt><a href="#connectors">Connectors</a></tt> and <tt><a href="#constraints">Constraints</a></tt> group nodes.</p>
+</div>
+
+<h4 id="assembly-constraint" cbs="1">Constraint</h4><div>
+<p>Synonyms: <tt>Assembly constraint</tt>.</p>
+<p>(1) Defines a spatial relationship between geometry objects, and thereby reduces the <tt><a href="#dof">degree of freedom</a></tt> between them.</p>
+<p>(2) Child node of the <tt><a href="#connectors">Constraint Connectors</a></tt> node in the <tt>Model Tree</tt>, parent node of <tt><a href="#connector-link">ConnectorLink</a></tt> nodes.</p>
+</div>
+
+<h4 id="connector" cbs="1">Connector </h4><div>
+<p>Synonmys: <tt>Constraint Connector</tt>, <tt><a href="#element">Element</a></tt>.</p>
+<p>(1) Binds to a geometry element of a <tt><a href="#part">Part</a></tt> on one side, and bound to by a <tt><a href="#connector-link">ConnectorLink</a></tt> on the other side, thereby connecting a <tt><a href="#constraint">Constraint</a></tt> to a geometry element of a <tt><a href="#part">Part</a></tt>.</p>
+<p>(2) Child node of the <tt><a href="#connectors">Connectors</a></tt> group node. 
+</div>
+
+<h4 id="connector-link" cbs="1">ConnectorLink</h4><div>
+<p>Synonyms: <tt><a href="#element-link">ElementLink</a></tt>.</p>
+<p>Child node of a <tt><a href="#constraint">Constraint</a></tt> node. Links to a <tt><a href="#connector">Connector</a></tt> (hence the name).</p>
+</div>
+
+<h4 id="connectors" cbs="1">Connectors</h4><div>
+<p>Synonyms: <tt>Constraint Connectors</tt>, <tt><a href="#elements">Elements</a></tt>.</p>
+<p>Child node of the <tt><a href="#assembly">Assembly</a></tt> node, parent of <tt><a href="#connector">Connector</a></tt> nodes.</p>
+</div>
+
+<h4 id="dof" cbs="1">Degree of Freedom (DOF)</h4><div>
+<p>Ability to move in the direction of the coordinate system directions, and rotate across them. A DOF of zero means that the spatial relationship between them is fixed, e. g. by a glue or welding joint.</p>
+</div>
+
+<h4 id="element" cbs="1">Element</h4><div>
+<p>Synonym for <tt><a href="#connector">Connector</a></tt>.</p>
+</div>
+
+<h4 id="elements" cbs="1">Elements</h4><div>
+<p>Synonym for <tt><a href="#connectors">Connectors</a></tt>.</p>
+</div>
+
+<h4 id="instance" cbs="1">Instance</h4><div>
+<p>(1) Synonym for a <tt><a href="#link">Link</a></tt>, a lightweight, transparent copy of another object.</p>
+<p>(2) Term borrowed from object-oriented programming languages.</p>
+</div>
+
+<h4 id="link" cbs="1">Link</h4><div>
+<p>Synonyms: <tt><a href="#instance">Instance of an object</a></tt>.</p>
+<p>(1) A light-weight copy of the linked object.</p>
+<p>(2) A node in the <tt>Model Tree</tt> that links to and represents another node in the model tree, or a node in a different Freecad document.</p>
+<p>Some properties of a <tt>Link</tt> node are <tt><a href="#transparent">transparent</a></tt>, which creates a light-weight <em>copy</em> of the <a href="#reference">referenced</a> object. Other properties are <tt><a href="#opaque">opaque</a></tt>, which enables a link object to have its own set of properties, such as <tt>Placement</tt> or color.</p>
+</div>
+
+<h4 id="mating" cbs="1">Mating</h4><div>
+<p>Attach one component to another, usually with a help of an <tt><a href="#constraint">Assembly Constraint</a></tt>.</p>
+<p>Related: <tt><a href="#mating-interface">Mating Interface</a></tt>.</p>
+</div>
+
+<h4 id="mating-interface" cbs="1">Mating Interface</h4><div>
+<p>Geometry element that suits to be bound to a <tt><a href="#connector">Connector</a></tt>, sometime used as synonym for <tt><a href="#connector">Connector</a></tt>.</p>
+<p>Related: <a href="#mating">Mating</a>.</p>
+</div>
+
+<h4 id="opaque" cbs="1">Opaque Property</h4><div>
+<p>Property of a <tt><a href="#link">Link</a></tt>, not owned by the linked object. An opaque property can hide the same-named property of the linked object, or introduce a new property which does not exist on the linked object.</p>
+</div>
+
+<h4 id="part" cbs="1">Part</h4><div>
+<p>(1) Represents a Freecad object that generates a geometry, such a <tt>Part Design</tt> <tt>Body</tt>, a Freecad structural <tt>Part</tt>, an object generated by the <tt>Part Workbench</tt>. The list is not complete.</p>
+<p>(2) Child node of a <tt><a href="#parts">Parts</a></tt> group node in an <tt><a href="#assembly">Assembly</a></tt> node.</p>
+</div>
+
+<h4 id="parts" cbs="1">Parts</h4><div>
+<p>Child node of an <tt><a href="#assembly">Assembly</a></tt> node, parent for <tt><a href="#part">Part</a></tt> nodes.</p>
+</div>
+
+<h4 id="reference" cbs="1">Reference</h4><div>
+</div>
+
+<h4 id="subassembly" cbs="1">Subassembly</h4><div>
+<p>(1) An <tt><a href="#assembly">Assembly</a></tt> contained in a parent <tt><a href="#assembly">Assembly</a></tt>.</p>
+<p>(2) An <tt><a href="#assembly">Assembly</a></tt> node in the <tt><a href="#parts">Parts</a></tt> collection of an <tt><a href="#assembly">Assembly</a> node.</tt>
+<tt><tt><a href="#assembly">Assemblies</a></tt> can be nested to any depth, thereby creating a tree structure of parts.</p>
+</div>
+
+<h4 id="transparent" cbs="1">Transparent Property</h4><div>
+<p>A property owned by linked object, published by  the <tt><a href="#link">Link</a></tt> object. Transparent properties allow the creation of lightweight copies of an object.</p>
+</div>
+
+<div id="script-area">
+<script src="../../inc/topic-1.js"></script>
+<script>
+// Request document resources.
+Synesis.Loader.request ( {
+	uriPrefix: "../" ,
+	uris : "table-of-contents.htm" ,
+	targetContainers : "navigation-panel" ,
+	successHandlers : [ Synesis.Loader.prefixLinks, Synesis.Loader.integrateResponseHtml ], 
+	finishedHandlers : [ Synesis.CollapsibleBlock.initDocument, Synesis.CollapsibleTree.initDocument, Synesis.NavigationTree.initDocument, Synesis.Navigation.initDocument ]
+} ) ;
+</script>
+
+</div></body></html>
